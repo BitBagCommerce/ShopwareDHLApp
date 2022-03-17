@@ -40,6 +40,11 @@ class Shop implements ShopInterface
      */
     protected ?string $secretKey;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Config::class, mappedBy="shop", cascade={"persist", "remove"})
+     */
+    private $config;
+
     public function getShopId(): string
     {
         return $this->shopId;
@@ -88,5 +93,22 @@ class Shop implements ShopInterface
     public function setSecretKey(?string $secretKey): void
     {
         $this->secretKey = $secretKey;
+    }
+
+    public function getConfig(): ?Config
+    {
+        return $this->config;
+    }
+
+    public function setConfig(Config $config): self
+    {
+        // set the owning side of the relation if necessary
+        if ($config->getShop() !== $this) {
+            $config->setShop($this);
+        }
+
+        $this->config = $config;
+
+        return $this;
     }
 }

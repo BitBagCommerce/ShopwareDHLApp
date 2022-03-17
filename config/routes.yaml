@@ -13,3 +13,13 @@ app_lifecycle:
   prefix: /app/lifecycle
   methods: ['POST']
   name_prefix: app_lifecycle_
+
+get_order:
+  methods: ['POST']
+  path: /app/send-order
+  controller: bitbag.shopware_skeleton_app.controller.order
+
+api_settings:
+  methods: ['GET', 'POST']
+  path: /view/api-settings
+  controller: bitbag.shopware_skeleton_app.controller.api_settings
