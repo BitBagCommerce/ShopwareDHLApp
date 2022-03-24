@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
 final class CreateCustomFieldSetFactory implements CreateCustomFieldSetFactoryInterface

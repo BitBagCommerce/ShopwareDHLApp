@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareAppSkeleton\API;
 
 use Alexcherniatin\DHL\DHL24;
@@ -7,7 +9,7 @@ use Alexcherniatin\DHL\Exceptions\SoapException;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
 
-class ApiService
+final class ApiService
 {
     private ConfigRepositoryInterface $configRepository;
 

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareAppSkeleton\API;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 
-class ClientApiService implements ClientApiServiceInterface
+final class ClientApiService implements ClientApiServiceInterface
 {
     public function getOrder(ClientInterface $client, string $orderId): array
     {
