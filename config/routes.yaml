@@ -17,9 +17,9 @@ app_lifecycle:
 get_order:
   methods: ['POST']
   path: /app/send-order
-  controller: bitbag.shopware_skeleton_app.controller.order
+  controller: bitbag.dhl_app.controller.order
 
 api_settings:
   methods: ['GET', 'POST']
   path: /view/api-settings
-  controller: bitbag.shopware_skeleton_app.controller.api_settings
+  controller: bitbag.dhl_app.controller.api_settings
