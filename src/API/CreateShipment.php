@@ -28,7 +28,7 @@ final class CreateShipment implements CreateShipmentInterface
      * @throws InvalidStructureException
      * @throws SoapException
      */
-    public function createShipments($shippingAddress, $shopId, $customerEmail)
+    public function createShipments($shippingAddress, $shopId, $customerEmail, $totalWeight)
     {
         /** @var ConfigInterface $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
@@ -70,7 +70,7 @@ final class CreateShipment implements CreateShipmentInterface
             ->setWidth(25)
             ->setHeight(25)
             ->setLength(25)
-            ->setWeight(3)
+            ->setWeight($totalWeight)
             ->setQuantity(1)
             ->setNonStandard(false)
             ->structure();
@@ -107,9 +107,7 @@ final class CreateShipment implements CreateShipmentInterface
 
         try {
             $result = $dhl->createShipments($shipmentFullDataStructure);
-            //file_put_contents('dumb_error.json', json_encode($result));
         } catch (\Throwable $th) {
-            //file_put_contents('dumb_error.json', $th->getMessage());
             echo $th->getMessage();
         }
     }

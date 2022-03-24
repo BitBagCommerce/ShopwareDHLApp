@@ -7,9 +7,24 @@
 {% block body %}
     <div class="bitbag-sw-container">
         <form method="post">
-            <button type="submit" class="sw-button sw-button--primary float-right">
-                {{ 'bitbag.shopware_skeleton_app.ui.save'|trans }}
-            </button>
+            <div class="save-container">
+                <button type="submit" class="sw-button sw-button--primary float-right">
+                    {{ 'bitbag.shopware_dhl_app.ui.save'|trans }}
+                </button>
+            </div>
+            {% if app.session is not null and app.session.started %}
+
+                {% for label, messages in app.session.flashbag.all %}
+                    {% for message in messages %}
+                        <div class="sw-card">
+                            <div class="sw-card__content">
+                                <div class="sw-container">{{ message }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
             <div class="sw-card">
                 <div class="sw-card__content">
                     <div class="sw-container"

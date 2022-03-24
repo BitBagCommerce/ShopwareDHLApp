@@ -56,7 +56,7 @@ final class OrderController
 
         $shippingAddress = $order['data'][0]['deliveries'][0]['shippingOrderAddress'];
 
-        $this->shipment->createShipments($shippingAddress, $shopId, $customerEmail);
+        $this->shipment->createShipments($shippingAddress, $shopId, $customerEmail, $totalWeight);
 
         return new Response();
     }

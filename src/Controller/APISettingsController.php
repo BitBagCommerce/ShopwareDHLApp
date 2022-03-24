@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -28,18 +29,23 @@ final class APISettingsController
 
     private EntityManagerInterface $entityManager;
 
+    private TranslatorInterface $translator;
+
+
     public function __construct(
         Environment $template,
         FormFactory $form,
         ConfigRepositoryInterface $configRepository,
         ShopRepositoryInterface $shopRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator
     ) {
         $this->template = $template;
         $this->form = $form;
         $this->configRepository = $configRepository;
         $this->entityManager = $entityManager;
         $this->shopRepository = $shopRepository;
+        $this->translator = $translator;
     }
 
     /**
@@ -49,7 +55,8 @@ final class APISettingsController
      */
     public function __invoke(Request $request): Response
     {
-        $shopId = 'TDqU6Yfs4zraJv8P';
+        $shopId = $request->get('shop-id');
+
         /** @var ShopInterface $shop */
         $shop = $this->shopRepository->find($shopId);
 
@@ -58,6 +65,7 @@ final class APISettingsController
         if (!$config) {
             $config = new Config();
         }
+        $session = $request->getSession();
 
         $form = $this->form->create(ConfigType::class, $config);
 
@@ -67,6 +75,8 @@ final class APISettingsController
             $config->setShop($shop);
             $this->entityManager->persist($config);
             $this->entityManager->flush();
+
+            $session->getFlashBag()->add('success', $this->translator->trans('bitbag.shopware_dhl_app.ui.saved'));
         }
 
         return new Response($this->template->render('settings/form.html.twig', [

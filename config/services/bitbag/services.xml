@@ -1,0 +1,16 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service class="BitBag\ShopwareAppSkeleton\API\CreateCustomFields"
+                 id="bitbag.dhl_app.api.create_custom_fields" public="true">
+            <argument type="service" id="bitbag.dhl_app.factory.create_details_package"/>
+            <argument type="service" id="bitbag.dhl_app.factory.create_custom_field"/>
+            <argument type="service" id="bitbag.dhl_app.api.client_api"/>
+            <argument type="service" id="bitbag.dhl_app.factory.create_custom_field_set"/>
+        </service>
+        <service class="BitBag\ShopwareAppSkeleton\API\ClientApiService"
+                 id="bitbag.dhl_app.api.client_api" public="true">
+        </service>
+    </services>
+</container>

@@ -1,0 +1,5 @@
+bitbag:
+  shopware_dhl_app:
+    ui:
+      save: 'Save'
+      saved: 'Successfully saved'
