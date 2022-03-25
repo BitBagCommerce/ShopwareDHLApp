@@ -7,6 +7,7 @@ namespace BitBag\ShopwareAppSkeleton\API;
 use Alexcherniatin\DHL\DHL24;
 use Alexcherniatin\DHL\Exceptions\SoapException;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
+use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
 
 final class ApiService
@@ -27,7 +28,7 @@ final class ApiService
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
         if (null === $config) {
-            return null; // TODO: Exception
+            throw new ConfigNotFoundException('Config not found');
         }
 
         return new DHL24($config->getUsername(), $config->getPassword(), $config->getAccountNumber(), true);

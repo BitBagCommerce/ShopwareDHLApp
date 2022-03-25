@@ -52,7 +52,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
         $rule = $this->apiService->findRuleByName($client, 'Cart >= 0');
 
-        if (null === $rule) {
+        if (0 === $rule['total']) {
             $rule = $this->apiService->findRandomRule($client);
         }
 
