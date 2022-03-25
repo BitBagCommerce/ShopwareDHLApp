@@ -11,6 +11,22 @@ final class ShippingMethodPayloadPayloadFactory implements ShippingMethodPayload
     {
         $currentDateTime = new DateTime();
 
+        if (isset($deliveryTime['total']) && $deliveryTime['total'] > 0) {
+            $deliveryTimeForDHL = [
+                'deliveryTimeId' => $deliveryTime['data'][0],
+            ];
+        } else {
+            $deliveryTimeForDHL = [
+                'deliveryTime' => [
+                    'name' => '1-3 days',
+                    'min' => 1,
+                    'max' => 3,
+                    'unit' => 'day',
+                    'createdAt' => $currentDateTime,
+                ],
+            ];
+        }
+
         $DHLShippingMethod = [
             'name' => Defaults::SHIPPING_METHOD_NAME,
             'active' => true,
@@ -23,22 +39,6 @@ final class ShippingMethodPayloadPayloadFactory implements ShippingMethodPayload
             'createdAt' => $currentDateTime,
         ];
 
-        if (isset($deliveryTime['total']) && $deliveryTime['total'] > 0) {
-            $DHLShippingMethod = array_merge($DHLShippingMethod, [
-                'deliveryTimeId' => $deliveryTime['data'][0],
-            ]);
-        } else {
-            $DHLShippingMethod = array_merge($DHLShippingMethod, [
-                'deliveryTime' => [
-                    'name' => '1-3 days',
-                    'min' => 1,
-                    'max' => 3,
-                    'unit' => 'day',
-                    'createdAt' => $currentDateTime,
-                ],
-            ]);
-        }
-
-        return $DHLShippingMethod;
+        return array_merge($deliveryTimeForDHL, $DHLShippingMethod);
     }
 }
