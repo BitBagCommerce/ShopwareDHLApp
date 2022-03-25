@@ -2,7 +2,7 @@
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-interface CreateShippingMethodFactoryInterface
+interface ShippingMethodPayloadFactoryInterface
 {
     public function create(string $ruleId, array $deliveryTime): array;
 }

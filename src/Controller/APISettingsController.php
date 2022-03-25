@@ -2,22 +2,21 @@
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
+use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\Config;
 use BitBag\ShopwareAppSkeleton\Entity\ShopInterface;
 use BitBag\ShopwareAppSkeleton\Form\ConfigType;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
-final class APISettingsController
+final class APISettingsController extends AbstractController
 {
     private Environment $template;
 
@@ -30,7 +29,6 @@ final class APISettingsController
     private EntityManagerInterface $entityManager;
 
     private TranslatorInterface $translator;
-
 
     public function __construct(
         Environment $template,
@@ -48,14 +46,9 @@ final class APISettingsController
         $this->translator = $translator;
     }
 
-    /**
-     * @throws RuntimeError
-     * @throws SyntaxError
-     * @throws LoaderError
-     */
-    public function __invoke(Request $request): Response
+    public function __invoke(EventInterface $event, Request $request): Response
     {
-        $shopId = $request->get('shop-id');
+        $shopId = $event->getShopId();
 
         /** @var ShopInterface $shop */
         $shop = $this->shopRepository->find($shopId);
@@ -79,8 +72,8 @@ final class APISettingsController
             $session->getFlashBag()->add('success', $this->translator->trans('bitbag.shopware_dhl_app.ui.saved'));
         }
 
-        return new Response($this->template->render('settings/form.html.twig', [
-            'form' => $form->createView(),
-        ]));
+        return $this->renderForm('settings/form.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

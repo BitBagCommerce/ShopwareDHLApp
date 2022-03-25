@@ -4,12 +4,12 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use DateTime;
 
-final class CreateShippingMethodFactory implements CreateShippingMethodFactoryInterface
+final class ShippingMethodPayloadPayloadFactory implements ShippingMethodPayloadFactoryInterface
 {
     public function create(string $ruleId, array $deliveryTime): array
     {
-        $shippingKey = '';
-        $currentDateTime = new DateTime('now');
+        $shippingKey = 'DHL';
+        $currentDateTime = new DateTime();
 
         $DHLShippingMethod = [
             'name' => $shippingKey,

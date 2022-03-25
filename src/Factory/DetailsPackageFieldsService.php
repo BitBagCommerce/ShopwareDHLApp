@@ -7,8 +7,9 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 use BitBag\ShopwareAppSkeleton\API\ClientApiService;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
+use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-final class CreateDetailsPackageFieldsFactory implements CreateDetailsPackageFieldsFactoryInterface
+final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceInterface
 {
     private CustomFieldNamesProviderInterface $customFieldNamesProvider;
 
@@ -24,8 +25,6 @@ final class CreateDetailsPackageFieldsFactory implements CreateDetailsPackageFie
 
     public function create(ClientInterface $client): array
     {
-        $customFieldPrefix = 'package_details';
-
         $customFieldNames = $this->customFieldNamesProvider->getFields();
 
         $detailsPackageFields = [];
@@ -33,7 +32,7 @@ final class CreateDetailsPackageFieldsFactory implements CreateDetailsPackageFie
         foreach ($customFieldNames as $key => $item) {
             $type = $item['type'];
 
-            $customFieldName = $customFieldPrefix.'_'.$item['name'];
+            $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX.'_'.$item['name'];
 
             $customField = $this->clientApiService->findIdsCustomFieldByName($client, $customFieldName);
 

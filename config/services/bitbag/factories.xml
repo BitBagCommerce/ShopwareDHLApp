@@ -16,7 +16,7 @@
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\CreateShippingMethodFactory"
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_shipping_method">
         </service>
     </services>

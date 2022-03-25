@@ -23,11 +23,11 @@ final class ApiService
      */
     public function getApi(string $shopId): ?DHL24
     {
-        /** @var ConfigInterface $config */
+        /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
         if (null === $config) {
-            return null;
+            return null; // TODO: Exception
         }
 
         return new DHL24($config->getUsername(), $config->getPassword(), $config->getAccountNumber(), true);

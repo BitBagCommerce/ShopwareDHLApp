@@ -6,6 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\Controller;
 
 use BitBag\ShopwareAppSkeleton\API\CreateShipmentInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
+use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,12 +19,12 @@ final class OrderController
         $this->shipment = $shipment;
     }
 
-    public function __invoke(ClientInterface $client, Request $request): Response
+    public function __invoke(EventInterface $event, ClientInterface $client): Response
     {
-        $data = json_decode($request->getContent());
+        $data = $event->getEventData();
 
-        $orderId = $data->data->ids[0];
-        $shopId = $data->source->shopId;
+        $orderId = $data['data']['ids'][0];
+        $shopId = $event->getShopId();
 
         $orderAddressFilter = [
             'filter' => [

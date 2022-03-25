@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\EventSubscriber;
 
 use BitBag\ShopwareAppSkeleton\API\ClientApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\API\CreateCustomFieldsInterface;
+use BitBag\ShopwareAppSkeleton\API\CustomFieldsCreatorInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\LifecycleEvent\AppActivatedEvent;
-use BitBag\ShopwareAppSkeleton\Factory\CreateShippingMethodFactoryInterface;
+use BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class AppActivatedEventSubscriber implements EventSubscriberInterface
 {
-    private CreateCustomFieldsInterface $createCustomFields;
+    private CustomFieldsCreatorInterface $createCustomFields;
     private ClientApiServiceInterface $apiService;
-    private CreateShippingMethodFactoryInterface $createShippingMethodFactory;
+    private ShippingMethodPayloadFactoryInterface $createShippingMethodFactory;
 
     public function __construct(
-        CreateCustomFieldsInterface $createCustomFields,
-        ClientApiServiceInterface $apiService,
-        CreateShippingMethodFactoryInterface $createShippingMethodFactory
+        CustomFieldsCreatorInterface         $createCustomFields,
+        ClientApiServiceInterface            $apiService,
+        ShippingMethodPayloadFactoryInterface $createShippingMethodFactory
     ) {
         $this->createCustomFields = $createCustomFields;
         $this->apiService = $apiService;
@@ -52,7 +52,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
         $rule = $this->apiService->findRuleByName($client, 'Cart >= 0');
 
-        if (!$rule) {
+        if (null === $rule) {
             $rule = $this->apiService->findRandomRule($client);
         }
 

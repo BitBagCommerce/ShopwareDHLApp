@@ -4,7 +4,7 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 
-interface CreateDetailsPackageFieldsFactoryInterface
+interface DetailsPackageFieldsServiceInterface
 {
     public function create(ClientInterface $client): array;
 }
