@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\API;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
+use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class ClientApiService implements ClientApiServiceInterface
 {
@@ -67,7 +68,7 @@ final class ClientApiService implements ClientApiServiceInterface
                 [
                     'type' => 'contains',
                     'field' => 'name',
-                    'value' => 'DHL',
+                    'value' => Defaults::SHIPPING_METHOD_NAME,
                 ],
             ],
         ];

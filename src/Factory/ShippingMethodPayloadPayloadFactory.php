@@ -2,22 +2,22 @@
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
+use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 use DateTime;
 
 final class ShippingMethodPayloadPayloadFactory implements ShippingMethodPayloadFactoryInterface
 {
     public function create(string $ruleId, array $deliveryTime): array
     {
-        $shippingKey = 'DHL';
         $currentDateTime = new DateTime();
 
         $DHLShippingMethod = [
-            'name' => $shippingKey,
+            'name' => Defaults::SHIPPING_METHOD_NAME,
             'active' => true,
-            'description' => $shippingKey,
+            'description' => Defaults::SHIPPING_METHOD_NAME,
             'taxType' => 'auto',
             'translated' => [
-                'name' => $shippingKey,
+                'name' => Defaults::SHIPPING_METHOD_NAME,
             ],
             'availabilityRuleId' => $ruleId,
             'createdAt' => $currentDateTime,
