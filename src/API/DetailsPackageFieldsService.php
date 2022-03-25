@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareAppSkeleton\API;
 
-use BitBag\ShopwareAppSkeleton\API\ClientApiService;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;

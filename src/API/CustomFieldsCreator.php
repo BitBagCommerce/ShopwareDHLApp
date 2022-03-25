@@ -7,7 +7,6 @@ namespace BitBag\ShopwareAppSkeleton\API;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactoryInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldSetPayloadFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Factory\DetailsPackageFieldsServiceInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class CustomFieldsCreator implements CustomFieldsCreatorInterface

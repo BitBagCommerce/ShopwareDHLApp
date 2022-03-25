@@ -1,6 +1,6 @@
 <?php
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareAppSkeleton\API;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 

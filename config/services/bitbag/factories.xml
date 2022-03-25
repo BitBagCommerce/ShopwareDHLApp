@@ -10,7 +10,7 @@
                  id="bitbag.shopware_dhl_app.factory.create_custom_field_set">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\CreateDetailsPackageFieldsFactory"
+        <service class="BitBag\ShopwareAppSkeleton\API\DetailsPackageFieldsService"
                  id="bitbag.shopware_dhl_app.factory.create_details_package">
             <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
