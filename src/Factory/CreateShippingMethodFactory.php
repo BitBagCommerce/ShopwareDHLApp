@@ -8,13 +8,13 @@ final class CreateShippingMethodFactory implements CreateShippingMethodFactoryIn
 {
     public function create(string $ruleId, array $deliveryTime): array
     {
-        $shippingKey = 'DHL';
+        $shippingKey = '';
         $currentDateTime = new DateTime('now');
 
         $DHLShippingMethod = [
             'name' => $shippingKey,
             'active' => true,
-            'description' => $shippingKey.' shipping method',
+            'description' => $shippingKey,
             'taxType' => 'auto',
             'translated' => [
                 'name' => $shippingKey,

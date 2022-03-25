@@ -44,13 +44,13 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
     {
         $shippingMethods = $this->apiService->findShippingMethodByShippingKey($client);
 
-        if ($shippingMethods['total']) {
+        if (0 === $shippingMethods['total']) {
             return;
         }
 
-        $deliveryTime = $this->apiService->findDeliveryTimeByMinMax(1, 3, $client);
+        $deliveryTime = $this->apiService->findDeliveryTimeByMinMax($client, 1, 3);
 
-        $rule = $this->apiService->findRuleByName('Cart >= 0', $client);
+        $rule = $this->apiService->findRuleByName($client, 'Cart >= 0');
 
         if (!$rule) {
             $rule = $this->apiService->findRandomRule($client);

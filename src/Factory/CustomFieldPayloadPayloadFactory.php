@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-final class CreateCustomFieldFactory implements CreateCustomFieldFactoryInterface
+final class CustomFieldPayloadPayloadFactory implements CustomFieldPayloadFactoryInterface
 {
     public function create(
         string $name,

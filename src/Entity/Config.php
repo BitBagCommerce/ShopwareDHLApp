@@ -73,12 +73,12 @@ class Config implements ConfigInterface
      */
     private $email;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getShop(): ?Shop
+    public function getShop(): Shop
     {
         return $this->shop;
     }
@@ -90,7 +90,7 @@ class Config implements ConfigInterface
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -102,7 +102,7 @@ class Config implements ConfigInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -114,7 +114,7 @@ class Config implements ConfigInterface
         return $this;
     }
 
-    public function getAccountNumber(): ?string
+    public function getAccountNumber(): string
     {
         return $this->accountNumber;
     }
@@ -126,7 +126,7 @@ class Config implements ConfigInterface
         return $this;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -136,7 +136,7 @@ class Config implements ConfigInterface
         $this->name = $name;
     }
 
-    public function getPostalCode()
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
@@ -146,7 +146,7 @@ class Config implements ConfigInterface
         $this->postalCode = $postalCode;
     }
 
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -156,7 +156,7 @@ class Config implements ConfigInterface
         $this->city = $city;
     }
 
-    public function getHouseNumber()
+    public function getHouseNumber(): string
     {
         return $this->houseNumber;
     }
@@ -166,7 +166,7 @@ class Config implements ConfigInterface
         $this->houseNumber = $houseNumber;
     }
 
-    public function getPhoneNumber()
+    public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
     }
@@ -176,7 +176,7 @@ class Config implements ConfigInterface
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -186,7 +186,7 @@ class Config implements ConfigInterface
         $this->email = $email;
     }
 
-    public function getStreet()
+    public function getStreet(): string
     {
         return $this->street;
     }

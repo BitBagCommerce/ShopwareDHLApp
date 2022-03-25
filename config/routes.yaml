@@ -14,12 +14,12 @@ app_lifecycle:
   methods: ['POST']
   name_prefix: app_lifecycle_
 
-get_order:
+send_order:
   methods: ['POST']
   path: /app/send-order
-  controller: bitbag.dhl_app.controller.order
+  controller: bitbag.shopware_dhl_app.controller.order
 
 api_settings:
   methods: ['GET', 'POST']
   path: /view/api-settings
-  controller: bitbag.dhl_app.controller.api_settings
+  controller: bitbag.shopware_dhl_app.controller.api_settings

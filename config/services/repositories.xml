@@ -6,8 +6,9 @@
                  id="bitbag.shopware_app_skeleton.repository.shop_repository">
             <argument type="service" id="doctrine"/>
         </service>
+
         <service class="BitBag\ShopwareAppSkeleton\Repository\ConfigRepository"
-                 id="bitbag.dhl_app.repository.config_repository">
+                 id="bitbag.shopware_dhl_app.repository.config_repository">
             <argument type="service" id="doctrine"/>
         </service>
     </services>

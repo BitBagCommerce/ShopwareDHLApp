@@ -8,15 +8,15 @@ interface ClientApiServiceInterface
 {
     public function getOrder(ClientInterface $client, string $orderId): array;
 
-    public function findDeliveryTimeByMinMax(int $min, int $max, ClientInterface $client): array;
+    public function findDeliveryTimeByMinMax(ClientInterface $client, int $min, int $max): array;
 
     public function findShippingMethodByShippingKey(ClientInterface $client): array;
 
-    public function findRuleByName(string $name, ClientInterface $client): array;
+    public function findRuleByName(ClientInterface $client, string $name): array;
 
     public function findRandomRule(ClientInterface $client): array;
 
-    public function findIdsCustomFieldByName(string $name, ClientInterface $client): array;
+    public function findIdsCustomFieldByName(ClientInterface $client, string $name): array;
 
-    public function findCustomFieldSetByName(string $name, ClientInterface $client): array;
+    public function findCustomFieldSetByName(ClientInterface $client, string $name): array;
 }

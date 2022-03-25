@@ -35,7 +35,7 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->search('order', $orderAddressFilter)['data'][0];
     }
 
-    public function findDeliveryTimeByMinMax(int $min, int $max, ClientInterface $client): array
+    public function findDeliveryTimeByMinMax(ClientInterface $client, int $min, int $max): array
     {
         $filterForDeliveryTime = [
             'filter' => [
@@ -75,7 +75,7 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->searchIds('shipping-method', $filterForShippingMethod);
     }
 
-    public function findRuleByName(string $name, ClientInterface $client): array
+    public function findRuleByName(ClientInterface $client, string $name): array
     {
         $filterRule = [
             'filter' => [
@@ -95,7 +95,7 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->searchIds('rule', []);
     }
 
-    public function findIdsCustomFieldByName(string $name, ClientInterface $client): array
+    public function findIdsCustomFieldByName(ClientInterface $client, string $name): array
     {
         $customFieldFilter = [
             'filter' => [
@@ -110,7 +110,7 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->search('custom-field', $customFieldFilter);
     }
 
-    public function findCustomFieldSetByName(string $name, ClientInterface $client): array
+    public function findCustomFieldSetByName(ClientInterface $client, string $name): array
     {
         $customFieldFilter = [
             'filter' => [

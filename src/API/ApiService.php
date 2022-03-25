@@ -26,7 +26,7 @@ final class ApiService
         /** @var ConfigInterface $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
-        if (!$config) {
+        if (null === $config) {
             return null;
         }
 

@@ -35,7 +35,7 @@ final class CreateDetailsPackageFieldsFactory implements CreateDetailsPackageFie
 
             $customFieldName = $customFieldPrefix.'_'.$item['name'];
 
-            $customField = $this->clientApiService->findIdsCustomFieldByName($customFieldName, $client);
+            $customField = $this->clientApiService->findIdsCustomFieldByName($client, $customFieldName);
 
             if (0 !== $customField['total']) {
                 return [];
