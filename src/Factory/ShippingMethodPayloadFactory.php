@@ -5,7 +5,7 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 use DateTime;
 
-final class ShippingMethodPayloadPayloadFactory implements ShippingMethodPayloadFactoryInterface
+final class ShippingMethodPayloadFactory implements ShippingMethodPayloadFactoryInterface
 {
     public function create(string $ruleId, array $deliveryTime): array
     {

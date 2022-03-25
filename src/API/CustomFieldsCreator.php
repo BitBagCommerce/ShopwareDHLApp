@@ -6,47 +6,30 @@ namespace BitBag\ShopwareAppSkeleton\API;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Factory\CustomFieldSetPayloadFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class CustomFieldsCreator implements CustomFieldsCreatorInterface
 {
-    private DetailsPackageFieldsServiceInterface $createDetailsPackageFieldsFactory;
+    private DetailsPackageFieldsServiceInterface $detailsPackageFieldsFactory;
 
     private CustomFieldPayloadFactoryInterface $createCustomFieldFactory;
 
-    private ClientApiServiceInterface $apiService;
-
-    private CustomFieldSetPayloadFactoryInterface $createCustomFieldSetFactory;
+    private CustomFieldSetCreatorInterface $customFieldSetCreator;
 
     public function __construct(
-        DetailsPackageFieldsServiceInterface $createDetailsPackageFieldsFactory,
+        DetailsPackageFieldsServiceInterface $detailsPackageFieldsFactory,
         CustomFieldPayloadFactoryInterface $createCustomFieldFactory,
-        ClientApiServiceInterface $apiService,
-        CustomFieldSetPayloadFactoryInterface $createCustomFieldSetFactory
+        CustomFieldSetCreatorInterface $customFieldSetCreator
     ) {
-        $this->createDetailsPackageFieldsFactory = $createDetailsPackageFieldsFactory;
+        $this->detailsPackageFieldsFactory = $detailsPackageFieldsFactory;
         $this->createCustomFieldFactory = $createCustomFieldFactory;
-        $this->apiService = $apiService;
-        $this->createCustomFieldSetFactory = $createCustomFieldSetFactory;
+        $this->customFieldSetCreator = $customFieldSetCreator;
     }
 
     public function create(ClientInterface $client)
     {
-        $customFieldSet = $this->apiService->findCustomFieldSetByName($client, Defaults::CUSTOM_FIELDS_PREFIX);
+        $customFieldSet = $this->customFieldSetCreator->create($client);
 
-        if (0 === $customFieldSet['total']) {
-            $customFieldSet = $this->createCustomFieldSetFactory->create(
-                Defaults::CUSTOM_FIELDS_PREFIX,
-                'Package details',
-                'order'
-            );
-            $client->createEntity('custom-field-set', $customFieldSet);
-            $customFieldSet = $this->apiService->findCustomFieldSetByName($client, Defaults::CUSTOM_FIELDS_PREFIX);
-        }
-        $customFieldSetId = $customFieldSet['data'][0]['id'];
-
-        $detailsPackageFields = $this->createDetailsPackageFieldsFactory->create($client);
+        $detailsPackageFields = $this->detailsPackageFieldsFactory->create($client);
 
         foreach ($detailsPackageFields as $detailsPackageField) {
             $customFieldArr = $this->createCustomFieldFactory->create(
@@ -54,8 +37,8 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
                 $detailsPackageField['type'],
                 $detailsPackageField['key'],
                 $detailsPackageField['label'],
-                $customFieldSetId,
-                $customFieldSet
+                $customFieldSet['customFieldSetId'],
+                $customFieldSet['customFieldSet']
             );
 
             $client->createEntity('custom-field', $customFieldArr);

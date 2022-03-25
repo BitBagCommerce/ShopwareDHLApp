@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\EventSubscriber;
 
+use BitBag\ShopwareAppSkeleton\API\AvailabilityRuleCreatorInterface;
 use BitBag\ShopwareAppSkeleton\API\ClientApiServiceInterface;
 use BitBag\ShopwareAppSkeleton\API\CustomFieldsCreatorInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
@@ -14,17 +15,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class AppActivatedEventSubscriber implements EventSubscriberInterface
 {
     private CustomFieldsCreatorInterface $createCustomFields;
+
     private ClientApiServiceInterface $apiService;
+
     private ShippingMethodPayloadFactoryInterface $createShippingMethodFactory;
 
+    private AvailabilityRuleCreatorInterface $availabilityRuleCreator;
+
     public function __construct(
-        CustomFieldsCreatorInterface         $createCustomFields,
-        ClientApiServiceInterface            $apiService,
-        ShippingMethodPayloadFactoryInterface $createShippingMethodFactory
+        CustomFieldsCreatorInterface $createCustomFields,
+        ClientApiServiceInterface $apiService,
+        ShippingMethodPayloadFactoryInterface $createShippingMethodFactory,
+        AvailabilityRuleCreatorInterface $availabilityRuleCreator
     ) {
         $this->createCustomFields = $createCustomFields;
         $this->apiService = $apiService;
         $this->createShippingMethodFactory = $createShippingMethodFactory;
+        $this->availabilityRuleCreator = $availabilityRuleCreator;
     }
 
     public static function getSubscribedEvents(): array
@@ -44,16 +51,17 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
     {
         $shippingMethods = $this->apiService->findShippingMethodByShippingKey($client);
 
-        if (0 === $shippingMethods['total']) {
+        if (0 !== $shippingMethods['total']) {
             return;
         }
 
         $deliveryTime = $this->apiService->findDeliveryTimeByMinMax($client, 1, 3);
 
-        $rule = $this->apiService->findRuleByName($client, 'Cart >= 0');
+        $rule = $this->apiService->findRuleByName($client, 'Always valid (Default)');
 
         if (0 === $rule['total']) {
-            $rule = $this->apiService->findRandomRule($client);
+            $this->availabilityRuleCreator->create($client);
+            $rule = $this->apiService->findRuleByName($client, 'Always valid (Default)');
         }
 
         $DHLShippingMethod = $this->createShippingMethodFactory->create($rule['data'][0], $deliveryTime);

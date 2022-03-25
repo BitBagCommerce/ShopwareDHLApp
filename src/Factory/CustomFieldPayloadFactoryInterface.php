@@ -2,8 +2,6 @@
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
-
 interface CustomFieldPayloadFactoryInterface
 {
     public function create(
