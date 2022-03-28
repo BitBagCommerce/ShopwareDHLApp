@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
@@ -11,7 +13,7 @@ final class ShippingMethodPayloadFactory implements ShippingMethodPayloadFactory
     {
         $currentDateTime = new DateTime();
 
-        if (isset($deliveryTime['total']) && $deliveryTime['total'] > 0) {
+        if (isset($deliveryTime['total']) && 0 < $deliveryTime['total']) {
             $deliveryTimeForDHL = [
                 'deliveryTimeId' => $deliveryTime['data'][0],
             ];

@@ -14,8 +14,12 @@ final class Credentials implements CredentialsInterface
 
     private ?string $token;
 
-    public function __construct(string $shopUrl, string $key, string $secretKey, ?string $token = null)
-    {
+    public function __construct(
+        string $shopUrl,
+        string $key,
+        string $secretKey,
+        ?string $token = null
+    ) {
         $this->shopUrl = $shopUrl;
         $this->apiKey = $key;
         $this->secretKey = $secretKey;

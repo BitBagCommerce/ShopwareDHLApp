@@ -33,8 +33,11 @@ final class AppLifecycleEventController
         return new Response();
     }
 
-    public function onEventWithClient(EventInterface $event, ClientInterface $client, string $eventType): Response
-    {
+    public function onEventWithClient(
+        EventInterface $event,
+        ClientInterface $client,
+        string $eventType
+    ): Response {
         $event = $this->eventFactory->createWithClient($eventType, $event, $client);
 
         $this->eventDispatcher->dispatch($event);

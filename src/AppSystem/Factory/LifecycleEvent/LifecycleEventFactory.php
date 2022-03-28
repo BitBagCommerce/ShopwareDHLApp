@@ -16,8 +16,11 @@ use BitBag\ShopwareAppSkeleton\AppSystem\LifecycleEvent\LifecycleEventInterface;
 
 final class LifecycleEventFactory implements LifecycleEventFactoryInterface
 {
-    public function createWithClient(string $eventName, EventInterface $event, ClientInterface $client): ClientAwareLifecycleEventInterface
-    {
+    public function createWithClient(
+        string $eventName,
+        EventInterface $event,
+        ClientInterface $client
+    ): ClientAwareLifecycleEventInterface {
         switch ($eventName) {
             case 'activated':
                 return new AppActivatedEvent($event, $client);
@@ -27,7 +30,7 @@ final class LifecycleEventFactory implements LifecycleEventFactoryInterface
                 return new AppUpdatedEvent($event, $client);
         }
 
-        throw new \InvalidArgumentException('Wrong event name: .'.$eventName);
+        throw new \InvalidArgumentException('Wrong event name: .' . $eventName);
     }
 
     public function createNew(string $eventName, EventInterface $event): LifecycleEventInterface
@@ -39,6 +42,6 @@ final class LifecycleEventFactory implements LifecycleEventFactoryInterface
                 return new AppDeletedEvent($event);
         }
 
-        throw new \InvalidArgumentException('Wrong event name: .'.$eventName);
+        throw new \InvalidArgumentException('Wrong event name: .' . $eventName);
     }
 }

@@ -7,7 +7,6 @@ namespace BitBag\ShopwareAppSkeleton\Controller;
 use BitBag\ShopwareAppSkeleton\API\CreateShipmentInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
