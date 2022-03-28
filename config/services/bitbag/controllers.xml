@@ -10,13 +10,18 @@
             <argument type="service" id="bitbag.shopware_dhl_app.api.create_shipment"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController" id="bitbag.shopware_dhl_app.controller.api_settings" public="true">
-            <argument type="service" id="twig"/>
-            <argument type="service" id="form.factory"/>
+        <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"
+                 id="bitbag.shopware_dhl_app.controller.api_settings">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
             <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+
+            <tag name="controller.service_arguments" />
         </service>
     </services>
 </container>

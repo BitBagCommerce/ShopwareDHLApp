@@ -10,18 +10,12 @@ use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 final class APISettingsController extends AbstractController
 {
-    private Environment $template;
-
-    private FormFactory $form;
-
     private ConfigRepositoryInterface $configRepository;
 
     private ShopRepositoryInterface $shopRepository;
@@ -31,24 +25,20 @@ final class APISettingsController extends AbstractController
     private TranslatorInterface $translator;
 
     public function __construct(
-        Environment $template,
-        FormFactory $form,
         ConfigRepositoryInterface $configRepository,
         ShopRepositoryInterface $shopRepository,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator
     ) {
-        $this->template = $template;
-        $this->form = $form;
         $this->configRepository = $configRepository;
         $this->entityManager = $entityManager;
         $this->shopRepository = $shopRepository;
         $this->translator = $translator;
     }
 
-    public function __invoke(EventInterface $event, Request $request): Response
+    public function __invoke(Request $request): Response
     {
-        $shopId = $event->getShopId();
+        $shopId = $request->get('shop-id');
 
         /** @var ShopInterface $shop */
         $shop = $this->shopRepository->find($shopId);
@@ -60,7 +50,7 @@ final class APISettingsController extends AbstractController
         }
         $session = $request->getSession();
 
-        $form = $this->form->create(ConfigType::class, $config);
+        $form = $this->createForm(ConfigType::class, $config);
 
         $form->handleRequest($request);
 
