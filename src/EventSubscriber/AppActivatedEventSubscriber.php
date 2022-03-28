@@ -10,6 +10,7 @@ use BitBag\ShopwareAppSkeleton\API\CustomFieldsCreatorInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\LifecycleEvent\AppActivatedEvent;
 use BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactoryInterface;
+use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class AppActivatedEventSubscriber implements EventSubscriberInterface
@@ -61,7 +62,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
         if (0 === $rule['total']) {
             $this->availabilityRuleCreator->create($client);
-            $rule = $this->apiService->findRuleByName($client, 'Always valid (Default)');
+            $rule = $this->apiService->findRuleByName($client, Defaults::AVAILABILITY_RULE);
         }
 
         $DHLShippingMethod = $this->createShippingMethodFactory->create($rule['data'][0], $deliveryTime);
