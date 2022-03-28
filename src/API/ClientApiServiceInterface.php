@@ -16,7 +16,7 @@ interface ClientApiServiceInterface
 
     public function findRandomRule(ClientInterface $client): array;
 
-    public function findIdsCustomFieldByName(ClientInterface $client, string $name): array;
+    public function findCustomFieldIdsByName(ClientInterface $client, string $name): array;
 
     public function findCustomFieldSetByName(ClientInterface $client, string $name): array;
 }

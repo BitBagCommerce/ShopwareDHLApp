@@ -96,7 +96,7 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->searchIds('rule', []);
     }
 
-    public function findIdsCustomFieldByName(ClientInterface $client, string $name): array
+    public function findCustomFieldIdsByName(ClientInterface $client, string $name): array
     {
         $customFieldFilter = [
             'filter' => [
