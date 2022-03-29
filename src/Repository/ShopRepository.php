@@ -8,6 +8,8 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Exception\ShopNotFoundException;
 use BitBag\ShopwareAppSkeleton\Entity\Shop;
 use BitBag\ShopwareAppSkeleton\Entity\ShopInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 final class ShopRepository extends ServiceEntityRepository implements ShopRepositoryInterface
@@ -17,6 +19,10 @@ final class ShopRepository extends ServiceEntityRepository implements ShopReposi
         parent::__construct($registry, Shop::class);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     public function findSecretByShopId(string $shopId): ?string
     {
         $queryBuilder = $this->createQueryBuilder('shop');
@@ -26,7 +32,6 @@ final class ShopRepository extends ServiceEntityRepository implements ShopReposi
             ->where('shop.shopId = :shopId')
             ->setParameter('shopId', $shopId);
 
-        /** @var ?string */
         return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 

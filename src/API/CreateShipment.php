@@ -60,7 +60,7 @@ final class CreateShipment implements CreateShipmentInterface
         $receiverAddressStructure = (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)
             ->setCountry('PL')
-            ->setName($shippingAddress['firstName'].' '.$shippingAddress['lastName'])
+            ->setName($shippingAddress['firstName'] . ' ' . $shippingAddress['lastName'])
             ->setPostalCode($shippingAddress['zipcode'])
             ->setCity($shippingAddress['city'])
             ->setStreet($street[1])
