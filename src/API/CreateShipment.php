@@ -30,15 +30,15 @@ final class CreateShipment implements CreateShipmentInterface
      * @throws SoapException
      */
     public function createShipments(
-        $shippingAddress,
-        $shopId,
-        $customerEmail,
-        $totalWeight
-    ) {
-        /** @var ConfigInterface $config */
+        array $shippingAddress,
+        string $shopId,
+        string $customerEmail,
+        int $totalWeight
+    ): void {
+        /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
-        if (!$config) {
+        if (null === $config) {
             return;
         }
 
@@ -60,7 +60,7 @@ final class CreateShipment implements CreateShipmentInterface
         $receiverAddressStructure = (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)
             ->setCountry('PL')
-            ->setName($shippingAddress['firstName'] . ' ' . $shippingAddress['lastName'])
+            ->setName($shippingAddress['firstName'].' '.$shippingAddress['lastName'])
             ->setPostalCode($shippingAddress['zipcode'])
             ->setCity($shippingAddress['city'])
             ->setStreet($street[1])

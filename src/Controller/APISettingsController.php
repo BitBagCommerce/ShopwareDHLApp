@@ -39,7 +39,7 @@ final class APISettingsController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $shopId = $request->get('shop-id');
+        $shopId = $request->query->get('shop-id');
 
         /** @var ShopInterface $shop */
         $shop = $this->shopRepository->find($shopId);

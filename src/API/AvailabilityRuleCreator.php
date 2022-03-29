@@ -7,9 +7,9 @@ namespace BitBag\ShopwareAppSkeleton\API;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-class AvailabilityRuleCreator implements AvailabilityRuleCreatorInterface
+final class AvailabilityRuleCreator implements AvailabilityRuleCreatorInterface
 {
-    public function create(ClientInterface $client)
+    public function create(ClientInterface $client): void
     {
         $rule = [
             'name' => Defaults::AVAILABILITY_RULE,

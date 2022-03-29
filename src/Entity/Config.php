@@ -17,55 +17,55 @@ class Config implements ConfigInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\OneToOne(targetEntity=Shop::class, inversedBy="config", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
      */
-    private $shop;
+    private ShopInterface $shop;
 
     /** @ORM\Column(type="string", length=255) */
-    private $username;
+    private string $username;
 
     /** @ORM\Column(type="string", length=255) */
-    private $password;
+    private string $password;
 
     /** @ORM\Column(type="string", length=255) */
-    private $accountNumber;
+    private string $accountNumber;
 
     /** @ORM\Column(type="string", length=255) */
-    private $name;
+    private string $name;
 
     /** @ORM\Column(type="string", length=255) */
-    private $postalCode;
+    private string $postalCode;
 
     /** @ORM\Column(type="string", length=255) */
-    private $city;
+    private string $city;
 
     /** @ORM\Column(type="string", length=255) */
-    private $street;
+    private string $street;
 
     /** @ORM\Column(type="string", length=255) */
-    private $houseNumber;
+    private string $houseNumber;
 
     /** @ORM\Column(type="string", length=255) */
-    private $phoneNumber;
+    private string $phoneNumber;
 
     /** @ORM\Column(type="string", length=255) */
-    private $email;
+    private string $email;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getShop(): Shop
+    public function getShop(): ShopInterface
     {
         return $this->shop;
     }
 
-    public function setShop(Shop $shop): self
+    public function setShop(ShopInterface $shop): self
     {
         $this->shop = $shop;
 
@@ -113,7 +113,7 @@ class Config implements ConfigInterface
         return $this->name;
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -123,7 +123,7 @@ class Config implements ConfigInterface
         return $this->postalCode;
     }
 
-    public function setPostalCode($postalCode): void
+    public function setPostalCode(string $postalCode): void
     {
         $this->postalCode = $postalCode;
     }
@@ -133,7 +133,7 @@ class Config implements ConfigInterface
         return $this->city;
     }
 
-    public function setCity($city): void
+    public function setCity(string $city): void
     {
         $this->city = $city;
     }
@@ -143,7 +143,7 @@ class Config implements ConfigInterface
         return $this->houseNumber;
     }
 
-    public function setHouseNumber($houseNumber): void
+    public function setHouseNumber(string $houseNumber): void
     {
         $this->houseNumber = $houseNumber;
     }
@@ -153,7 +153,7 @@ class Config implements ConfigInterface
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber($phoneNumber): void
+    public function setPhoneNumber(string $phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
     }
@@ -163,7 +163,7 @@ class Config implements ConfigInterface
         return $this->email;
     }
 
-    public function setEmail($email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -173,7 +173,7 @@ class Config implements ConfigInterface
         return $this->street;
     }
 
-    public function setStreet($street): void
+    public function setStreet(string $street): void
     {
         $this->street = $street;
     }
