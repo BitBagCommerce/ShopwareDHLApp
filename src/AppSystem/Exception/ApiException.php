@@ -8,8 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 
 final class ApiException extends \Exception
 {
-    public function __construct(string $shopUrl, string $requestPath, ResponseInterface $response)
-    {
+    public function __construct(
+        string $shopUrl,
+        string $requestPath,
+        ResponseInterface $response
+    ) {
         $message = \sprintf(
             'Error occurred while requesting %s from shop %s, got status %s and response was %s',
             $requestPath,

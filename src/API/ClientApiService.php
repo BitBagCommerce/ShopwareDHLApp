@@ -36,8 +36,11 @@ final class ClientApiService implements ClientApiServiceInterface
         return $client->search('order', $orderAddressFilter)['data'][0];
     }
 
-    public function findDeliveryTimeByMinMax(ClientInterface $client, int $min, int $max): array
-    {
+    public function findDeliveryTimeByMinMax(
+        ClientInterface $client,
+        int $min,
+        int $max
+    ): array {
         $filterForDeliveryTime = [
             'filter' => [
                 [

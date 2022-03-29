@@ -14,8 +14,11 @@ final class OAuthCredentials implements OAuthCredentialsInterface
 
     private string $accessToken;
 
-    public function __construct(string $tokenType, int $expiresIn, string $accessToken)
-    {
+    public function __construct(
+        string $tokenType,
+        int $expiresIn,
+        string $accessToken
+    ) {
         $this->tokenType = $tokenType;
         $this->accessToken = $accessToken;
         $this->expiresIn = \strtotime("+$expiresIn seconds");

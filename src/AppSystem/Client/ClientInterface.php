@@ -14,7 +14,11 @@ interface ClientInterface
 
     public function createEntity(string $entityType, array $entityData): void;
 
-    public function updateEntity(string $entityType, string $id, array $entityData): void;
+    public function updateEntity(
+        string $entityType,
+        string $id,
+        array $entityData
+    ): void;
 
     public function deleteEntity(string $entityType, string $id): void;
 }

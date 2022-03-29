@@ -29,7 +29,7 @@ final class Client implements ClientInterface
             throw new ApiException($this->shopUrl, $requestPath, $response);
         }
 
-        /* @var array */
+        /** @var array */
         return \json_decode($response->getBody()->getContents(), true);
     }
 
@@ -43,7 +43,7 @@ final class Client implements ClientInterface
             throw new ApiException($this->shopUrl, $requestPath, $response);
         }
 
-        /* @var array */
+        /** @var array */
         return \json_decode($response->getBody()->getContents(), true);
     }
 
@@ -57,7 +57,7 @@ final class Client implements ClientInterface
             throw new ApiException($this->shopUrl, $requestPath, $response);
         }
 
-        /* @var array */
+        /** @var array */
         return \json_decode($response->getBody()->getContents(), true);
     }
 
@@ -72,8 +72,11 @@ final class Client implements ClientInterface
         }
     }
 
-    public function updateEntity(string $entityType, string $id, array $entityData): void
-    {
+    public function updateEntity(
+        string $entityType,
+        string $id,
+        array $entityData
+    ): void {
         $requestPath = sprintf('/api/%s/%s', $entityType, $id);
 
         $response = $this->client->patch($requestPath, ['body' => \json_encode($entityData)]);

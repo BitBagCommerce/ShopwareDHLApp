@@ -6,8 +6,11 @@ namespace BitBag\ShopwareAppSkeleton\AppSystem\Exception;
 
 final class AuthenticationException extends \Exception
 {
-    public function __construct(string $shopUrl, string $apiKey, string $reason)
-    {
+    public function __construct(
+        string $shopUrl,
+        string $apiKey,
+        string $reason
+    ) {
         $message = \sprintf(
             'Could not authenticate with store. Shop URL: %s, API key: %s, reason: %s',
             $shopUrl,

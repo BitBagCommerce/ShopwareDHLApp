@@ -31,7 +31,7 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
         foreach ($customFieldNames as $key => $item) {
             $type = $item['type'];
 
-            $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX.'_'.$item['name'];
+            $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
             $customField = $this->clientApiService->findCustomFieldIdsByName($client, $customFieldName);
 

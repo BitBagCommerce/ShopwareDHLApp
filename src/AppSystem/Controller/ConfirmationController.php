@@ -83,8 +83,11 @@ final class ConfirmationController
         ]);
     }
 
-    private function updateShop(ShopInterface $shop, string $apiKey, string $secretKey): void
-    {
+    private function updateShop(
+        ShopInterface $shop,
+        string $apiKey,
+        string $secretKey
+    ): void {
         $shop->setApiKey($apiKey);
         $shop->setSecretKey($secretKey);
 

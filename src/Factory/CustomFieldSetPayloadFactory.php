@@ -6,8 +6,11 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 final class CustomFieldSetPayloadFactory implements CustomFieldSetPayloadFactoryInterface
 {
-    public function create(string $name, string $labelName, string $entityName): array
-    {
+    public function create(
+        string $name,
+        string $labelName,
+        string $entityName
+    ): array {
         return [
             'name' => $name,
             'relations' => [

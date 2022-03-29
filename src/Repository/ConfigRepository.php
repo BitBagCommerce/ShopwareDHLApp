@@ -1,7 +1,8 @@
 <?php
 
-namespace BitBag\ShopwareAppSkeleton\Repository;
+declare(strict_types=1);
 
+namespace BitBag\ShopwareAppSkeleton\Repository;
 
 use BitBag\ShopwareAppSkeleton\Entity\Config;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

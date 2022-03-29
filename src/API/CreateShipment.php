@@ -18,7 +18,6 @@ use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
 
 final class CreateShipment implements CreateShipmentInterface
 {
-    /** @var ConfigRepositoryInterface */
     private ConfigRepositoryInterface $configRepository;
 
     public function __construct(ConfigRepositoryInterface $congigRepository)
@@ -30,8 +29,12 @@ final class CreateShipment implements CreateShipmentInterface
      * @throws InvalidStructureException
      * @throws SoapException
      */
-    public function createShipments($shippingAddress, $shopId, $customerEmail, $totalWeight)
-    {
+    public function createShipments(
+        $shippingAddress,
+        $shopId,
+        $customerEmail,
+        $totalWeight
+    ) {
         /** @var ConfigInterface $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
@@ -57,7 +60,7 @@ final class CreateShipment implements CreateShipmentInterface
         $receiverAddressStructure = (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)
             ->setCountry('PL')
-            ->setName($shippingAddress['firstName'].' '.$shippingAddress['lastName'])
+            ->setName($shippingAddress['firstName'] . ' ' . $shippingAddress['lastName'])
             ->setPostalCode($shippingAddress['zipcode'])
             ->setCity($shippingAddress['city'])
             ->setStreet($street[1])
