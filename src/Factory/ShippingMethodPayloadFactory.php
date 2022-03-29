@@ -9,6 +9,11 @@ use DateTime;
 
 final class ShippingMethodPayloadFactory implements ShippingMethodPayloadFactoryInterface
 {
+    /**
+     * @return ((DateTime|int|string)[]|DateTime|mixed|string|true)[]
+     *
+     * @psalm-return array{deliveryTimeId?: mixed, deliveryTime?: array{name: '1-3 days', min: 1, max: 3, unit: 'day', createdAt: DateTime}, name: 'DHL', active: true, description: 'DHL', taxType: 'auto', translated: array{name: 'DHL'}, availabilityRuleId: string, createdAt: DateTime}
+     */
     public function create(string $ruleId, array $deliveryTime): array
     {
         $currentDateTime = new DateTime();

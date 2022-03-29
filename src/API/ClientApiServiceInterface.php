@@ -8,7 +8,7 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 
 interface ClientApiServiceInterface
 {
-    public function getOrder(ClientInterface $client, string $orderId): array;
+
 
     public function findDeliveryTimeByMinMax(
         ClientInterface $client,
@@ -19,8 +19,6 @@ interface ClientApiServiceInterface
     public function findShippingMethodByShippingKey(ClientInterface $client): array;
 
     public function findRuleByName(ClientInterface $client, string $name): array;
-
-    public function findRandomRule(ClientInterface $client): array;
 
     public function findCustomFieldIdsByName(ClientInterface $client, string $name): array;
 

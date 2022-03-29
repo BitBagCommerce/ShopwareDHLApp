@@ -20,19 +20,34 @@ class Config implements ConfigInterface
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Shop::class, inversedBy="config", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
+     * @ORM\OneToOne (targetEntity=Shop::class, inversedBy="config", cascade={"persist", "remove"})
+     *
+     * @ORM\JoinColumn (nullable=false, referencedColumnName="shop_id")
+     *
+     * @var Shop
      */
-    private $shop;
+    private Shop $shop;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $username;
+    /**
+     * @ORM\Column (type="string", length=255) 
+     *
+     * @var string
+     */
+    private string $username;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $password;
+    /**
+     * @ORM\Column (type="string", length=255) 
+     *
+     * @var string
+     */
+    private string $password;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $accountNumber;
+    /**
+     * @ORM\Column (type="string", length=255) 
+     *
+     * @var string
+     */
+    private string $accountNumber;
 
     /** @ORM\Column(type="string", length=255) */
     private $name;
@@ -65,6 +80,9 @@ class Config implements ConfigInterface
         return $this->shop;
     }
 
+    /**
+     * @return static
+     */
     public function setShop(Shop $shop): self
     {
         $this->shop = $shop;
@@ -77,6 +95,9 @@ class Config implements ConfigInterface
         return $this->username;
     }
 
+    /**
+     * @return static
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -89,6 +110,9 @@ class Config implements ConfigInterface
         return $this->password;
     }
 
+    /**
+     * @return static
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -101,6 +125,9 @@ class Config implements ConfigInterface
         return $this->accountNumber;
     }
 
+    /**
+     * @return static
+     */
     public function setAccountNumber(string $accountNumber): self
     {
         $this->accountNumber = $accountNumber;

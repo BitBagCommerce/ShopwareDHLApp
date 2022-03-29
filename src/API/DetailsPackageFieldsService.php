@@ -22,6 +22,11 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
         $this->clientApiService = $clientApiService;
     }
 
+    /**
+     * @return ((int|string)|mixed)[][]
+     *
+     * @psalm-return list<array{customFieldName: string, type: mixed, key: array-key, label: mixed}>
+     */
     public function create(ClientInterface $client): array
     {
         $customFieldNames = $this->customFieldNamesProvider->getFields();

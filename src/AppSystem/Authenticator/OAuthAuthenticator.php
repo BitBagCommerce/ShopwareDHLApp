@@ -13,6 +13,9 @@ use GuzzleHttp\Exception\RequestException;
 
 final class OAuthAuthenticator implements OAuthAuthenticatorInterface
 {
+    /**
+     * @return OAuthCredentials
+     */
     public function authenticate(ShopInterface $shop): OAuthCredentialsInterface
     {
         $shopUrl = $shop->getShopUrl();

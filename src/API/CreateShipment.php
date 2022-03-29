@@ -28,6 +28,8 @@ final class CreateShipment implements CreateShipmentInterface
     /**
      * @throws InvalidStructureException
      * @throws SoapException
+     *
+     * @return void
      */
     public function createShipments(
         $shippingAddress,
@@ -111,7 +113,7 @@ final class CreateShipment implements CreateShipmentInterface
             ->structure();
 
         try {
-            $result = $dhl->createShipments($shipmentFullDataStructure);
+            $dhl->createShipments($shipmentFullDataStructure);
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }

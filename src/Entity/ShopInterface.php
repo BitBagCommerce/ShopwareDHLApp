@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\Entity;
 
 interface ShopInterface
 {
-    public function getShopId(): string;
+
 
     public function setShopId(string $shopId): void;
 

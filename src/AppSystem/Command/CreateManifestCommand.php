@@ -13,7 +13,7 @@ use Twig\Environment;
 
 final class CreateManifestCommand extends Command
 {
-    protected static $defaultName = 'app:create-manifest';
+    protected static string $defaultName = 'app:create-manifest';
 
     /** @var array<string, string> */
     private static array $consoleArguments = [
@@ -45,6 +45,11 @@ final class CreateManifestCommand extends Command
             );
     }
 
+    /**
+     * @return int
+     *
+     * @psalm-return 0|1
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -124,6 +129,9 @@ final class CreateManifestCommand extends Command
         }
     }
 
+    /**
+     * @psalm-return array{APP_NAME: mixed, APP_SECRET: mixed, APP_URL_CLIENT: mixed, APP_URL_BACKEND: mixed}
+     */
     private function getEnvArguments(): array
     {
         return [
@@ -134,6 +142,11 @@ final class CreateManifestCommand extends Command
         ];
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return array<string, string>
+     */
     private function getConsoleArguments(SymfonyStyle $io): array
     {
         $consoleArguments = [];

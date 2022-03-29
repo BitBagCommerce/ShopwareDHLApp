@@ -46,6 +46,9 @@ final class Credentials implements CredentialsInterface
         return $this->token;
     }
 
+    /**
+     * @return self
+     */
     public function withToken(string $token): CredentialsInterface
     {
         return new self(

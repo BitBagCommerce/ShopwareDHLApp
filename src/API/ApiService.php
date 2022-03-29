@@ -22,7 +22,7 @@ final class ApiService
     /**
      * @throws SoapException
      */
-    public function getApi(string $shopId): ?DHL24
+    public function getApi(string $shopId): DHL24
     {
         /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);

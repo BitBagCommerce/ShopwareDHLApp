@@ -23,6 +23,11 @@ final class LifecycleEventSubscriber implements EventSubscriberInterface
         $this->shopRepository = $shopRepository;
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{'BitBag\\ShopwareAppSkeleton\\AppSystem\\LifecycleEvent\\AppDeletedEvent'::class: 'onAppDeleted'}
+     */
     public static function getSubscribedEvents(): array
     {
         return [

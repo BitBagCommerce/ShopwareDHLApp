@@ -9,6 +9,9 @@ use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 class AvailabilityRuleCreator implements AvailabilityRuleCreatorInterface
 {
+    /**
+     * @return void
+     */
     public function create(ClientInterface $client)
     {
         $rule = [

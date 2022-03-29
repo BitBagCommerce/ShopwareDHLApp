@@ -65,6 +65,11 @@ final class EventResolver implements ArgumentValueResolverInterface
         return $this->authenticator->authenticatePostRequest($request, $shopSecret);
     }
 
+    /**
+     * @return \Generator
+     *
+     * @psalm-return \Generator<int, Event, mixed, void>
+     */
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator
     {
         /** @var array{

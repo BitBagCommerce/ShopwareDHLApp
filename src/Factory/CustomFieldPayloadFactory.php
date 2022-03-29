@@ -6,6 +6,11 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 final class CustomFieldPayloadFactory implements CustomFieldPayloadFactoryInterface
 {
+    /**
+     * @return (array|int|string)[]
+     *
+     * @psalm-return array{name: string, type: string, position: int, config: array{type: string, label: array{'en-GB': string}, helpText: array<empty, empty>, placeholder: array<empty, empty>, componentName: 'sw-field', customFieldType: string, customFieldPosition: int, numberType?: 'int'}, customFieldSet?: array, customFieldSetId?: string}
+     */
     public function create(
         string $name,
         string $type,
