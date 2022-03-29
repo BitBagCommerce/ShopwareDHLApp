@@ -35,6 +35,11 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
         $this->availabilityRuleCreator = $availabilityRuleCreator;
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{'BitBag\\ShopwareAppSkeleton\\AppSystem\\LifecycleEvent\\AppActivatedEvent'::class: 'onAppActivated'}
+     */
     public static function getSubscribedEvents(): array
     {
         return [

@@ -22,6 +22,11 @@ class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
         $this->customFieldSetFactory = $customFieldSetFactory;
     }
 
+    /**
+     * @return (array|mixed)[]
+     *
+     * @psalm-return array{customFieldSetId: mixed, customFieldSet: array}
+     */
     public function create(ClientInterface $client): array
     {
         $customFieldSet = $this->apiService->findCustomFieldSetByName($client, Defaults::CUSTOM_FIELDS_PREFIX);

@@ -68,6 +68,11 @@ final class ClientResolver implements ArgumentValueResolverInterface
         return false;
     }
 
+    /**
+     * @return \Generator
+     *
+     * @psalm-return \Generator<int, ClientInterface, mixed, void>
+     */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ('POST' === $request->getMethod()) {

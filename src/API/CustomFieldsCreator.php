@@ -25,6 +25,9 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
         $this->customFieldSetCreator = $customFieldSetCreator;
     }
 
+    /**
+     * @return void
+     */
     public function create(ClientInterface $client)
     {
         $customFieldSet = $this->customFieldSetCreator->create($client);

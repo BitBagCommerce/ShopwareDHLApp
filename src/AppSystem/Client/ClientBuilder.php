@@ -50,6 +50,9 @@ final class ClientBuilder implements ClientBuilderInterface
         );
     }
 
+    /**
+     * @return Client
+     */
     public function buildClient(): ClientInterface
     {
         $client = $this->getHttpClient();

@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\AppSystem\Credentials;
 
 interface OAuthCredentialsInterface
 {
-    public function getTokenType(): string;
+
 
     public function getAccessToken(): string;
 
