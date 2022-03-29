@@ -7,9 +7,9 @@ namespace BitBag\ShopwareAppSkeleton\API;
 interface CreateShipmentInterface
 {
     public function createShipments(
-        $shippingAddress,
-        $shopId,
-        $customerEmail,
-        $totalWeight
-    );
+        array $shippingAddress,
+        string $shopId,
+        string $customerEmail,
+        int $totalWeight
+    ): void;
 }

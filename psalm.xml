@@ -12,4 +12,17 @@
             <file name="src/Kernel.php" />
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <file name="src/Entity/*"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <file name="src/Entity/*"/>
+            </errorLevel>
+        </MissingConstructor>
+    </issueHandlers>
 </psalm>

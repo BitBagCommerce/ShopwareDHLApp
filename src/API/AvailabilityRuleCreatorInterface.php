@@ -8,5 +8,5 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 
 interface AvailabilityRuleCreatorInterface
 {
-    public function create(ClientInterface $client);
+    public function create(ClientInterface $client): void;
 }

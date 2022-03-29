@@ -6,49 +6,49 @@ namespace BitBag\ShopwareAppSkeleton\Entity;
 
 interface ConfigInterface
 {
-    public function getId(): ?int;
+    public function getId(): int;
 
-    public function getShop(): ?Shop;
+    public function getShop(): ShopInterface;
 
-    public function setShop(Shop $shop): self;
+    public function setShop(ShopInterface $shop): self;
 
-    public function getUsername(): ?string;
+    public function getUsername(): string;
 
     public function setUsername(string $username): self;
 
-    public function getPassword(): ?string;
+    public function getPassword(): string;
 
     public function setPassword(string $password): self;
 
-    public function getAccountNumber(): ?string;
+    public function getAccountNumber(): string;
 
     public function setAccountNumber(string $accountNumber): self;
 
-    public function getName();
+    public function getName(): string;
 
-    public function setName($name): void;
+    public function setName(string $name): void;
 
-    public function getPostalCode();
+    public function getPostalCode(): string;
 
-    public function setPostalCode($postalCode): void;
+    public function setPostalCode(string $postalCode): void;
 
-    public function getCity();
+    public function getCity(): string;
 
-    public function setCity($city): void;
+    public function setCity(string $city): void;
 
-    public function getHouseNumber();
+    public function getHouseNumber(): string;
 
-    public function setHouseNumber($houseNumber): void;
+    public function setHouseNumber(string $houseNumber): void;
 
-    public function getPhoneNumber();
+    public function getPhoneNumber(): string;
 
-    public function setPhoneNumber($phoneNumber): void;
+    public function setPhoneNumber(string $phoneNumber): void;
 
-    public function getEmail();
+    public function getEmail(): string;
 
-    public function setEmail($email): void;
+    public function setEmail(string $email): void;
 
-    public function getStreet();
+    public function getStreet(): string;
 
-    public function setStreet($street): void;
+    public function setStreet(string $street): void;
 }
