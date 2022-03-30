@@ -19,8 +19,24 @@
                  id="bitbag.shopware_dhl_app.api.client_api">
         </service>
 
+        <service class="BitBag\ShopwareAppSkeleton\API\ApiService"
+                 id="bitbag.shopware_dhl_app.api.api_service">
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
+        </service>
+
         <service class="BitBag\ShopwareAppSkeleton\API\AvailabilityRuleCreator"
                  id="bitbag.shopware_dhl_app.api.availability_rule_creator">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\API\ShipmentSender" id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.api_service"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.sender_address"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.receiver_address"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.package_details"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.shipment"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.payment"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.service_definition"/>
         </service>
     </services>
 </container>

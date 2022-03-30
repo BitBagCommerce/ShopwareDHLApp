@@ -19,5 +19,29 @@
         <service class="BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_shipping_method">
         </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\SenderAddressFactory"
+                 id="bitbag.shopware_dhl_app.factory.sender_address">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ReceiverAddressFactory"
+                 id="bitbag.shopware_dhl_app.factory.receiver_address">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\PackageDetailsFactory"
+                 id="bitbag.shopware_dhl_app.factory.package_details">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ShipmentFactory"
+                 id="bitbag.shopware_dhl_app.factory.shipment">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\PaymentFactory"
+                 id="bitbag.shopware_dhl_app.factory.payment">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ServiceDefinitionFactory"
+                 id="bitbag.shopware_dhl_app.factory.service_definition">
+        </service>
     </services>
 </container>

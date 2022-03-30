@@ -20,7 +20,7 @@ class Config implements ConfigInterface
     private int $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Shop::class, inversedBy="config", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Shop::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
      */
     private ShopInterface $shop;
@@ -54,6 +54,9 @@ class Config implements ConfigInterface
 
     /** @ORM\Column(type="string", length=255) */
     private string $email;
+
+    /** @ORM\Column(type="string", length=255) */
+    private string $payerType;
 
     public function getId(): int
     {
@@ -176,5 +179,15 @@ class Config implements ConfigInterface
     public function setStreet(string $street): void
     {
         $this->street = $street;
+    }
+
+    public function getPayerType(): string
+    {
+        return $this->payerType;
+    }
+
+    public function setPayerType(string $payerType): void
+    {
+        $this->payerType = $payerType;
     }
 }

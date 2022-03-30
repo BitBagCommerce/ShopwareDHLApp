@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\CreateShipmentInterface;
+use BitBag\ShopwareAppSkeleton\API\ShipmentSenderInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
 {
-    private CreateShipmentInterface $shipment;
+    private ShipmentSenderInterface $shipment;
 
-    public function __construct(CreateShipmentInterface $shipment)
+    public function __construct(ShipmentSenderInterface $shipment)
     {
         $this->shipment = $shipment;
     }
@@ -22,7 +22,7 @@ final class OrderController
     {
         $data = $event->getEventData();
 
-        $orderId = $data['data']['ids'][0];
+        $orderId = $data['ids'][0];
         $shopId = $event->getShopId();
 
         $orderAddressFilter = [
@@ -44,9 +44,24 @@ final class OrderController
         ];
 
         $order = $client->search('order', $orderAddressFilter);
-        $lineItems = $order['data'][0]['lineItems'];
-        $customerEmail = $order['data'][0]['orderCustomer']['email'];
 
+        $totalWeight = $this->countTotalWeight($order['data'][0]['lineItems']);
+
+        $orderData = [
+            'shippingAddress' => $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
+            'customerEmail' => $order['data'][0]['orderCustomer']['email'],
+            'totalWeight' => $totalWeight,
+            'customFields' => $order['data'][0]['customFields'],
+            'shopId' => $shopId,
+        ];
+
+        $this->shipment->createShipments($orderData);
+
+        return new Response();
+    }
+
+    public function countTotalWeight(array $lineItems): int
+    {
         $totalWeight = 0;
 
         foreach ($lineItems as $item) {
@@ -54,10 +69,6 @@ final class OrderController
             $totalWeight += $weight;
         }
 
-        $shippingAddress = $order['data'][0]['deliveries'][0]['shippingOrderAddress'];
-
-        $this->shipment->createShipments($shippingAddress, $shopId, $customerEmail, $totalWeight);
-
-        return new Response();
+        return $totalWeight;
     }
 }

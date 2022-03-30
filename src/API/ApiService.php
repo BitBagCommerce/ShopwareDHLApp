@@ -8,13 +8,13 @@ use Alexcherniatin\DHL\DHL24;
 use Alexcherniatin\DHL\Exceptions\SoapException;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
-use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
+use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 
-final class ApiService
+final class ApiService implements ApiServiceInterface
 {
-    private ConfigRepositoryInterface $configRepository;
+    private ConfigRepository $configRepository;
 
-    public function __construct(ConfigRepositoryInterface $configRepository)
+    public function __construct(ConfigRepository $configRepository)
     {
         $this->configRepository = $configRepository;
     }
@@ -22,7 +22,7 @@ final class ApiService
     /**
      * @throws SoapException
      */
-    public function getApi(string $shopId): ?DHL24
+    public function getApi(string $shopId): DHL24
     {
         /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);

@@ -152,6 +152,17 @@
                                 {{ form_widget(form.phoneNumber) }}
                             </div>
                         </div>
+
+                        <div class="sw-field sw-block-field sw-contextual-field sw-field--text sw-field--default">
+                            <div class="sw-field__label">
+                                <label for="sw-field--shippingMethod-name" class="is--required">
+                                    {{ form_label(form.payerType) }}
+                                </label>
+                            </div>
+                            <div class="sw-block-field__block">
+                                {{ form_widget(form.payerType) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

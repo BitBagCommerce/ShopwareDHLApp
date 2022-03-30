@@ -36,7 +36,7 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
             $customField = $this->clientApiService->findCustomFieldIdsByName($client, $customFieldName);
 
             if (0 !== $customField['total']) {
-                return [];
+                continue;
             }
 
             $detailsPackageFields[] = [
