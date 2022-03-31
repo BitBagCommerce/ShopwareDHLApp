@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\ShipmentSenderInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSenderInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
+use BitBag\ShopwareAppSkeleton\Model\OrderData;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -67,6 +68,14 @@ final class OrderController
             'customFields' => $order['data'][0]['customFields'],
             'shopId' => $shopId,
         ];
+
+        $orderData = new OrderData(
+            $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
+            $order['data'][0]['orderCustomer']['email'],
+            $totalWeight,
+            $order['data'][0]['customFields'],
+            $shopId
+        );
 
         $this->shipmentSender->createShipments($orderData, $config);
 

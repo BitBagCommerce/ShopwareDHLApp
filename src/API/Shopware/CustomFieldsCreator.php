@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API;
+namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactoryInterface;

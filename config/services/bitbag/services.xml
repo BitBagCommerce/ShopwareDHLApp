@@ -2,40 +2,42 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\API\CustomFieldSetCreator"
+        <service class="BitBag\ShopwareAppSkeleton\API\Shopware\CustomFieldSetCreator"
                  id="bitbag.shopware_dhl_app.api.create_custom_field_set">
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.create_custom_field_set"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\CustomFieldsCreator"
+        <service class="BitBag\ShopwareAppSkeleton\API\Shopware\CustomFieldsCreator"
                  id="bitbag.shopware_dhl_app.api.create_custom_fields">
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.create_details_package"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.custom_field_filter"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.create_custom_field"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.create_custom_field_set"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\ClientApiService"
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ClientApiService"
                  id="bitbag.shopware_dhl_app.api.client_api">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\ApiResolver"
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ApiResolver"
                  id="bitbag.shopware_dhl_app.api.api_service">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\AvailabilityRuleCreator"
+        <service class="BitBag\ShopwareAppSkeleton\API\Shopware\AvailabilityRuleCreator"
                  id="bitbag.shopware_dhl_app.api.availability_rule_creator">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\ShipmentSender" id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSender"
+                 id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_service"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.sender_address"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.receiver_address"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.piece"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.shipment"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.payment"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.service_definition"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.package_factory"/>
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\CustomFieldFilter"
+                 id="bitbag.shopware_dhl_app.factory.custom_field_filter">
+            <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
         </service>
     </services>
 </container>

@@ -14,12 +14,12 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
         array $shippingAddress,
         string $customerEmail,
         array $customFields
-    ): array
-    {
+    ): array {
         $streetAddress = $this->splitStreet($shippingAddress['street']);
 
         $shippingAddress['street'] = $streetAddress[1];
         $shippingAddress['houseNumber'] = $streetAddress[2];
+        file_put_contents('dumb_error.json', json_encode($customFields, \JSON_PRETTY_PRINT));
 
         return (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)

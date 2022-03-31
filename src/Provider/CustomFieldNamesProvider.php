@@ -31,7 +31,7 @@ final class CustomFieldNamesProvider implements CustomFieldNamesProviderInterfac
             ],
             [
                 'name' => 'shippingDate',
-                'label' => 'Shipping date',
+                'label' => 'Shipping date (YYYY-MM-DD)',
                 'type' => 'text',
             ],
             [
