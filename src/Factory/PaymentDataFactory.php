@@ -16,7 +16,7 @@ final class PaymentDataFactory implements PaymentDataFactoryInterface
     public function create(ConfigInterface $config): array
     {
         return (new PaymentData())
-            ->setPaymentMethod(PaymentData::PAYMENT_METHOD_BANK_TRANSFER)
+            ->setPaymentMethod($config->getPaymentMethod())
             ->setPayerType($config->getPayerType())
             ->setAccountNumber($config->getAccountNumber())
             ->structure();

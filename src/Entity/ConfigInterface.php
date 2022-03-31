@@ -55,4 +55,8 @@ interface ConfigInterface
     public function getPayerType(): string;
 
     public function setPayerType(string $payerType): void;
+
+    public function getPaymentMethod(): string;
+
+    public function setPaymentMethod(string $paymentMethod): void;
 }

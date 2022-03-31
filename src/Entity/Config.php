@@ -58,6 +58,9 @@ class Config implements ConfigInterface
     /** @ORM\Column(type="string", length=255) */
     private string $payerType;
 
+    /** @ORM\Column(type="string", length=255) */
+    private string $paymentMethod;
+
     public function getId(): int
     {
         return $this->id;
@@ -189,5 +192,15 @@ class Config implements ConfigInterface
     public function setPayerType(string $payerType): void
     {
         $this->payerType = $payerType;
+    }
+
+    public function getPaymentMethod(): string
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(string $paymentMethod): void
+    {
+        $this->paymentMethod = $paymentMethod;
     }
 }

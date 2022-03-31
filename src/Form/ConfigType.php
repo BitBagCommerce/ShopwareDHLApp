@@ -54,6 +54,13 @@ class ConfigType extends AbstractType
                 ],
                 'required' => true,
             ])
+            ->add('paymentMethod', ChoiceType::class, [
+                'choices' => [
+                    'Bank transfer' => PaymentData::PAYMENT_METHOD_BANK_TRANSFER,
+                    'Cash' => PaymentData::PAYMENT_METHOD_CASH,
+                ],
+                'required' => true,
+            ])
         ;
     }
 
