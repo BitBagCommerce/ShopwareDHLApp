@@ -18,9 +18,11 @@ final class Defaults
 
     public const PACKAGE_WIDTH = 'bitbag.shopware_dhl_app.package_details_width';
 
-    public const PACKAGE_SHIPPING_DATE = 'bitbag.shopware_dhl_app.package_details_shippingDate';
+    public const PACKAGE_SHIPPING_DATE = 'bitbag.shopware_dhl_app.package_details_shipping_date';
 
     public const PACKAGE_DESCRIPTION = 'bitbag.shopware_dhl_app.package_description';
 
     public const PACKAGE_INSURANCE = 'bitbag.shopware_dhl_app.package_insurance';
+
+    public const PACKAGE_COUNTRY_CODE = 'bitbag.shopware_dhl_app.country_code';
 }

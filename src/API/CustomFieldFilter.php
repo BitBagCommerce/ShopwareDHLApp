@@ -8,7 +8,7 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceInterface
+final class CustomFieldFilter implements CustomFieldFilterInterface
 {
     private CustomFieldNamesProviderInterface $customFieldNamesProvider;
 
@@ -22,7 +22,7 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
         $this->clientApiService = $clientApiService;
     }
 
-    public function create(ClientInterface $client): array
+    public function filter(ClientInterface $client): array
     {
         $customFieldNames = $this->customFieldNamesProvider->getFields();
 

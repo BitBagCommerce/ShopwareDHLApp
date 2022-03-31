@@ -6,5 +6,9 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 interface ReceiverAddressFactoryInterface
 {
-    public function create(array $shippingAddress, string $customerEmail): array;
+    public function create(
+        array $shippingAddress,
+        string $customerEmail,
+        array $customFields
+    ): array;
 }

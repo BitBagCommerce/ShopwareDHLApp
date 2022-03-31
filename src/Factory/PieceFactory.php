@@ -8,7 +8,7 @@ use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\Piece;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-final class PackageDetailsFactory implements PackageDetailsFactoryInterface
+final class PieceFactory implements PieceFactoryInterface
 {
     /**
      * @throws InvalidStructureException

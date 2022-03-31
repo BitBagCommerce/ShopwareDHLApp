@@ -8,7 +8,7 @@ use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\PaymentData;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 
-final class PaymentFactory implements PaymentFactoryInterface
+final class PaymentDataFactory implements PaymentDataFactoryInterface
 {
     /**
      * @throws InvalidStructureException

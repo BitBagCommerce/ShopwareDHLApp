@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 
-interface SenderAddressFactoryInterface
+interface AddressFactoryInterface
 {
     public function create(ConfigInterface $config): array;
 }

@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 
-interface PaymentFactoryInterface
+interface PaymentDataFactoryInterface
 {
     public function create(ConfigInterface $config): array;
 }

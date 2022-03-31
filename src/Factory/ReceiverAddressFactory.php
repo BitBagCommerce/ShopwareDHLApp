@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\ReceiverAddress;
+use BitBag\ShopwareAppSkeleton\Exception\StreetCannotBeSplitException;
+use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
 {
-    /**
-     * @throws InvalidStructureException
-     */
-    public function create(array $shippingAddress, string $customerEmail): array
+    public function create(
+        array $shippingAddress,
+        string $customerEmail,
+        array $customFields
+    ): array
     {
-        preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $shippingAddress['street'], $street);
+        $streetAddress = $this->splitStreet($shippingAddress['street']);
 
-        $shippingAddress['street'] = $street[1];
-        $shippingAddress['houseNumber'] = $street[2];
+        $shippingAddress['street'] = $streetAddress[1];
+        $shippingAddress['houseNumber'] = $streetAddress[2];
 
         return (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)
-            ->setCountry('PL')
+            ->setCountry($customFields[Defaults::PACKAGE_COUNTRY_CODE])
             ->setName($shippingAddress['firstName'] . ' ' . $shippingAddress['lastName'])
             ->setPostalCode($shippingAddress['zipcode'])
             ->setCity($shippingAddress['city'])
@@ -30,5 +32,14 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
             ->setContactPhone($shippingAddress['phoneNumber'])
             ->setContactEmail($customerEmail)
             ->structure();
+    }
+
+    private function splitStreet(string $street): array
+    {
+        if (!preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
+            throw new StreetCannotBeSplitException('Street cannot be split');
+        }
+
+        return $streetAddress;
     }
 }

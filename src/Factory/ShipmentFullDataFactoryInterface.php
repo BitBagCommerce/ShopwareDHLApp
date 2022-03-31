@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-interface ShipmentFactoryInterface
+interface ShipmentFullDataFactoryInterface
 {
     public function create(
         array $addressStructure,

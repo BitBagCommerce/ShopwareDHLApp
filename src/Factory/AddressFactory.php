@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\Address;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 
-final class SenderAddressFactory implements SenderAddressFactoryInterface
+final class AddressFactory implements AddressFactoryInterface
 {
-    /**
-     * @throws InvalidStructureException
-     */
     public function create(ConfigInterface $config): array
     {
         return (new Address())

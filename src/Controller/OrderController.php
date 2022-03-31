@@ -7,15 +7,21 @@ namespace BitBag\ShopwareAppSkeleton\Controller;
 use BitBag\ShopwareAppSkeleton\API\ShipmentSenderInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
+use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
+use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
+use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
 {
-    private ShipmentSenderInterface $shipment;
+    private ShipmentSenderInterface $shipmentSender;
 
-    public function __construct(ShipmentSenderInterface $shipment)
+    private ConfigRepository $configRepository;
+
+    public function __construct(ShipmentSenderInterface $shipmentSender, ConfigRepository $configRepository)
     {
-        $this->shipment = $shipment;
+        $this->shipmentSender = $shipmentSender;
+        $this->configRepository = $configRepository;
     }
 
     public function __invoke(EventInterface $event, ClientInterface $client): Response
@@ -24,6 +30,13 @@ final class OrderController
 
         $orderId = $data['ids'][0];
         $shopId = $event->getShopId();
+
+        /** @var ConfigInterface|null $config */
+        $config = $this->configRepository->findOneBy(['shop' => $shopId]);
+
+        if (null === $config) {
+            throw new ConfigNotFoundException('Config not found');
+        }
 
         $orderAddressFilter = [
             'filter' => [
@@ -55,7 +68,7 @@ final class OrderController
             'shopId' => $shopId,
         ];
 
-        $this->shipment->createShipments($orderData);
+        $this->shipmentSender->createShipments($orderData, $config);
 
         return new Response();
     }

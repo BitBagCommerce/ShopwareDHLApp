@@ -8,7 +8,7 @@ use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\ShipmentFullData;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-final class ShipmentFactory implements ShipmentFactoryInterface
+final class ShipmentFullDataFactory implements ShipmentFullDataFactoryInterface
 {
     /**
      * @throws InvalidStructureException
@@ -24,11 +24,7 @@ final class ShipmentFactory implements ShipmentFactoryInterface
         return (new ShipmentFullData())
             ->setShipper($addressStructure)
             ->setReceiver($receiverAddressStructure)
-            ->setPieceList(
-                [
-                    $pieceStructure,
-                ]
-            )
+            ->setPieceList([$pieceStructure])
             ->setPayment($paymentStructure)
             ->setService($serviceDefinitionStructure)
             ->setShipmentDate(\date(ShipmentFullData::DATE_FORMAT, \strtotime($customFields[Defaults::PACKAGE_SHIPPING_DATE])))

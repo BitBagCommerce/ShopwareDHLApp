@@ -10,7 +10,7 @@ use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 
-final class ApiService implements ApiServiceInterface
+final class ApiResolver implements ApiResolverInterface
 {
     private ConfigRepository $configRepository;
 

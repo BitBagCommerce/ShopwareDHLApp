@@ -4,46 +4,42 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API;
 
+use Alexcherniatin\DHL\Exceptions\SoapException;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
-use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
-use BitBag\ShopwareAppSkeleton\Factory\PackageDetailsFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Factory\PaymentFactoryInterface;
+use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
+use BitBag\ShopwareAppSkeleton\Factory\AddressFactoryInterface;
+use BitBag\ShopwareAppSkeleton\Factory\PaymentDataFactoryInterface;
+use BitBag\ShopwareAppSkeleton\Factory\PieceFactoryInterface;
 use BitBag\ShopwareAppSkeleton\Factory\ReceiverAddressFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Factory\SenderAddressFactoryInterface;
 use BitBag\ShopwareAppSkeleton\Factory\ServiceDefinitionFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Factory\ShipmentFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
+use BitBag\ShopwareAppSkeleton\Factory\ShipmentFullDataFactoryInterface;
 
 final class ShipmentSender implements ShipmentSenderInterface
 {
-    private ConfigRepository $configRepository;
+    private ApiResolverInterface $apiResolver;
 
-    private ApiServiceInterface $apiService;
-
-    private SenderAddressFactoryInterface $senderAddressFactory;
+    private AddressFactoryInterface $senderAddressFactory;
 
     private ReceiverAddressFactoryInterface $receiverAddressFactory;
 
-    private PackageDetailsFactoryInterface $packageDetailsFactory;
+    private PieceFactoryInterface $packageDetailsFactory;
 
-    private ShipmentFactoryInterface $shipmentFactory;
+    private ShipmentFullDataFactoryInterface $shipmentFactory;
 
-    private PaymentFactoryInterface $paymentFactory;
+    private PaymentDataFactoryInterface $paymentFactory;
 
     private ServiceDefinitionFactoryInterface $serviceDefinitionFactory;
 
     public function __construct(
-        ConfigRepository $configRepository,
-        ApiServiceInterface $apiService,
-        SenderAddressFactoryInterface $senderAddressFactory,
+        ApiResolverInterface $apiResolver,
+        AddressFactoryInterface $senderAddressFactory,
         ReceiverAddressFactoryInterface $receiverAddressFactory,
-        PackageDetailsFactoryInterface $packageDetailsFactory,
-        ShipmentFactoryInterface $shipmentFactory,
-        PaymentFactoryInterface $paymentFactory,
+        PieceFactoryInterface $packageDetailsFactory,
+        ShipmentFullDataFactoryInterface $shipmentFactory,
+        PaymentDataFactoryInterface $paymentFactory,
         ServiceDefinitionFactoryInterface $serviceDefinitionFactory
     ) {
-        $this->configRepository = $configRepository;
-        $this->apiService = $apiService;
+        $this->apiResolver = $apiResolver;
         $this->senderAddressFactory = $senderAddressFactory;
         $this->receiverAddressFactory = $receiverAddressFactory;
         $this->packageDetailsFactory = $packageDetailsFactory;
@@ -53,20 +49,14 @@ final class ShipmentSender implements ShipmentSenderInterface
     }
 
     public function createShipments(
-        array $orderData
+        array $orderData,
+        ConfigInterface $config
     ): void {
-        /** @var ConfigInterface|null $config */
-        $config = $this->configRepository->findOneBy(['shop' => $orderData['shopId']]);
-
-        if (null === $config) {
-            throw new ConfigNotFoundException('Config not found');
-        }
-
-        $dhl = $this->apiService->getApi($orderData['shopId']);
+        $dhl = $this->apiResolver->getApi($orderData['shopId']);
 
         $addressStructure = $this->senderAddressFactory->create($config);
 
-        $receiverAddressStructure = $this->receiverAddressFactory->create($orderData['shippingAddress'], $orderData['customerEmail']);
+        $receiverAddressStructure = $this->receiverAddressFactory->create($orderData['shippingAddress'], $orderData['customerEmail'], $orderData['customFields']);
 
         $pieceStructure = $this->packageDetailsFactory->create($orderData['customFields'], $orderData['totalWeight']);
 
@@ -85,8 +75,8 @@ final class ShipmentSender implements ShipmentSenderInterface
 
         try {
             $dhl->createShipments($shipmentFullDataStructure);
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (SoapException $th) {
+            throw new ShipmentException($th->getMessage());
         }
     }
 }

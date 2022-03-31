@@ -4,6 +4,7 @@
     <services>
         <service class="BitBag\ShopwareAppSkeleton\Controller\OrderController" id="bitbag.shopware_dhl_app.controller.order" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.shipment_sender"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"

@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\API;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 
-interface DetailsPackageFieldsServiceInterface
+interface CustomFieldFilterInterface
 {
-    public function create(ClientInterface $client): array;
+    public function filter(ClientInterface $client): array;
 }
