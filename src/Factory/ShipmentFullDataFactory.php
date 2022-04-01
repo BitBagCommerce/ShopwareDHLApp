@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Factory;
 
-use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\ShipmentFullData;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class ShipmentFullDataFactory implements ShipmentFullDataFactoryInterface
 {
-
     public function create(
         array $addressStructure,
         array $receiverAddressStructure,
