@@ -32,7 +32,7 @@
                  id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.package_factory"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.saver.label_saver"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.persister.label_persister"/>
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\API\DHL\CustomFieldFilter"
@@ -41,8 +41,8 @@
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\DHL\LabelFetcher"
-                 id="bitbag.shopware_dhl_app.api.label_fetcher">
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\LabelApiService"
+                 id="bitbag.shopware_dhl_app.api.label_service">
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
         </service>
     </services>

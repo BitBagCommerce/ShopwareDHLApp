@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\LabelFetcherInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\LabelApiServiceInterface;
+use BitBag\ShopwareAppSkeleton\Entity\LabelInterface;
 use BitBag\ShopwareAppSkeleton\Exception\LabelNotFoundException;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,14 @@ final class ShowLabelController
 {
     private LabelRepository $labelRepository;
 
-    private LabelFetcherInterface $labelFetcher;
+    private LabelApiServiceInterface $labelApiService;
 
     public function __construct(
         LabelRepository $labelRepository,
-        LabelFetcherInterface $labelFetcher
+        LabelApiServiceInterface $labelApiService
     ) {
         $this->labelRepository = $labelRepository;
-        $this->labelFetcher = $labelFetcher;
+        $this->labelApiService = $labelApiService;
     }
 
     public function __invoke(Request $request): Response
@@ -39,7 +40,12 @@ final class ShowLabelController
             throw new LabelNotFoundException('bitbag.shopware_dhl_app.order.not_found');
         }
 
-        $labelResponse = $this->labelFetcher->fetchLabel($shopId, $label->getParcelId());
+        return $this->getLabelResponse($shopId, $label);
+    }
+
+    private function getLabelResponse(string $shopId, LabelInterface $label): Response
+    {
+        $labelResponse = $this->labelApiService->fetchLabel($shopId, $label->getParcelId());
 
         $filename = sprintf('filename="order_%s.pdf"', $label->getOrderId());
 

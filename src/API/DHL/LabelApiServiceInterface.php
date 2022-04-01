@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\API\DHL;
 
 use BitBag\ShopwareAppSkeleton\Model\LabelDataInterface;
 
-interface LabelFetcherInterface
+interface LabelApiServiceInterface
 {
     public function fetchLabel(string $shopId, string $parcelId): LabelDataInterface;
 }

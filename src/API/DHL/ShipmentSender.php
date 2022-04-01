@@ -9,7 +9,7 @@ use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
 use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
-use BitBag\ShopwareAppSkeleton\Saver\LabelSaverInterface;
+use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 
 final class ShipmentSender implements ShipmentSenderInterface
 {
@@ -17,16 +17,16 @@ final class ShipmentSender implements ShipmentSenderInterface
 
     private PackageFactory $packageFactory;
 
-    private LabelSaverInterface $labelSaver;
+    private LabelPersisterInterface $labelPersister;
 
     public function __construct(
         ApiResolverInterface $apiResolver,
         PackageFactory $packageFactory,
-        LabelSaverInterface $labelSaver
+        LabelPersisterInterface $labelPersister
     ) {
         $this->apiResolver = $apiResolver;
         $this->packageFactory = $packageFactory;
-        $this->labelSaver = $labelSaver;
+        $this->labelPersister = $labelPersister;
     }
 
     public function createShipments(
@@ -38,8 +38,8 @@ final class ShipmentSender implements ShipmentSenderInterface
         $shipmentFullDataStructure = $this->packageFactory->create($config, $orderData);
 
         try {
-            $res = $dhl->createShipments($shipmentFullDataStructure);
-            $this->labelSaver->save($orderData->getShopId(), $res['shipmentId'], $orderData->getOrderId());
+            $shipment = $dhl->createShipments($shipmentFullDataStructure);
+            $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
         } catch (SoapException $th) {
             throw new ShipmentException($th->getMessage());
         }

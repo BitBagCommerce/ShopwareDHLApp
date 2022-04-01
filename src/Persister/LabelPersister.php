@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Saver;
+namespace BitBag\ShopwareAppSkeleton\Persister;
 
 use BitBag\ShopwareAppSkeleton\Entity\Label;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class LabelSaver implements LabelSaverInterface
+final class LabelPersister implements LabelPersisterInterface
 {
     private ShopRepositoryInterface $shopRepository;
 
@@ -20,7 +20,7 @@ final class LabelSaver implements LabelSaverInterface
         $this->manager = $manager;
     }
 
-    public function save(
+    public function persist(
         string $shopId,
         int $shipmentId,
         string $orderId

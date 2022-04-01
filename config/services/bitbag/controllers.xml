@@ -36,7 +36,7 @@
         </service>
         <service class="BitBag\ShopwareAppSkeleton\Controller\ShowLabelController" id="bitbag.shopware_dhl_app.controller.show_label" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.label_fetcher"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.label_service"/>
         </service>
     </services>
 </container>

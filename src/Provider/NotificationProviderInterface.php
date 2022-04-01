@@ -12,6 +12,4 @@ interface NotificationProviderInterface
     public function returnNotificationError(string $message, string $shopId): Response;
 
     public function sign(array $content, string $shopId): JsonResponse;
-
-    public function getSecretByShopId(string $shopId): string;
 }

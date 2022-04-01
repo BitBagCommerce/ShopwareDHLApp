@@ -8,7 +8,7 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -30,7 +30,7 @@ class GetLabelController extends AbstractController
         $this->notificationProvider = $notificationProvider;
     }
 
-    public function __invoke(EventInterface $event): JsonResponse
+    public function __invoke(EventInterface $event): Response
     {
         $data = $event->getEventData();
         $shopId = $event->getShopId();
@@ -40,7 +40,7 @@ class GetLabelController extends AbstractController
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 
         if (null === $label) {
-            return $this->$this->notificationProvider->returnNotificationError($this->translator->trans('bitbag.shopware_dhl_app.order.not_found'), $shopId);
+            return $this->notificationProvider->returnNotificationError($this->translator->trans('bitbag.shopware_dhl_app.order.not_found'), $shopId);
         }
 
         $redirectUrl = $this->generateUrl(

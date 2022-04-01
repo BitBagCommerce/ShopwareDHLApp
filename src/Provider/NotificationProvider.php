@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Provider;
 
+use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,17 +39,16 @@ final class NotificationProvider implements NotificationProviderInterface
     {
         $response = new JsonResponse($content);
 
-        $secret = $this->getSecretByShopId($shopId);
+        $secret = $this->shopRepository->findSecretByShopId($shopId);
+
+        if (null === $secret) {
+            throw new ConfigNotFoundException('Secret not found');
+        }
 
         $hmac = hash_hmac('sha256', (string) $response->getContent(), $secret);
 
         $response->headers->set('shopware-app-signature', $hmac);
 
         return $response;
-    }
-
-    public function getSecretByShopId(string $shopId): string
-    {
-        return (string) $this->shopRepository->findSecretByShopId($shopId);
     }
 }

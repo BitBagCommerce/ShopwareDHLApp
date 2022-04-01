@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Saver;
+namespace BitBag\ShopwareAppSkeleton\Persister;
 
-interface LabelSaverInterface
+interface LabelPersisterInterface
 {
-    public function save(
+    public function persist(
         string $shopId,
         int $shipmentId,
         string $orderId

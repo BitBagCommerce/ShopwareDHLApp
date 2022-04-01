@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\DHL;
 
-use Alexcherniatin\DHL\Exceptions\DHL24Exception;
-use Alexcherniatin\DHL\Exceptions\SoapException;
 use Alexcherniatin\DHL\Structures\ItemToPrint;
+use BitBag\ShopwareAppSkeleton\Exception\LabelNotFoundException;
 use BitBag\ShopwareAppSkeleton\Model\LabelData;
 use BitBag\ShopwareAppSkeleton\Model\LabelDataInterface;
 
-final class LabelFetcher implements LabelFetcherInterface
+final class LabelApiService implements LabelApiServiceInterface
 {
     private ApiResolverInterface $apiResolver;
 
@@ -32,8 +31,8 @@ final class LabelFetcher implements LabelFetcherInterface
 
         try {
             $result = $dhl->getLabels($itemsToPrint);
-        } catch (DHL24Exception|SoapException $e) {
-            throw new DHL24Exception($e->getMessage());
+        } catch (LabelNotFoundException $e) {
+            throw new LabelNotFoundException($e->getMessage());
         }
 
         return new LabelData($result['labelType'], $result['shipmentId'], $result['labelData']);
