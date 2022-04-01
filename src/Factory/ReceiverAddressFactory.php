@@ -19,7 +19,6 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
 
         $shippingAddress['street'] = $streetAddress[1];
         $shippingAddress['houseNumber'] = $streetAddress[2];
-        file_put_contents('dumb_error.json', json_encode($customFields, \JSON_PRETTY_PRINT));
 
         return (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)

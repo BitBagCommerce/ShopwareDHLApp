@@ -10,9 +10,7 @@ use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
 final class ShipmentFullDataFactory implements ShipmentFullDataFactoryInterface
 {
-    /**
-     * @throws InvalidStructureException
-     */
+
     public function create(
         array $addressStructure,
         array $receiverAddressStructure,

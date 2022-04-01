@@ -61,14 +61,6 @@ final class OrderController
 
         $totalWeight = $this->countTotalWeight($order['data'][0]['lineItems']);
 
-        $orderData = [
-            'shippingAddress' => $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
-            'customerEmail' => $order['data'][0]['orderCustomer']['email'],
-            'totalWeight' => $totalWeight,
-            'customFields' => $order['data'][0]['customFields'],
-            'shopId' => $shopId,
-        ];
-
         $orderData = new OrderData(
             $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
             $order['data'][0]['orderCustomer']['email'],
