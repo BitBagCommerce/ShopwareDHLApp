@@ -15,4 +15,6 @@ interface OrderDataInterface
     public function getCustomFields(): array;
 
     public function getShopId(): string;
+
+    public function getOrderId(): string;
 }

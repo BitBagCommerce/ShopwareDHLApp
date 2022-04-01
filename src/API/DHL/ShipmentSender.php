@@ -9,6 +9,7 @@ use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
 use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
+use BitBag\ShopwareAppSkeleton\Saver\LabelSaverInterface;
 
 final class ShipmentSender implements ShipmentSenderInterface
 {
@@ -16,12 +17,16 @@ final class ShipmentSender implements ShipmentSenderInterface
 
     private PackageFactory $packageFactory;
 
+    private LabelSaverInterface $labelSaver;
+
     public function __construct(
         ApiResolverInterface $apiResolver,
-        PackageFactory $packageFactory
+        PackageFactory $packageFactory,
+        LabelSaverInterface $labelSaver
     ) {
         $this->apiResolver = $apiResolver;
         $this->packageFactory = $packageFactory;
+        $this->labelSaver = $labelSaver;
     }
 
     public function createShipments(
@@ -33,7 +38,8 @@ final class ShipmentSender implements ShipmentSenderInterface
         $shipmentFullDataStructure = $this->packageFactory->create($config, $orderData);
 
         try {
-            $dhl->createShipments($shipmentFullDataStructure);
+            $res = $dhl->createShipments($shipmentFullDataStructure);
+            $this->labelSaver->save($orderData->getShopId(), $res['shipmentId'], $orderData->getOrderId());
         } catch (SoapException $th) {
             throw new ShipmentException($th->getMessage());
         }
