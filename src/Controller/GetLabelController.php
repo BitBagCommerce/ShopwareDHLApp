@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
+use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,19 +20,19 @@ class GetLabelController extends AbstractController
 
     private TranslatorInterface $translator;
 
-    private ShopRepositoryInterface $shopRepository;
+    private NotificationProviderInterface $notificationProvider;
 
     public function __construct(
         LabelRepository $labelRepository,
         TranslatorInterface $translator,
-        ShopRepositoryInterface $shopRepository
+        NotificationProviderInterface $notificationProvider
     ) {
         $this->labelRepository = $labelRepository;
         $this->translator = $translator;
-        $this->shopRepository = $shopRepository;
+        $this->notificationProvider = $notificationProvider;
     }
 
-    public function __invoke(EventInterface $event)
+    public function __invoke(EventInterface $event): JsonResponse
     {
         $data = $event->getEventData();
         $shopId = $event->getShopId();
@@ -41,7 +42,7 @@ class GetLabelController extends AbstractController
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 
         if (null === $label) {
-            return $this->returnNotificationError($this->translator->trans('bitbag.shopware_dhl_app.order.not_found'), $shopId);
+            return $this->$this->notificationProvider->returnNotificationError($this->translator->trans('bitbag.shopware_dhl_app.order.not_found'), $shopId);
         }
 
         $redirectUrl = $this->generateUrl(
@@ -57,37 +58,6 @@ class GetLabelController extends AbstractController
             ],
         ];
 
-        return $this->sign($response, $shopId);
-    }
-
-    private function returnNotificationError(string $message, string $shopId): Response
-    {
-        $response = [
-            'actionType' => 'notification',
-            'payload' => [
-                'status' => 'error',
-                'message' => $this->translator->trans($message),
-            ],
-        ];
-
-        return $this->sign($response, $shopId);
-    }
-
-    private function sign(array $content, string $shopId): JsonResponse
-    {
-        $response = new JsonResponse($content);
-
-        $secret = $this->getSecretByShopId($shopId);
-
-        $hmac = hash_hmac('sha256', (string) $response->getContent(), $secret);
-
-        $response->headers->set('shopware-app-signature', $hmac);
-
-        return $response;
-    }
-
-    private function getSecretByShopId(string $shopId): string
-    {
-        return (string) $this->shopRepository->findSecretByShopId($shopId);
+        return $this->notificationProvider->sign($response, $shopId);
     }
 }

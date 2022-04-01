@@ -26,7 +26,7 @@
         <service class="BitBag\ShopwareAppSkeleton\Controller\GetLabelController" id="bitbag.shopware_dhl_app.controller.get_label" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
             <argument type="service" id="translator"/>
-            <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.provider.notification"/>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
