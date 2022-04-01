@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\EventSubscriber;
 
-use BitBag\ShopwareAppSkeleton\API\AvailabilityRuleCreatorInterface;
-use BitBag\ShopwareAppSkeleton\API\ClientApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\API\CustomFieldsCreatorInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiServiceInterface;
+use BitBag\ShopwareAppSkeleton\API\Shopware\AvailabilityRuleCreatorInterface;
+use BitBag\ShopwareAppSkeleton\API\Shopware\CustomFieldsCreatorInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\LifecycleEvent\AppActivatedEvent;
 use BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactoryInterface;

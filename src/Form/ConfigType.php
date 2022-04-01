@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Form;
 
+use Alexcherniatin\DHL\Structures\PaymentData;
 use BitBag\ShopwareAppSkeleton\Entity\Config;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,6 +45,20 @@ class ConfigType extends AbstractType
                 'required' => true,
             ])
             ->add('email', TextType::class, [
+                'required' => true,
+            ])
+            ->add('payerType', ChoiceType::class, [
+                'choices' => [
+                    'Shipper' => PaymentData::PAYER_TYPE_SHIPPER,
+                    'Receiver' => PaymentData::PAYER_TYPE_RECEIVER,
+                ],
+                'required' => true,
+            ])
+            ->add('paymentMethod', ChoiceType::class, [
+                'choices' => [
+                    'Bank transfer' => PaymentData::PAYMENT_METHOD_BANK_TRANSFER,
+                    'Cash' => PaymentData::PAYMENT_METHOD_CASH,
+                ],
                 'required' => true,
             ])
         ;

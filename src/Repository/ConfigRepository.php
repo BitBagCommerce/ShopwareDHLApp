@@ -8,7 +8,7 @@ use BitBag\ShopwareAppSkeleton\Entity\Config;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ConfigRepository extends ServiceEntityRepository implements ConfigRepositoryInterface
+class ConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

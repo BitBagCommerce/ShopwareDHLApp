@@ -7,7 +7,7 @@ namespace BitBag\ShopwareAppSkeleton\Controller;
 use BitBag\ShopwareAppSkeleton\Entity\Config;
 use BitBag\ShopwareAppSkeleton\Entity\ShopInterface;
 use BitBag\ShopwareAppSkeleton\Form\ConfigType;
-use BitBag\ShopwareAppSkeleton\Repository\ConfigRepositoryInterface;
+use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class APISettingsController extends AbstractController
 {
-    private ConfigRepositoryInterface $configRepository;
+    private ConfigRepository $configRepository;
 
     private ShopRepositoryInterface $shopRepository;
 
@@ -26,7 +26,7 @@ final class APISettingsController extends AbstractController
     private TranslatorInterface $translator;
 
     public function __construct(
-        ConfigRepositoryInterface $configRepository,
+        ConfigRepository $configRepository,
         ShopRepositoryInterface $shopRepository,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator

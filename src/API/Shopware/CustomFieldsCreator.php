@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API;
+namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactoryInterface;
 
 final class CustomFieldsCreator implements CustomFieldsCreatorInterface
 {
-    private DetailsPackageFieldsServiceInterface $detailsPackageFieldsFactory;
+    private CustomFieldFilterInterface $detailsPackageFields;
 
     private CustomFieldPayloadFactoryInterface $createCustomFieldFactory;
 
     private CustomFieldSetCreatorInterface $customFieldSetCreator;
 
     public function __construct(
-        DetailsPackageFieldsServiceInterface $detailsPackageFieldsFactory,
+        CustomFieldFilterInterface $detailsPackageFields,
         CustomFieldPayloadFactoryInterface $createCustomFieldFactory,
         CustomFieldSetCreatorInterface $customFieldSetCreator
     ) {
-        $this->detailsPackageFieldsFactory = $detailsPackageFieldsFactory;
+        $this->detailsPackageFields = $detailsPackageFields;
         $this->createCustomFieldFactory = $createCustomFieldFactory;
         $this->customFieldSetCreator = $customFieldSetCreator;
     }
@@ -29,7 +29,7 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
     {
         $customFieldSet = $this->customFieldSetCreator->create($client);
 
-        $detailsPackageFields = $this->detailsPackageFieldsFactory->create($client);
+        $detailsPackageFields = $this->detailsPackageFields->filter($client);
 
         foreach ($detailsPackageFields as $detailsPackageField) {
             $customFieldArr = $this->createCustomFieldFactory->create(

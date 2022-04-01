@@ -2,12 +2,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\API\CreateShipment" id="bitbag.shopware_dhl_app.api.create_shipment" public="true">
-            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
-        </service>
-
         <service class="BitBag\ShopwareAppSkeleton\Controller\OrderController" id="bitbag.shopware_dhl_app.controller.order" public="true">
-            <argument type="service" id="bitbag.shopware_dhl_app.api.create_shipment"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.shipment_sender"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"

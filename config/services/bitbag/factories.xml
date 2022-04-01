@@ -10,14 +10,42 @@
                  id="bitbag.shopware_dhl_app.factory.create_custom_field_set">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\DetailsPackageFieldsService"
-                 id="bitbag.shopware_dhl_app.factory.create_details_package">
-            <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
-        </service>
-
         <service class="BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_shipping_method">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\AddressFactory"
+                 id="bitbag.shopware_dhl_app.factory.sender_address">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ReceiverAddressFactory"
+                 id="bitbag.shopware_dhl_app.factory.receiver_address">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\PieceFactory"
+                 id="bitbag.shopware_dhl_app.factory.piece">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ShipmentFullDataFactory"
+                 id="bitbag.shopware_dhl_app.factory.shipment">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\PaymentDataFactory"
+                 id="bitbag.shopware_dhl_app.factory.payment">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\ServiceDefinitionFactory"
+                 id="bitbag.shopware_dhl_app.factory.service_definition">
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Factory\PackageFactory"
+                 id="bitbag.shopware_dhl_app.factory.package_factory">
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.sender_address"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.receiver_address"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.piece"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.shipment"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.payment"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.factory.service_definition"/>
         </service>
     </services>
 </container>

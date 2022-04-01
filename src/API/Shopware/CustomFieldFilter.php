@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API;
+namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
+use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiService;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 
-final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceInterface
+final class CustomFieldFilter implements CustomFieldFilterInterface
 {
     private CustomFieldNamesProviderInterface $customFieldNamesProvider;
 
@@ -22,7 +23,7 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
         $this->clientApiService = $clientApiService;
     }
 
-    public function create(ClientInterface $client): array
+    public function filter(ClientInterface $client): array
     {
         $customFieldNames = $this->customFieldNamesProvider->getFields();
 
@@ -36,7 +37,7 @@ final class DetailsPackageFieldsService implements DetailsPackageFieldsServiceIn
             $customField = $this->clientApiService->findCustomFieldIdsByName($client, $customFieldName);
 
             if (0 !== $customField['total']) {
-                return [];
+                continue;
             }
 
             $detailsPackageFields[] = [

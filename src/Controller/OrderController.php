@@ -4,26 +4,40 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\CreateShipmentInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSenderInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
+use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
+use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
+use BitBag\ShopwareAppSkeleton\Model\OrderData;
+use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
 {
-    private CreateShipmentInterface $shipment;
+    private ShipmentSenderInterface $shipmentSender;
 
-    public function __construct(CreateShipmentInterface $shipment)
+    private ConfigRepository $configRepository;
+
+    public function __construct(ShipmentSenderInterface $shipmentSender, ConfigRepository $configRepository)
     {
-        $this->shipment = $shipment;
+        $this->shipmentSender = $shipmentSender;
+        $this->configRepository = $configRepository;
     }
 
     public function __invoke(EventInterface $event, ClientInterface $client): Response
     {
         $data = $event->getEventData();
 
-        $orderId = $data['data']['ids'][0];
+        $orderId = $data['ids'][0];
         $shopId = $event->getShopId();
+
+        /** @var ConfigInterface|null $config */
+        $config = $this->configRepository->findOneBy(['shop' => $shopId]);
+
+        if (null === $config) {
+            throw new ConfigNotFoundException('Config not found');
+        }
 
         $orderAddressFilter = [
             'filter' => [
@@ -44,9 +58,24 @@ final class OrderController
         ];
 
         $order = $client->search('order', $orderAddressFilter);
-        $lineItems = $order['data'][0]['lineItems'];
-        $customerEmail = $order['data'][0]['orderCustomer']['email'];
 
+        $totalWeight = $this->countTotalWeight($order['data'][0]['lineItems']);
+
+        $orderData = new OrderData(
+            $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
+            $order['data'][0]['orderCustomer']['email'],
+            $totalWeight,
+            $order['data'][0]['customFields'],
+            $shopId
+        );
+
+        $this->shipmentSender->createShipments($orderData, $config);
+
+        return new Response();
+    }
+
+    public function countTotalWeight(array $lineItems): int
+    {
         $totalWeight = 0;
 
         foreach ($lineItems as $item) {
@@ -54,10 +83,6 @@ final class OrderController
             $totalWeight += $weight;
         }
 
-        $shippingAddress = $order['data'][0]['deliveries'][0]['shippingOrderAddress'];
-
-        $this->shipment->createShipments($shippingAddress, $shopId, $customerEmail, $totalWeight);
-
-        return new Response();
+        return $totalWeight;
     }
 }
