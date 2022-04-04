@@ -4,25 +4,42 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSenderInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Model\OrderData;
+use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
+use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
+use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
 {
-    private ShipmentSenderInterface $shipmentSender;
+    private ShipmentApiServiceInterface $shipmentApiService;
 
     private ConfigRepository $configRepository;
 
-    public function __construct(ShipmentSenderInterface $shipmentSender, ConfigRepository $configRepository)
-    {
-        $this->shipmentSender = $shipmentSender;
+    private LabelRepository $labelRepository;
+
+    private NotificationProviderInterface $notificationProvider;
+
+    private LabelPersisterInterface $labelPersister;
+
+    public function __construct(
+        ShipmentApiServiceInterface $shipmentApiService,
+        ConfigRepository $configRepository,
+        LabelRepository $labelRepository,
+        NotificationProviderInterface $notificationProvider,
+        LabelPersisterInterface $labelPersister
+    ) {
+        $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
+        $this->labelRepository = $labelRepository;
+        $this->notificationProvider = $notificationProvider;
+        $this->labelPersister = $labelPersister;
     }
 
     public function __invoke(EventInterface $event, ClientInterface $client): Response
@@ -31,6 +48,12 @@ final class OrderController
 
         $orderId = $data['ids'][0];
         $shopId = $event->getShopId();
+
+        $label = $this->labelRepository->findByOrderId($orderId, $shopId);
+
+        if (null !== $label) {
+            return $this->notificationProvider->returnNotificationError('bitbag.shopware_dhl_app.order.not_found', $shopId);
+        }
 
         /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
@@ -66,10 +89,13 @@ final class OrderController
             $order['data'][0]['orderCustomer']['email'],
             $totalWeight,
             $order['data'][0]['customFields'],
-            $shopId
+            $shopId,
+            $orderId
         );
 
-        $this->shipmentSender->createShipments($orderData, $config);
+        $shipment = $this->shipmentApiService->createShipments($orderData, $config);
+
+        $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
 
         return new Response();
     }

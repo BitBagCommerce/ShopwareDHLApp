@@ -3,3 +3,8 @@ bitbag:
     ui:
       save: 'Save'
       saved: 'Successfully saved'
+    order:
+      not_found: 'Order not found. Create a package first'
+      already_created: 'A package has already been created for this order'
+    label:
+      not_found: 'Label not found'

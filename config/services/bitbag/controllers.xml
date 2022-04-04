@@ -5,6 +5,9 @@
         <service class="BitBag\ShopwareAppSkeleton\Controller\OrderController" id="bitbag.shopware_dhl_app.controller.order" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.shipment_sender"/>
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.provider.notification"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.persister.label_persister"/>
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"
@@ -13,12 +16,25 @@
             <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
-
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
-
             <tag name="controller.service_arguments" />
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Controller\GetLabelController" id="bitbag.shopware_dhl_app.controller.get_label" public="true">
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.provider.notification"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <tag name="controller.service_arguments" />
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\Controller\ShowLabelController" id="bitbag.shopware_dhl_app.controller.show_label" public="true">
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.label_service"/>
         </service>
     </services>
 </container>

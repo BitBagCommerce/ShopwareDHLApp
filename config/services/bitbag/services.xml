@@ -20,7 +20,7 @@
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\API\DHL\ApiResolver"
-                 id="bitbag.shopware_dhl_app.api.api_service">
+                 id="bitbag.shopware_dhl_app.api.api_resolver">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
         </service>
 
@@ -28,9 +28,9 @@
                  id="bitbag.shopware_dhl_app.api.availability_rule_creator">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSender"
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiService"
                  id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
-            <argument type="service" id="bitbag.shopware_dhl_app.api.api_service"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.package_factory"/>
         </service>
 
@@ -38,6 +38,11 @@
                  id="bitbag.shopware_dhl_app.factory.custom_field_filter">
             <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
+        </service>
+
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\LabelApiService"
+                 id="bitbag.shopware_dhl_app.api.label_service">
+            <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
         </service>
     </services>
 </container>

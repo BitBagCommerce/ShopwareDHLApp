@@ -10,7 +10,7 @@ use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
 use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
 
-final class ShipmentSender implements ShipmentSenderInterface
+final class ShipmentApiService implements ShipmentApiServiceInterface
 {
     private ApiResolverInterface $apiResolver;
 
@@ -27,15 +27,14 @@ final class ShipmentSender implements ShipmentSenderInterface
     public function createShipments(
         OrderDataInterface $orderData,
         ConfigInterface $config
-    ): void {
+    ): array {
         $dhl = $this->apiResolver->getApi($orderData->getShopId());
-
         $shipmentFullDataStructure = $this->packageFactory->create($config, $orderData);
 
         try {
-            $dhl->createShipments($shipmentFullDataStructure);
-        } catch (SoapException $th) {
-            throw new ShipmentException($th->getMessage());
+            return $dhl->createShipments($shipmentFullDataStructure);
+        } catch (SoapException $e) {
+            throw new ShipmentException($e->getMessage());
         }
     }
 }

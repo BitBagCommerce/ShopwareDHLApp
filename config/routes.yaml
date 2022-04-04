@@ -21,5 +21,15 @@ send_order:
 
 api_settings:
   methods: ['GET', 'POST']
-  path: /view/api-settings
+  path: /app/api-settings
   controller: bitbag.shopware_dhl_app.controller.api_settings
+
+show_label:
+  methods: ['GET']
+  path: /app/show-label
+  controller: bitbag.shopware_dhl_app.controller.show_label
+
+get_label:
+  methods: ['POST', 'GET']
+  path: /app/get-label
+  controller: bitbag.shopware_dhl_app.controller.get_label

@@ -7,10 +7,10 @@ namespace BitBag\ShopwareAppSkeleton\API\DHL;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
 
-interface ShipmentSenderInterface
+interface ShipmentApiServiceInterface
 {
     public function createShipments(
         OrderDataInterface $orderData,
         ConfigInterface $config
-    ): void;
+    ): array;
 }
