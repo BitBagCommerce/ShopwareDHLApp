@@ -45,7 +45,7 @@ final class ShowLabelController
 
     private function getLabelResponse(string $shopId, LabelInterface $label): Response
     {
-        $labelResponse = $this->labelApiService->fetchLabel($shopId, $label->getParcelId());
+        $labelResponse = $this->labelApiService->fetchLabel($label->getParcelId(), $shopId);
 
         $filename = sprintf('filename="order_%s.pdf"', $label->getOrderId());
 

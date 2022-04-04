@@ -11,7 +11,7 @@ use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
 use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 
-final class ShipmentSender implements ShipmentSenderInterface
+final class ShipmentApiService implements ShipmentApiServiceInterface
 {
     private ApiResolverInterface $apiResolver;
 
@@ -40,8 +40,8 @@ final class ShipmentSender implements ShipmentSenderInterface
         try {
             $shipment = $dhl->createShipments($shipmentFullDataStructure);
             $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
-        } catch (SoapException $th) {
-            throw new ShipmentException($th->getMessage());
+        } catch (SoapException $e) {
+            throw new ShipmentException($e->getMessage());
         }
     }
 }

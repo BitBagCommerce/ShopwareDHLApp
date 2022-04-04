@@ -29,7 +29,7 @@ class Label implements LabelInterface
      * @ORM\ManyToOne(targetEntity=Shop::class)
      * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
      */
-    private $shop;
+    private ShopInterface $shop;
 
     public function __construct(
         string $orderId,

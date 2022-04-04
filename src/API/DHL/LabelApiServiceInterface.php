@@ -8,5 +8,5 @@ use BitBag\ShopwareAppSkeleton\Model\LabelDataInterface;
 
 interface LabelApiServiceInterface
 {
-    public function fetchLabel(string $shopId, string $parcelId): LabelDataInterface;
+    public function fetchLabel(string $parcelId, string $shopId): LabelDataInterface;
 }

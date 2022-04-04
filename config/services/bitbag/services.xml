@@ -28,7 +28,7 @@
                  id="bitbag.shopware_dhl_app.api.availability_rule_creator">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSender"
+        <service class="BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiService"
                  id="bitbag.shopware_dhl_app.api.shipment_sender" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.package_factory"/>

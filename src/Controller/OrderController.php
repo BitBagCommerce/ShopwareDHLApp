@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentSenderInterface;
+use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class OrderController
 {
-    private ShipmentSenderInterface $shipmentSender;
+    private ShipmentApiServiceInterface $shipmentApiService;
 
     private ConfigRepository $configRepository;
 
@@ -26,12 +26,12 @@ final class OrderController
     private NotificationProviderInterface $notificationProvider;
 
     public function __construct(
-        ShipmentSenderInterface $shipmentSender,
+        ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
         LabelRepository $labelRepository,
         NotificationProviderInterface $notificationProvider
     ) {
-        $this->shipmentSender = $shipmentSender;
+        $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
         $this->labelRepository = $labelRepository;
         $this->notificationProvider = $notificationProvider;
@@ -88,7 +88,7 @@ final class OrderController
             $orderId
         );
 
-        $this->shipmentSender->createShipments($orderData, $config);
+        $this->shipmentApiService->createShipments($orderData, $config);
 
         return new Response();
     }

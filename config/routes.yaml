@@ -30,6 +30,6 @@ show_label:
   controller: bitbag.shopware_dhl_app.controller.show_label
 
 get_label:
-  methods: ['GET']
+  methods: ['POST', 'GET']
   path: /app/get-label
   controller: bitbag.shopware_dhl_app.controller.get_label
