@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
+use BitBag\ShopwareAppSystemBundle\Event\EventInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -32,10 +32,9 @@ class GetLabelController extends AbstractController
 
     public function __invoke(EventInterface $event): Response
     {
-        $data = $event->getEventData();
         $shopId = $event->getShopId();
 
-        $orderId = $data['ids'][0];
+        $orderId = $event->getSingleEventData()->getPrimaryKey();
 
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 

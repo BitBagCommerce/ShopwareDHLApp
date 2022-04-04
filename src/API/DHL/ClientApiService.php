@@ -4,128 +4,184 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\DHL;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Data\Criteria;
+use Vin\ShopwareSdk\Data\Filter\ContainsFilter;
+use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
+use Vin\ShopwareSdk\Repository\RepositoryInterface;
+use Vin\ShopwareSdk\Repository\Struct\EntitySearchResult;
+use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 final class ClientApiService implements ClientApiServiceInterface
 {
-    public function getOrder(ClientInterface $client, string $orderId): array
-    {
-        $orderAddressFilter = [
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'id',
-                    'value' => $orderId,
-                ],
-            ],
-            'associations' => [
-                'lineItems' => [
-                    'associations' => [
-                        'product' => [],
-                    ],
-                ],
-                'deliveries' => [
-                    'associations' => [
-                        'shippingMethod' => [],
-                    ],
-                ],
-            ],
-        ];
+    private RepositoryInterface $shippingMethodRepository;
 
-        return $client->search('order', $orderAddressFilter)['data'][0];
+    private RepositoryInterface $orderRepository;
+
+    private RepositoryInterface $deliveryTimeRepository;
+
+    private RepositoryInterface $ruleRepository;
+
+    private RepositoryInterface $customFieldRepository;
+
+    private RepositoryInterface $customFieldSetRepository;
+
+    public function __construct(
+        RepositoryInterface $shippingMethodRepository,
+        RepositoryInterface $orderRepository,
+        RepositoryInterface $deliveryTimeRepository,
+        RepositoryInterface $ruleRepository,
+        RepositoryInterface $customFieldRepository,
+        RepositoryInterface $customFieldSetRepository
+    ) {
+        $this->shippingMethodRepository = $shippingMethodRepository;
+        $this->orderRepository = $orderRepository;
+        $this->deliveryTimeRepository = $deliveryTimeRepository;
+        $this->ruleRepository = $ruleRepository;
+        $this->customFieldRepository = $customFieldRepository;
+        $this->customFieldSetRepository = $customFieldSetRepository;
+    }
+
+    public function getOrder(Context $context, string $orderId): EntitySearchResult
+    {
+        /*        $orderAddressFilter = [
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'id',
+                            'value' => $orderId,
+                        ],
+                    ],
+                    'associations' => [
+                        'lineItems' => [
+                            'associations' => [
+                                'product' => [],
+                            ],
+                        ],
+                        'deliveries' => [
+                            'associations' => [
+                                'shippingMethod' => [],
+                            ],
+                        ],
+                    ],
+                ];*/
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('id', $orderId));
+        $criteria->addAssociations(['lineItems.product', 'deliveries.shippingMethod']);
+
+        return $this->orderRepository->search($criteria, $context);
+        // return $client->search('order', $orderAddressFilter)['data'][0];
     }
 
     public function findDeliveryTimeByMinMax(
-        ClientInterface $client,
+        Context $context,
         int $min,
         int $max
-    ): array {
-        $filterForDeliveryTime = [
-            'filter' => [
-                [
-                    'type' => 'contains',
-                    'field' => 'unit',
-                    'value' => 'day',
-                ],
-                [
-                    'type' => 'equals',
-                    'field' => 'min',
-                    'value' => $min,
-                ],
-                [
-                    'type' => 'equals',
-                    'field' => 'max',
-                    'value' => $max,
-                ],
-            ],
-        ];
+    ): IdSearchResult {
+        /*        $filterForDeliveryTime = [
+                    'filter' => [
+                        [
+                            'type' => 'contains',
+                            'field' => 'unit',
+                            'value' => 'day',
+                        ],
+                        [
+                            'type' => 'equals',
+                            'field' => 'min',
+                            'value' => $min,
+                        ],
+                        [
+                            'type' => 'equals',
+                            'field' => 'max',
+                            'value' => $max,
+                        ],
+                    ],
+                ];*/
 
-        return $client->searchIds('delivery-time', $filterForDeliveryTime);
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('min', $min));
+        $criteria->addFilter(new EqualsFilter('max', $max));
+        $criteria->addFilter(new ContainsFilter('unit', 'day'));
+
+        return $this->deliveryTimeRepository->searchIds($criteria, $context);
+        // return $client->searchIds('delivery-time', $filterForDeliveryTime);
     }
 
-    public function findShippingMethodByShippingKey(ClientInterface $client): array
+    public function findShippingMethodByShippingKey(Context $context): IdSearchResult
     {
-        $filterForShippingMethod = [
-            'filter' => [
-                [
-                    'type' => 'contains',
-                    'field' => 'name',
-                    'value' => Defaults::SHIPPING_METHOD_NAME,
-                ],
-            ],
-        ];
+        /*        $filterForShippingMethod = [
+                    'filter' => [
+                        [
+                            'type' => 'contains',
+                            'field' => 'name',
+                            'value' => Defaults::SHIPPING_METHOD_NAME,
+                        ],
+                    ],
+                ];*/
 
-        return $client->searchIds('shipping-method', $filterForShippingMethod);
+        $criteria = new Criteria();
+        $criteria->addFilter(new ContainsFilter('name', Defaults::SHIPPING_METHOD_NAME));
+
+        return $this->shippingMethodRepository->searchIds($criteria, $context);
+        // return $client->searchIds('shipping-method', $filterForShippingMethod);
     }
 
-    public function findRuleByName(ClientInterface $client, string $name): array
+    public function findRuleByName(Context $context, string $name): IdSearchResult
     {
-        $filterRule = [
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $name,
-                ],
-            ],
-        ];
+        /*        $filterRule = [
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'name',
+                            'value' => $name,
+                        ],
+                    ],
+                ];*/
 
-        return $client->searchIds('rule', $filterRule);
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('name', $name));
+
+        return $this->ruleRepository->searchIds($criteria, $context);
+        // return $client->searchIds('rule', $filterRule);
     }
 
-    public function findRandomRule(ClientInterface $client): array
+    public function findCustomFieldIdsByName(Context $context, string $name): IdSearchResult
     {
-        return $client->searchIds('rule', []);
+        /*        $customFieldFilter = [
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'name',
+                            'value' => $name,
+                        ],
+                    ],
+                ];*/
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('name', $name));
+
+        return $this->customFieldRepository->searchIds($criteria, $context);
+        // return $client->search('custom-field', $customFieldFilter);
     }
 
-    public function findCustomFieldIdsByName(ClientInterface $client, string $name): array
+    public function findCustomFieldSetIdsByName(Context $context, string $name): IdSearchResult
     {
-        $customFieldFilter = [
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $name,
-                ],
-            ],
-        ];
+        /*        $customFieldFilter = [
+                    'filter' => [
+                        [
+                            'type' => 'equals',
+                            'field' => 'name',
+                            'value' => $name,
+                        ],
+                    ],
+                ];*/
 
-        return $client->search('custom-field', $customFieldFilter);
-    }
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('name', $name));
 
-    public function findCustomFieldSetByName(ClientInterface $client, string $name): array
-    {
-        $customFieldFilter = [
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $name,
-                ],
-            ],
-        ];
-
-        return $client->search('custom-field-set', $customFieldFilter);
+        return $this->customFieldSetRepository->searchIds($criteria, $context);
+        // return $client->search('custom-field-set', $customFieldFilter);
     }
 }

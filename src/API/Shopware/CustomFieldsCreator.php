@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactoryInterface;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 final class CustomFieldsCreator implements CustomFieldsCreatorInterface
 {
@@ -15,21 +16,25 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
 
     private CustomFieldSetCreatorInterface $customFieldSetCreator;
 
+    private RepositoryInterface $customFieldRepository;
+
     public function __construct(
         CustomFieldFilterInterface $detailsPackageFields,
         CustomFieldPayloadFactoryInterface $createCustomFieldFactory,
-        CustomFieldSetCreatorInterface $customFieldSetCreator
+        CustomFieldSetCreatorInterface $customFieldSetCreator,
+        RepositoryInterface $customFieldRepository
     ) {
         $this->detailsPackageFields = $detailsPackageFields;
         $this->createCustomFieldFactory = $createCustomFieldFactory;
         $this->customFieldSetCreator = $customFieldSetCreator;
+        $this->customFieldRepository = $customFieldRepository;
     }
 
-    public function create(ClientInterface $client): void
+    public function create(Context $context): void
     {
-        $customFieldSet = $this->customFieldSetCreator->create($client);
+        $customFieldSet = $this->customFieldSetCreator->create($context);
 
-        $detailsPackageFields = $this->detailsPackageFields->filter($client);
+        $detailsPackageFields = $this->detailsPackageFields->filter($context);
 
         foreach ($detailsPackageFields as $detailsPackageField) {
             $customFieldArr = $this->createCustomFieldFactory->create(
@@ -41,7 +46,8 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
                 $customFieldSet['customFieldSet']
             );
 
-            $client->createEntity('custom-field', $customFieldArr);
+            $this->customFieldRepository->create($customFieldArr, $context);
+            // $client->createEntity('custom-field', $customFieldArr);
         }
     }
 }

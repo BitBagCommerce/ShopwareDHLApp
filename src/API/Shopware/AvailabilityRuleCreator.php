@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 final class AvailabilityRuleCreator implements AvailabilityRuleCreatorInterface
 {
-    public function create(ClientInterface $client): void
+    private RepositoryInterface $ruleRepository;
+
+    public function __construct(RepositoryInterface $ruleRepository)
     {
-        $rule = [
+        $this->ruleRepository = $ruleRepository;
+    }
+
+    public function create(Context $context): void
+    {
+        $this->ruleRepository->create([
             'name' => Defaults::AVAILABILITY_RULE,
             'createdAt' => new \DateTime('now'),
             'priority' => 100,
-        ];
-
-        $client->createEntity('rule', $rule);
+        ], $context);
     }
 }

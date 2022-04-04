@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
+use Vin\ShopwareSdk\Data\Context;
 
 interface CustomFieldFilterInterface
 {
-    public function filter(ClientInterface $client): array;
+    public function filter(Context $context): array;
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
+use Vin\ShopwareSdk\Data\Context;
 
 interface CustomFieldsCreatorInterface
 {
-    public function create(ClientInterface $client): void;
+    public function create(Context $context): void;
 }
