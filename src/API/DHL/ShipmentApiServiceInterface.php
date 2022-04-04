@@ -12,5 +12,5 @@ interface ShipmentApiServiceInterface
     public function createShipments(
         OrderDataInterface $orderData,
         ConfigInterface $config
-    ): void;
+    ): array;
 }

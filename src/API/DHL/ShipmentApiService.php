@@ -9,7 +9,6 @@ use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
 use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
 use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
-use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 
 final class ShipmentApiService implements ShipmentApiServiceInterface
 {
@@ -17,29 +16,24 @@ final class ShipmentApiService implements ShipmentApiServiceInterface
 
     private PackageFactory $packageFactory;
 
-    private LabelPersisterInterface $labelPersister;
-
     public function __construct(
         ApiResolverInterface $apiResolver,
-        PackageFactory $packageFactory,
-        LabelPersisterInterface $labelPersister
+        PackageFactory $packageFactory
     ) {
         $this->apiResolver = $apiResolver;
         $this->packageFactory = $packageFactory;
-        $this->labelPersister = $labelPersister;
     }
 
     public function createShipments(
         OrderDataInterface $orderData,
         ConfigInterface $config
-    ): void {
+    ): array {
         $dhl = $this->apiResolver->getApi($orderData->getShopId());
 
         $shipmentFullDataStructure = $this->packageFactory->create($config, $orderData);
 
         try {
-            $shipment = $dhl->createShipments($shipmentFullDataStructure);
-            $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
+            return $dhl->createShipments($shipmentFullDataStructure);
         } catch (SoapException $e) {
             throw new ShipmentException($e->getMessage());
         }

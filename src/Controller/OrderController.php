@@ -10,6 +10,7 @@ use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Model\OrderData;
+use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
@@ -25,16 +26,20 @@ final class OrderController
 
     private NotificationProviderInterface $notificationProvider;
 
+    private LabelPersisterInterface $labelPersister;
+
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
         LabelRepository $labelRepository,
-        NotificationProviderInterface $notificationProvider
+        NotificationProviderInterface $notificationProvider,
+        LabelPersisterInterface $labelPersister
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
         $this->labelRepository = $labelRepository;
         $this->notificationProvider = $notificationProvider;
+        $this->labelPersister = $labelPersister;
     }
 
     public function __invoke(EventInterface $event, ClientInterface $client): Response
@@ -88,7 +93,9 @@ final class OrderController
             $orderId
         );
 
-        $this->shipmentApiService->createShipments($orderData, $config);
+        $shipment = $this->shipmentApiService->createShipments($orderData, $config);
+
+        $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
 
         return new Response();
     }
