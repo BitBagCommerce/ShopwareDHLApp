@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/Framework/App/Manifest/Schema/manifest-1.0.xsd">
+    <meta>
+        <name>DHL</name>
+        <label>DHL</label>
+        <description>BitBag Shopware app for DHL</description>
+        <author>BitBag</author>
+        <copyright>(c) by BitBag</copyright>
+        <version>1.0.0</version>
+        <license>MIT</license>
+    </meta>
+
+    <setup>
+        <registrationUrl>http://example-app/app/registration</registrationUrl>
+        <secret>myAppSecret</secret>
+    </setup>
+
+    <permissions>
+        <create>shipping_method</create>
+        <read>shipping_method</read>
+        <update>shipping_method</update>
+        <create>delivery_time</create>
+        <read>delivery_time</read>
+        <read>order</read>
+        <read>order_delivery</read>
+        <read>order_address</read>
+        <read>order_line_item</read>
+        <read>product</read>
+        <read>rule</read>
+        <create>rule</create>
+        <read>custom_field</read>
+        <read>custom_field_set</read>
+        <create>custom_field</create>
+        <create>custom_field_set</create>
+        <create>custom_field_set_relation</create>
+    </permissions>
+    <admin>
+        <action-button action="createPackage" entity="order" view="detail" url="http://example-app/app/send-order">
+            <label>Create package in DHL</label>
+        </action-button>
+
+        <action-button action="getLabel" entity="order" view="detail" url="http://example-app/app/get-label">
+            <label>Get shipping label for DHL</label>
+        </action-button>
+
+        <module name="api-settings"
+                source="http://localhost:7777/app/api-settings"
+                parent="sw-settings"
+                position="50"
+        >
+            <label>API Settings</label>
+        </module>
+    </admin>
+
+    <webhooks>
+        <!--  https://developer.shopware.com/docs/guides/plugins/apps/app-base-guide#webhooks-->
+        <webhook name="appLifecycleDeleted" url="http://example-app/app/lifecycle/deleted" event="app.deleted"/>
+        <webhook name="appLifecycleActivated" url="http://example-app/app/lifecycle/activated" event="app.activated"/>
+    </webhooks>
+</manifest>
