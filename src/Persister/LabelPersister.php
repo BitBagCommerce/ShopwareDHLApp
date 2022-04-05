@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Persister;
 
 use BitBag\ShopwareAppSkeleton\Entity\Label;
-use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
+use BitBag\ShopwareAppSystemBundle\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class LabelPersister implements LabelPersisterInterface

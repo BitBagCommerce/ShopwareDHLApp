@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Entity;
 
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
+use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,8 +21,8 @@ class Config implements ConfigInterface
     private int $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Shop::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
+     * @ORM\OneToOne(targetEntity="BitBag\ShopwareAppSystemBundle\Entity\Shop", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id", onDelete="CASCADE")
      */
     private ShopInterface $shop;
 

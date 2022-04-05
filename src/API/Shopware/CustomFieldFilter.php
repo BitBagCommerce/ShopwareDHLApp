@@ -32,7 +32,7 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
         foreach ($customFieldNames as $key => $item) {
             $type = $item['type'];
 
-            $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX.'_'.$item['name'];
+            $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
             $customField = $this->clientApiService->findCustomFieldIdsByName($context, $customFieldName);
 

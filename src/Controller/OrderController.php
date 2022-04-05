@@ -13,6 +13,7 @@ use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use BitBag\ShopwareAppSystemBundle\Event\EventInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Data\Criteria;
@@ -51,12 +52,18 @@ final class OrderController
         $this->orderRepository = $orderRepository;
     }
 
-    public function __invoke(EventInterface $event, Context $context): Response
-    {
-        $orderId = $event->getSingleEventData()->getPrimaryKey();
+    public function __invoke(
+        EventInterface $event,
+        Context $context,
+        Request $request
+    ): Response {
+        $data = $request->toArray();
+
+        $orderId = $data['data']['ids'][0] ?? '';
+
         $shopId = $event->getShopId();
 
-        $label = $this->labelRepository->findByOrderId($orderId ?? '', $shopId);
+        $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 
         if (null !== $label) {
             return $this->notificationProvider->returnNotificationError('bitbag.shopware_dhl_app.order.not_found', $shopId);
@@ -69,50 +76,33 @@ final class OrderController
             throw new ConfigNotFoundException('Config not found');
         }
 
-        /*        $orderAddressFilter = [
-                    'filter' => [
-                        [
-                            'type' => 'equals',
-                            'field' => 'id',
-                            'value' => $orderId,
-                        ],
-                    ],
-                    'associations' => [
-                        'lineItems' => [
-                            'associations' => [
-                                'product' => [],
-                            ],
-                        ],
-                        'deliveries' => [],
-                    ],
-                ];
-
-                $order = $client->search('order', $orderAddressFilter);*/
-
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('id', $orderId));
         $criteria->addAssociations(['lineItems.product', 'deliveries']);
 
-        /** @var OrderEntity $order */
-        $order = $this->orderRepository->search($criteria, $context);
+        $searchOrder = $this->orderRepository->search($criteria, $context);
+
+        /** @var OrderEntity|null $order */
+        $order = $searchOrder->first();
 
         $totalWeight = $this->countTotalWeight($order->lineItems);
-        /* $totalWeight = $this->countTotalWeight($order['data'][0]['lineItems']);
 
-         $orderData = new OrderData(
-             $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
-             $order['data'][0]['orderCustomer']['email'],
-             $totalWeight,
-             $order['data'][0]['customFields'],
-             $shopId,
-             $orderId
-         );*/
+        /** @var string $customerEmail */
+        $customerEmail = $order?->orderCustomer?->email;
+
+        if (null === $order?->getCustomFields()) {
+            return $this->notificationProvider->returnNotificationError('Fill the package details data.', $shopId);
+        }
+
+        if (null === $order->deliveries?->first()->shippingOrderAddress) {
+            return $this->notificationProvider->returnNotificationError('Fill the order address.', $shopId);
+        }
 
         $orderData = new OrderData(
-            $order->deliveries->first()->shippingOrderAddress,
-            $order->orderCustomer->email,
+            $order->deliveries?->first()->shippingOrderAddress,
+            $customerEmail,
             $totalWeight,
-            $order->getCustomFields(),
+            $order?->getCustomFields(),
             $shopId,
             $orderId
         );
@@ -129,8 +119,10 @@ final class OrderController
         $totalWeight = 0.0;
 
         foreach ($lineItems as $item) {
-            $weight = $item->quantity * $item->product->weight;
-            $totalWeight += $weight;
+            if (null !== $item->product && null !== $item->product->weight) {
+                $weight = $item->quantity * $item->product->weight;
+                $totalWeight += $weight;
+            }
         }
 
         return $totalWeight;

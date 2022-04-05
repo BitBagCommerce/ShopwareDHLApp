@@ -8,12 +8,13 @@
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
             <argument type="service" id="bitbag.shopware_dhl_app.provider.notification"/>
             <argument type="service" id="bitbag.shopware_dhl_app.persister.label_persister"/>
+            <argument type="service" id="shopware.repository.order"/>
         </service>
 
         <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"
                  id="bitbag.shopware_dhl_app.controller.api_settings">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
-            <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
+            <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
             <call method="setContainer">

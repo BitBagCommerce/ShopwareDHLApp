@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Entity;
 
+use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
+
 interface ConfigInterface
 {
     public function getId(): int;

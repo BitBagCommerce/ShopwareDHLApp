@@ -4,7 +4,7 @@
     <services>
         <service class="BitBag\ShopwareAppSkeleton\Persister\LabelPersister"
                  id="bitbag.shopware_dhl_app.persister.label_persister">
-            <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
+            <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
         </service>
     </services>

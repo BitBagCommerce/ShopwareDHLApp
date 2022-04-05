@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Entity;
 
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
+use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,8 +27,8 @@ class Label implements LabelInterface
     private string $parcelId;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Shop::class)
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id")
+     * @ORM\ManyToOne(targetEntity="BitBag\ShopwareAppSystemBundle\Entity\Shop")
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id", onDelete="CASCADE")
      */
     private ShopInterface $shop;
 

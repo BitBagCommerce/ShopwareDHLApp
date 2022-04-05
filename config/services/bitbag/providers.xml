@@ -8,7 +8,7 @@
         <service class="BitBag\ShopwareAppSkeleton\Provider\NotificationProvider"
                  id="bitbag.shopware_dhl_app.provider.notification">
             <argument type="service" id="translator"/>
-            <argument type="service" id="bitbag.shopware_app_skeleton.repository.shop_repository"/>
+            <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
         </service>
     </services>
 </container>
