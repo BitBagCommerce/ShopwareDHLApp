@@ -6,16 +6,17 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 use DateTime;
+use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 final class ShippingMethodPayloadFactory implements ShippingMethodPayloadFactoryInterface
 {
-    public function create(string $ruleId, array $deliveryTime): array
+    public function create(string $ruleId, IdSearchResult $deliveryTime): array
     {
         $currentDateTime = new DateTime();
 
-        if (isset($deliveryTime['total']) && 0 < $deliveryTime['total']) {
+        if (0 < $deliveryTime->getTotal()) {
             $deliveryTimeForDHL = [
-                'deliveryTimeId' => $deliveryTime['data'][0],
+                'deliveryTimeId' => $deliveryTime->firstId(),
             ];
         } else {
             $deliveryTimeForDHL = [

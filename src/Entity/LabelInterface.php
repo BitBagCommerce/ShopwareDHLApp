@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Entity;
 
+use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
+
 interface LabelInterface
 {
     public function getId(): int;

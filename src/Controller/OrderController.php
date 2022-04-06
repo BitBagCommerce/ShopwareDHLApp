@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
 use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
-use BitBag\ShopwareAppSkeleton\AppSystem\Event\EventInterface;
 use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
 use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSkeleton\Model\OrderData;
@@ -14,7 +12,15 @@ use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
+use BitBag\ShopwareAppSystemBundle\Model\Action\ActionInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Data\Criteria;
+use Vin\ShopwareSdk\Data\Entity\Order\OrderEntity;
+use Vin\ShopwareSdk\Data\Entity\OrderLineItem\OrderLineItemCollection;
+use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
+use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 final class OrderController
 {
@@ -28,26 +34,34 @@ final class OrderController
 
     private LabelPersisterInterface $labelPersister;
 
+    private RepositoryInterface $orderRepository;
+
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
         LabelRepository $labelRepository,
         NotificationProviderInterface $notificationProvider,
-        LabelPersisterInterface $labelPersister
+        LabelPersisterInterface $labelPersister,
+        RepositoryInterface $orderRepository
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
         $this->labelRepository = $labelRepository;
         $this->notificationProvider = $notificationProvider;
         $this->labelPersister = $labelPersister;
+        $this->orderRepository = $orderRepository;
     }
 
-    public function __invoke(EventInterface $event, ClientInterface $client): Response
-    {
-        $data = $event->getEventData();
+    public function __invoke(
+        ActionInterface $action,
+        Context $context,
+        Request $request
+    ): Response {
+        $data = $request->toArray();
 
-        $orderId = $data['ids'][0];
-        $shopId = $event->getShopId();
+        $orderId = $data['data']['ids'][0] ?? '';
+
+        $shopId = $action->getSource()->getShopId();
 
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 
@@ -62,33 +76,33 @@ final class OrderController
             throw new ConfigNotFoundException('Config not found');
         }
 
-        $orderAddressFilter = [
-            'filter' => [
-                [
-                    'type' => 'equals',
-                    'field' => 'id',
-                    'value' => $orderId,
-                ],
-            ],
-            'associations' => [
-                'lineItems' => [
-                    'associations' => [
-                        'product' => [],
-                    ],
-                ],
-                'deliveries' => [],
-            ],
-        ];
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('id', $orderId));
+        $criteria->addAssociations(['lineItems.product', 'deliveries']);
 
-        $order = $client->search('order', $orderAddressFilter);
+        $searchOrder = $this->orderRepository->search($criteria, $context);
 
-        $totalWeight = $this->countTotalWeight($order['data'][0]['lineItems']);
+        /** @var OrderEntity|null $order */
+        $order = $searchOrder->first();
+
+        $totalWeight = $this->countTotalWeight($order->lineItems);
+
+        /** @var string $customerEmail */
+        $customerEmail = $order?->orderCustomer?->email;
+
+        if (null === $order?->getCustomFields()) {
+            return $this->notificationProvider->returnNotificationError('Fill the package details data.', $shopId);
+        }
+
+        if (null === $order->deliveries?->first()->shippingOrderAddress) {
+            return $this->notificationProvider->returnNotificationError('Fill the order address.', $shopId);
+        }
 
         $orderData = new OrderData(
-            $order['data'][0]['deliveries'][0]['shippingOrderAddress'],
-            $order['data'][0]['orderCustomer']['email'],
+            $order->deliveries?->first()->shippingOrderAddress,
+            $customerEmail,
             $totalWeight,
-            $order['data'][0]['customFields'],
+            $order?->getCustomFields(),
             $shopId,
             $orderId
         );
@@ -100,13 +114,15 @@ final class OrderController
         return new Response();
     }
 
-    public function countTotalWeight(array $lineItems): int
+    public function countTotalWeight(OrderLineItemCollection $lineItems): float
     {
-        $totalWeight = 0;
+        $totalWeight = 0.0;
 
         foreach ($lineItems as $item) {
-            $weight = $item['quantity'] * $item['product']['weight'];
-            $totalWeight += $weight;
+            if (null !== $item->product && null !== $item->product->weight) {
+                $weight = $item->quantity * $item->product->weight;
+                $totalWeight += $weight;
+            }
         }
 
         return $totalWeight;

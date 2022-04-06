@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\Controller;
 
 use BitBag\ShopwareAppSkeleton\Entity\Config;
-use BitBag\ShopwareAppSkeleton\Entity\ShopInterface;
 use BitBag\ShopwareAppSkeleton\Form\ConfigType;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
-use BitBag\ShopwareAppSkeleton\Repository\ShopRepositoryInterface;
+use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
+use BitBag\ShopwareAppSystemBundle\Repository\ShopRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -19,10 +19,23 @@
                 <file name="src/Entity/*"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
+
         <MissingConstructor>
             <errorLevel type="suppress">
                 <file name="src/Entity/*"/>
             </errorLevel>
         </MissingConstructor>
+
+        <PossiblyNullArgument>
+            <errorLevel type="suppress">
+                <directory name="src/"/>
+            </errorLevel>
+        </PossiblyNullArgument>
+
+        <PossiblyNullPropertyFetch>
+            <errorLevel type="suppress">
+                <directory name="src/"/>
+            </errorLevel>
+        </PossiblyNullPropertyFetch>
     </issueHandlers>
 </psalm>

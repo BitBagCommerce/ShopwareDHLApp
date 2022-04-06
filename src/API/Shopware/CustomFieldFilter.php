@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace BitBag\ShopwareAppSkeleton\API\Shopware;
 
 use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiService;
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
 use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use Vin\ShopwareSdk\Data\Context;
 
 final class CustomFieldFilter implements CustomFieldFilterInterface
 {
@@ -23,7 +23,7 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
         $this->clientApiService = $clientApiService;
     }
 
-    public function filter(ClientInterface $client): array
+    public function filter(Context $context): array
     {
         $customFieldNames = $this->customFieldNamesProvider->getFields();
 
@@ -34,9 +34,9 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
 
             $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
-            $customField = $this->clientApiService->findCustomFieldIdsByName($client, $customFieldName);
+            $customField = $this->clientApiService->findCustomFieldIdsByName($context, $customFieldName);
 
-            if (0 !== $customField['total']) {
+            if (0 !== $customField->getTotal()) {
                 continue;
             }
 

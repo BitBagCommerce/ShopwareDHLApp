@@ -6,5 +6,5 @@ namespace BitBag\ShopwareAppSkeleton\Factory;
 
 interface PieceFactoryInterface
 {
-    public function create(array $customFields, int $totalWeight): array;
+    public function create(array $customFields, float $totalWeight): array;
 }

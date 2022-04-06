@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\API\DHL;
 
-use BitBag\ShopwareAppSkeleton\AppSystem\Client\ClientInterface;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Repository\Struct\EntitySearchResult;
+use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 interface ClientApiServiceInterface
 {
-    public function getOrder(ClientInterface $client, string $orderId): array;
+    public function getOrder(Context $context, string $orderId): EntitySearchResult;
 
     public function findDeliveryTimeByMinMax(
-        ClientInterface $client,
+        Context $context,
         int $min,
         int $max
-    ): array;
+    ): IdSearchResult;
 
-    public function findShippingMethodByShippingKey(ClientInterface $client): array;
+    public function findShippingMethodByShippingKey(Context $context): IdSearchResult;
 
-    public function findRuleByName(ClientInterface $client, string $name): array;
+    public function findRuleByName(Context $context, string $name): IdSearchResult;
 
-    public function findRandomRule(ClientInterface $client): array;
+    public function findCustomFieldIdsByName(Context $context, string $name): IdSearchResult;
 
-    public function findCustomFieldIdsByName(ClientInterface $client, string $name): array;
-
-    public function findCustomFieldSetByName(ClientInterface $client, string $name): array;
+    public function findCustomFieldSetIdsByName(Context $context, string $name): IdSearchResult;
 }

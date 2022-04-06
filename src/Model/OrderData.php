@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareAppSkeleton\Model;
 
+use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
+
 final class OrderData implements OrderDataInterface
 {
-    private array $shippingAddress;
+    private OrderAddressEntity $shippingAddress;
 
     private string $customerEmail;
 
-    private int $totalWeight;
+    private float $totalWeight;
 
     private array $customFields;
 
@@ -19,9 +21,9 @@ final class OrderData implements OrderDataInterface
     private string $orderId;
 
     public function __construct(
-        array $shippingAddress,
+        OrderAddressEntity $shippingAddress,
         string $customerEmail,
-        int $totalWeight,
+        float $totalWeight,
         array $customFields,
         string $shopId,
         string $orderId
@@ -34,7 +36,7 @@ final class OrderData implements OrderDataInterface
         $this->orderId = $orderId;
     }
 
-    public function getShippingAddress(): array
+    public function getShippingAddress(): OrderAddressEntity
     {
         return $this->shippingAddress;
     }
@@ -44,7 +46,7 @@ final class OrderData implements OrderDataInterface
         return $this->customerEmail;
     }
 
-    public function getTotalWeight(): int
+    public function getTotalWeight(): float
     {
         return $this->totalWeight;
     }
