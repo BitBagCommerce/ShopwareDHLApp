@@ -12,7 +12,7 @@ use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
-use BitBag\ShopwareAppSystemBundle\Model\Action\Action;
+use BitBag\ShopwareAppSystemBundle\Model\Action\ActionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Vin\ShopwareSdk\Data\Context;
@@ -53,7 +53,7 @@ final class OrderController
     }
 
     public function __invoke(
-        Action $action,
+        ActionInterface $action,
         Context $context,
         Request $request
     ): Response {

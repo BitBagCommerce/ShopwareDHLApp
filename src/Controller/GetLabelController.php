@@ -6,7 +6,7 @@ namespace BitBag\ShopwareAppSkeleton\Controller;
 
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
-use BitBag\ShopwareAppSystemBundle\Model\Action\Action;
+use BitBag\ShopwareAppSystemBundle\Model\Action\ActionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ class GetLabelController extends AbstractController
         $this->notificationProvider = $notificationProvider;
     }
 
-    public function __invoke(Request $request, Action $action): Response
+    public function __invoke(Request $request, ActionInterface $action): Response
     {
         $data = $request->toArray();
 
