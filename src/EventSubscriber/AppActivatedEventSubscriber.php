@@ -16,26 +16,26 @@ use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 final class AppActivatedEventSubscriber implements EventSubscriberInterface
 {
-    private CustomFieldsCreatorInterface $createCustomFields;
+    private CustomFieldsCreatorInterface $customFieldsCreator;
 
     private ClientApiServiceInterface $apiService;
 
-    private ShippingMethodPayloadFactoryInterface $createShippingMethodFactory;
+    private ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory;
 
     private AvailabilityRuleCreatorInterface $availabilityRuleCreator;
 
     private RepositoryInterface $shippingMethodRepository;
 
     public function __construct(
-        CustomFieldsCreatorInterface $createCustomFields,
+        CustomFieldsCreatorInterface $customFieldsCreator,
         ClientApiServiceInterface $apiService,
-        ShippingMethodPayloadFactoryInterface $createShippingMethodFactory,
+        ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory,
         AvailabilityRuleCreatorInterface $availabilityRuleCreator,
         RepositoryInterface $shippingMethodRepository
     ) {
-        $this->createCustomFields = $createCustomFields;
+        $this->customFieldsCreator = $customFieldsCreator;
         $this->apiService = $apiService;
-        $this->createShippingMethodFactory = $createShippingMethodFactory;
+        $this->shippingMethodPayloadFactory = $shippingMethodPayloadFactory;
         $this->availabilityRuleCreator = $availabilityRuleCreator;
         $this->shippingMethodRepository = $shippingMethodRepository;
     }
@@ -50,7 +50,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
     public function onAppActivated(AppActivatedEvent $event): void
     {
         $context = $event->getContext();
-        $this->createCustomFields->create($context);
+        $this->customFieldsCreator->create($context);
         $this->createShippingMethod($context);
     }
 
@@ -71,7 +71,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
             $rule = $this->apiService->findRuleByName($context, Defaults::AVAILABILITY_RULE);
         }
 
-        $DHLShippingMethod = $this->createShippingMethodFactory->create($rule->firstId() ?? '', $deliveryTime);
+        $DHLShippingMethod = $this->shippingMethodPayloadFactory->create($rule->firstId() ?? '', $deliveryTime);
 
         $this->shippingMethodRepository->create($DHLShippingMethod, $context);
     }
