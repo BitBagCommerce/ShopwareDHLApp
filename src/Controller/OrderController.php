@@ -12,7 +12,7 @@ use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
 use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
 use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
 use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
-use BitBag\ShopwareAppSystemBundle\Event\EventInterface;
+use BitBag\ShopwareAppSystemBundle\Model\Action\Action;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Vin\ShopwareSdk\Data\Context;
@@ -53,7 +53,7 @@ final class OrderController
     }
 
     public function __invoke(
-        EventInterface $event,
+        Action $action,
         Context $context,
         Request $request
     ): Response {
@@ -61,7 +61,7 @@ final class OrderController
 
         $orderId = $data['data']['ids'][0] ?? '';
 
-        $shopId = $event->getShopId();
+        $shopId = $action->getSource()->getShopId();
 
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 

@@ -24,7 +24,7 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
         return (new ReceiverAddress())
             ->setAddressType(ReceiverAddress::ADDRESS_TYPE_B)
             ->setCountry($customFields[Defaults::PACKAGE_COUNTRY_CODE])
-            ->setName($shippingAddress->firstName.' '.$shippingAddress->lastName)
+            ->setName($shippingAddress->firstName . ' ' . $shippingAddress->lastName)
             ->setPostalCode($shippingAddress->zipcode)
             ->setCity($shippingAddress->city)
             ->setStreet($shippingAddress->street)
