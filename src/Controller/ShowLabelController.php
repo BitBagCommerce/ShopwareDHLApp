@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Controller;
+namespace BitBag\ShopwareDHLApp\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\LabelApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\Entity\LabelInterface;
-use BitBag\ShopwareAppSkeleton\Exception\LabelNotFoundException;
-use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
+use BitBag\ShopwareDHLApp\API\DHL\LabelApiServiceInterface;
+use BitBag\ShopwareDHLApp\Entity\LabelInterface;
+use BitBag\ShopwareDHLApp\Exception\LabelNotFoundException;
+use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

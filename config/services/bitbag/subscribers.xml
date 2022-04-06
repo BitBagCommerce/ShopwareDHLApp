@@ -2,7 +2,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\EventSubscriber\AppActivatedEventSubscriber" id="bitbag.shopware_dhl_app.event_subscriber.app_activated_subscriber">
+        <service class="BitBag\ShopwareDHLApp\EventSubscriber\AppActivatedEventSubscriber" id="bitbag.shopware_dhl_app.event_subscriber.app_activated_subscriber">
             <argument type="service" id="bitbag.shopware_dhl_app.api.create_custom_fields"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.create_shipping_method"/>

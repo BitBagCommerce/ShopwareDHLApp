@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Persister;
+namespace BitBag\ShopwareDHLApp\Persister;
 
 interface LabelPersisterInterface
 {

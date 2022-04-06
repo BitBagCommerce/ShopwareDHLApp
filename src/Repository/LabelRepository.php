@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Repository;
+namespace BitBag\ShopwareDHLApp\Repository;
 
-use BitBag\ShopwareAppSkeleton\Entity\Label;
+use BitBag\ShopwareDHLApp\Entity\Label;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
 interface CustomFieldPayloadFactoryInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
-use BitBag\ShopwareAppSkeleton\Model\LabelDataInterface;
+use BitBag\ShopwareDHLApp\Model\LabelDataInterface;
 
 interface LabelApiServiceInterface
 {

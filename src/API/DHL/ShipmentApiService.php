@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
 use Alexcherniatin\DHL\Exceptions\SoapException;
-use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
-use BitBag\ShopwareAppSkeleton\Exception\ShipmentException;
-use BitBag\ShopwareAppSkeleton\Factory\PackageFactory;
-use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
+use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\ShipmentException;
+use BitBag\ShopwareDHLApp\Factory\PackageFactory;
+use BitBag\ShopwareDHLApp\Model\OrderDataInterface;
 
 final class ShipmentApiService implements ShipmentApiServiceInterface
 {

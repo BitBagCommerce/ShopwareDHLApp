@@ -2,7 +2,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\Controller\OrderController" id="bitbag.shopware_dhl_app.controller.order" public="true">
+        <service class="BitBag\ShopwareDHLApp\Controller\OrderController" id="bitbag.shopware_dhl_app.controller.order" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.api.shipment_sender"/>
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
@@ -11,7 +11,7 @@
             <argument type="service" id="shopware.repository.order"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Controller\APISettingsController"
+        <service class="BitBag\ShopwareDHLApp\Controller\APISettingsController"
                  id="bitbag.shopware_dhl_app.controller.api_settings">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
             <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
@@ -23,7 +23,7 @@
             <tag name="controller.service_arguments" />
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Controller\GetLabelController" id="bitbag.shopware_dhl_app.controller.get_label" public="true">
+        <service class="BitBag\ShopwareDHLApp\Controller\GetLabelController" id="bitbag.shopware_dhl_app.controller.get_label" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
             <argument type="service" id="translator"/>
             <argument type="service" id="bitbag.shopware_dhl_app.provider.notification"/>
@@ -33,7 +33,7 @@
             <tag name="controller.service_arguments" />
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Controller\ShowLabelController" id="bitbag.shopware_dhl_app.controller.show_label" public="true">
+        <service class="BitBag\ShopwareDHLApp\Controller\ShowLabelController" id="bitbag.shopware_dhl_app.controller.show_label" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.label_service"/>
         </service>

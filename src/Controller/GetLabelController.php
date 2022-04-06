@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Controller;
+namespace BitBag\ShopwareDHLApp\Controller;
 
-use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
-use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use BitBag\ShopwareAppSystemBundle\Model\Action\ActionInterface;
+use BitBag\ShopwareDHLApp\Provider\NotificationProviderInterface;
+use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

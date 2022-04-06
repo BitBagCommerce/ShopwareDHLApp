@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use DateTime;
 use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 

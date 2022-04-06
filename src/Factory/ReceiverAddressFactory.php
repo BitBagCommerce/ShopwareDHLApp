@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
 use Alexcherniatin\DHL\Structures\ReceiverAddress;
-use BitBag\ShopwareAppSkeleton\Exception\StreetCannotBeSplitException;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
 
 final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface

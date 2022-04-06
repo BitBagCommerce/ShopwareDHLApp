@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
 use Alexcherniatin\DHL\Structures\ShipmentFullData;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 
 final class ShipmentFullDataFactory implements ShipmentFullDataFactoryInterface
 {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Controller;
+namespace BitBag\ShopwareDHLApp\Controller;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ShipmentApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
-use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
-use BitBag\ShopwareAppSkeleton\Model\OrderData;
-use BitBag\ShopwareAppSkeleton\Persister\LabelPersisterInterface;
-use BitBag\ShopwareAppSkeleton\Provider\NotificationProviderInterface;
-use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
-use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use BitBag\ShopwareAppSystemBundle\Model\Action\ActionInterface;
+use BitBag\ShopwareDHLApp\API\DHL\ShipmentApiServiceInterface;
+use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\ConfigNotFoundException;
+use BitBag\ShopwareDHLApp\Model\OrderData;
+use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
+use BitBag\ShopwareDHLApp\Provider\NotificationProviderInterface;
+use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
+use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Vin\ShopwareSdk\Data\Context;

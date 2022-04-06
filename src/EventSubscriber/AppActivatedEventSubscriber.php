@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\EventSubscriber;
+namespace BitBag\ShopwareDHLApp\EventSubscriber;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\API\Shopware\AvailabilityRuleCreatorInterface;
-use BitBag\ShopwareAppSkeleton\API\Shopware\CustomFieldsCreatorInterface;
-use BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
 use BitBag\ShopwareAppSystemBundle\LifecycleEvent\AppActivatedEvent;
+use BitBag\ShopwareDHLApp\API\DHL\ClientApiServiceInterface;
+use BitBag\ShopwareDHLApp\API\Shopware\AvailabilityRuleCreatorInterface;
+use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldsCreatorInterface;
+use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactoryInterface;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
