@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
 use Alexcherniatin\DHL\Structures\ItemToPrint;
-use BitBag\ShopwareAppSkeleton\Exception\LabelNotFoundException;
-use BitBag\ShopwareAppSkeleton\Model\LabelData;
-use BitBag\ShopwareAppSkeleton\Model\LabelDataInterface;
+use BitBag\ShopwareDHLApp\Exception\LabelNotFoundException;
+use BitBag\ShopwareDHLApp\Model\LabelData;
+use BitBag\ShopwareDHLApp\Model\LabelDataInterface;
 
 final class LabelApiService implements LabelApiServiceInterface
 {

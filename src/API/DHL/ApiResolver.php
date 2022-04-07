@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
 use Alexcherniatin\DHL\DHL24;
 use Alexcherniatin\DHL\Exceptions\SoapException;
-use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
-use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
-use BitBag\ShopwareAppSkeleton\Repository\ConfigRepository;
+use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\ConfigNotFoundException;
+use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 
 final class ApiResolver implements ApiResolverInterface
 {

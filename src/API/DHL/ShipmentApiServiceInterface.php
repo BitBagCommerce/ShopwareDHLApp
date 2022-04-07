@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
-use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
-use BitBag\ShopwareAppSkeleton\Model\OrderDataInterface;
+use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Model\OrderDataInterface;
 
 interface ShipmentApiServiceInterface
 {

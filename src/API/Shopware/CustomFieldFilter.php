@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\Shopware;
+namespace BitBag\ShopwareDHLApp\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiService;
-use BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProviderInterface;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\API\DHL\ClientApiService;
+use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProviderInterface;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
 
 final class CustomFieldFilter implements CustomFieldFilterInterface

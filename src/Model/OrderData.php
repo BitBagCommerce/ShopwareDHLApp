@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Model;
+namespace BitBag\ShopwareDHLApp\Model;
 
 use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
 

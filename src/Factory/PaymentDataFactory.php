@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
 use Alexcherniatin\DHL\Exceptions\InvalidStructureException;
 use Alexcherniatin\DHL\Structures\PaymentData;
-use BitBag\ShopwareAppSkeleton\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
 
 final class PaymentDataFactory implements PaymentDataFactoryInterface
 {

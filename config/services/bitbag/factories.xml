@@ -2,43 +2,43 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\Factory\CustomFieldPayloadFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\CustomFieldPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_custom_field">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\CustomFieldSetPayloadFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_custom_field_set">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\ShippingMethodPayloadFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactory"
                  id="bitbag.shopware_dhl_app.factory.create_shipping_method">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\AddressFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\AddressFactory"
                  id="bitbag.shopware_dhl_app.factory.sender_address">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\ReceiverAddressFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\ReceiverAddressFactory"
                  id="bitbag.shopware_dhl_app.factory.receiver_address">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\PieceFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\PieceFactory"
                  id="bitbag.shopware_dhl_app.factory.piece">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\ShipmentFullDataFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\ShipmentFullDataFactory"
                  id="bitbag.shopware_dhl_app.factory.shipment">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\PaymentDataFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\PaymentDataFactory"
                  id="bitbag.shopware_dhl_app.factory.payment">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\ServiceDefinitionFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\ServiceDefinitionFactory"
                  id="bitbag.shopware_dhl_app.factory.service_definition">
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Factory\PackageFactory"
+        <service class="BitBag\ShopwareDHLApp\Factory\PackageFactory"
                  id="bitbag.shopware_dhl_app.factory.package_factory">
             <argument type="service" id="bitbag.shopware_dhl_app.factory.sender_address"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.receiver_address"/>

@@ -2,12 +2,12 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\Repository\ConfigRepository"
+        <service class="BitBag\ShopwareDHLApp\Repository\ConfigRepository"
                  id="bitbag.shopware_dhl_app.repository.config_repository">
             <argument type="service" id="doctrine"/>
         </service>
 
-        <service class="BitBag\ShopwareAppSkeleton\Repository\LabelRepository"
+        <service class="BitBag\ShopwareDHLApp\Repository\LabelRepository"
                  id="bitbag.shopware_dhl_app.repository.label_repository">
             <argument type="service" id="doctrine"/>
         </service>

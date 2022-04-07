@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Entity;
+namespace BitBag\ShopwareDHLApp\Entity;
 
-use BitBag\ShopwareAppSkeleton\Repository\LabelRepository;
 use BitBag\ShopwareAppSystemBundle\Entity\ShopInterface;
+use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

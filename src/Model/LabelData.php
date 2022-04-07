@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Model;
+namespace BitBag\ShopwareDHLApp\Model;
 
 final class LabelData implements LabelDataInterface
 {

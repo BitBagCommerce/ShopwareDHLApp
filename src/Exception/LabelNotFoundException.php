@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Exception;
+namespace BitBag\ShopwareDHLApp\Exception;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

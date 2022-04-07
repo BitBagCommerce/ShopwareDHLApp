@@ -2,10 +2,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareAppSkeleton\Provider\CustomFieldNamesProvider"
+        <service class="BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProvider"
                  id="bitbag.shopware_dhl_app.provider.custom_field_names">
         </service>
-        <service class="BitBag\ShopwareAppSkeleton\Provider\NotificationProvider"
+        <service class="BitBag\ShopwareDHLApp\Provider\NotificationProvider"
                  id="bitbag.shopware_dhl_app.provider.notification">
             <argument type="service" id="translator"/>
             <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>

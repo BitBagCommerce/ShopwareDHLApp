@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Provider;
+namespace BitBag\ShopwareDHLApp\Provider;
 
-use BitBag\ShopwareAppSkeleton\Exception\ConfigNotFoundException;
 use BitBag\ShopwareAppSystemBundle\Repository\ShopRepositoryInterface;
+use BitBag\ShopwareDHLApp\Exception\ConfigNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;

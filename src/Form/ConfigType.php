@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Form;
+namespace BitBag\ShopwareDHLApp\Form;
 
 use Alexcherniatin\DHL\Structures\PaymentData;
-use BitBag\ShopwareAppSkeleton\Entity\Config;
+use BitBag\ShopwareDHLApp\Entity\Config;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

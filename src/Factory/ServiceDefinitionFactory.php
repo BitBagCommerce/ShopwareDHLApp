@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\Factory;
+namespace BitBag\ShopwareDHLApp\Factory;
 
 use Alexcherniatin\DHL\Structures\ServiceDefinition;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 
 final class ServiceDefinitionFactory implements ServiceDefinitionFactoryInterface
 {

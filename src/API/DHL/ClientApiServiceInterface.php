@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\DHL;
 
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Repository\Struct\EntitySearchResult;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareAppSkeleton\API\Shopware;
+namespace BitBag\ShopwareDHLApp\API\Shopware;
 
-use BitBag\ShopwareAppSkeleton\API\DHL\ClientApiServiceInterface;
-use BitBag\ShopwareAppSkeleton\Factory\CustomFieldSetPayloadFactoryInterface;
-use BitBag\ShopwareAppSkeleton\Provider\Defaults;
+use BitBag\ShopwareDHLApp\API\DHL\ClientApiServiceInterface;
+use BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactoryInterface;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
