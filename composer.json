@@ -2,7 +2,7 @@
     "name": "bitbag/shopware-dhl-app",
     "type": "project",
     "license": "MIT",
-    "description": "A minimal Shopware app project recommended to create new apps",
+    "description": "DHL integration for Shopware",
     "require": {
         "php": "^8.0",
         "ext-ctype": "*",
