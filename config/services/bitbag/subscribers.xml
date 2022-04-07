@@ -4,7 +4,7 @@
     <services>
         <service class="BitBag\ShopwareDHLApp\EventSubscriber\AppActivatedEventSubscriber" id="bitbag.shopware_dhl_app.event_subscriber.app_activated_subscriber">
             <argument type="service" id="bitbag.shopware_dhl_app.api.create_custom_fields"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.client_api"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.shipping_method_api_service"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.create_shipping_method"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.availability_rule_creator"/>
             <argument type="service" id="shopware.repository.shipping_method"/>

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\EventSubscriber;
 
 use BitBag\ShopwareAppSystemBundle\LifecycleEvent\AppActivatedEvent;
-use BitBag\ShopwareDHLApp\API\DHL\ClientApiServiceInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\AvailabilityRuleCreatorInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldsCreatorInterface;
+use BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactoryInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +18,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 {
     private CustomFieldsCreatorInterface $customFieldsCreator;
 
-    private ClientApiServiceInterface $apiService;
+    private ShippingMethodApiServiceInterface $shippingMethodApiService;
 
     private ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory;
 
@@ -28,13 +28,13 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
     public function __construct(
         CustomFieldsCreatorInterface $customFieldsCreator,
-        ClientApiServiceInterface $apiService,
+        ShippingMethodApiServiceInterface $shippingMethodApiService,
         ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory,
         AvailabilityRuleCreatorInterface $availabilityRuleCreator,
         RepositoryInterface $shippingMethodRepository
     ) {
         $this->customFieldsCreator = $customFieldsCreator;
-        $this->apiService = $apiService;
+        $this->shippingMethodApiService = $shippingMethodApiService;
         $this->shippingMethodPayloadFactory = $shippingMethodPayloadFactory;
         $this->availabilityRuleCreator = $availabilityRuleCreator;
         $this->shippingMethodRepository = $shippingMethodRepository;
@@ -56,19 +56,19 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
     private function createShippingMethod(Context $context): void
     {
-        $shippingMethods = $this->apiService->findShippingMethodByShippingKey($context);
+        $shippingMethods = $this->shippingMethodApiService->findShippingMethodByShippingKey($context);
 
         if (0 !== $shippingMethods->getTotal()) {
             return;
         }
 
-        $deliveryTime = $this->apiService->findDeliveryTimeByMinMax($context, 1, 3);
+        $deliveryTime = $this->shippingMethodApiService->findDeliveryTimeByMinMax(1, 3, $context);
 
-        $rule = $this->apiService->findRuleByName($context, 'Always valid (Default)');
+        $rule = $this->shippingMethodApiService->findRuleByName('Always valid (Default)', $context);
 
         if (0 === $rule->getTotal()) {
             $this->availabilityRuleCreator->create($context);
-            $rule = $this->apiService->findRuleByName($context, Defaults::AVAILABILITY_RULE);
+            $rule = $this->shippingMethodApiService->findRuleByName(Defaults::AVAILABILITY_RULE, $context);
         }
 
         $DHLShippingMethod = $this->shippingMethodPayloadFactory->create($rule->firstId() ?? '', $deliveryTime);

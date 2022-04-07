@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\API\Shopware;
 
-use BitBag\ShopwareDHLApp\API\DHL\ClientApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactoryInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
@@ -12,25 +11,25 @@ use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
 {
-    private ClientApiServiceInterface $apiService;
+    private CustomFieldApiServiceInterface $customFieldApiService;
 
     private CustomFieldSetPayloadFactoryInterface $customFieldSetFactory;
 
     private RepositoryInterface $customFieldSetRepository;
 
     public function __construct(
-        ClientApiServiceInterface $apiService,
+        CustomFieldApiServiceInterface $customFieldApiService,
         CustomFieldSetPayloadFactoryInterface $customFieldSetFactory,
         RepositoryInterface $customFieldSetRepository
     ) {
-        $this->apiService = $apiService;
+        $this->customFieldApiService = $customFieldApiService;
         $this->customFieldSetFactory = $customFieldSetFactory;
         $this->customFieldSetRepository = $customFieldSetRepository;
     }
 
     public function create(Context $context): array
     {
-        $customFieldSet = $this->apiService->findCustomFieldSetIdsByName($context, Defaults::CUSTOM_FIELDS_PREFIX);
+        $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName(Defaults::CUSTOM_FIELDS_PREFIX, $context);
 
         if (0 === $customFieldSet->getTotal()) {
             $customFieldSet = $this->customFieldSetFactory->create(
@@ -41,7 +40,7 @@ class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
 
             $this->customFieldSetRepository->create($customFieldSet, $context);
             // $context->createEntity('custom-field-set', $customFieldSet);
-            $customFieldSet = $this->apiService->findCustomFieldSetIdsByName($context, Defaults::CUSTOM_FIELDS_PREFIX);
+            $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName(Defaults::CUSTOM_FIELDS_PREFIX, $context);
         }
 
         return [
