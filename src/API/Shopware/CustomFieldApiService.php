@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareDHLApp\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\Shopware;
 
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Data\Criteria;
@@ -22,7 +22,7 @@ final class CustomFieldApiService implements CustomFieldApiServiceInterface
         $this->customFieldSetRepository = $customFieldSetRepository;
     }
 
-    public function findCustomFieldIdsByName(Context $context, string $name): IdSearchResult
+    public function findCustomFieldIdsByName(string $name, Context $context): IdSearchResult
     {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $name));
@@ -30,7 +30,7 @@ final class CustomFieldApiService implements CustomFieldApiServiceInterface
         return $this->customFieldRepository->searchIds($criteria, $context);
     }
 
-    public function findCustomFieldSetIdsByName(Context $context, string $name): IdSearchResult
+    public function findCustomFieldSetIdsByName(string $name, Context $context): IdSearchResult
     {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $name));

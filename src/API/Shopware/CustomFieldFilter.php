@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\API\Shopware;
 
-use BitBag\ShopwareDHLApp\API\DHL\CustomFieldApiServiceInterface;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
@@ -34,7 +33,7 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
 
             $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
-            $customField = $this->customFieldApiService->findCustomFieldIdsByName($context, $customFieldName);
+            $customField = $this->customFieldApiService->findCustomFieldIdsByName($customFieldName, $context);
 
             if (0 !== $customField->getTotal()) {
                 continue;

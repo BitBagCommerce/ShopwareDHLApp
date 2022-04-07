@@ -38,7 +38,7 @@ class ShippingMethodApiService implements ShippingMethodApiServiceInterface
         return $this->shippingMethodRepository->searchIds($criteria, $context);
     }
 
-    public function findRuleByName(Context $context, string $name): IdSearchResult
+    public function findRuleByName(string $name, Context $context): IdSearchResult
     {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $name));
@@ -47,9 +47,9 @@ class ShippingMethodApiService implements ShippingMethodApiServiceInterface
     }
 
     public function findDeliveryTimeByMinMax(
-        Context $context,
         int $min,
-        int $max
+        int $max,
+        Context $context
     ): IdSearchResult {
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('min', $min));

@@ -4,7 +4,7 @@
     <services>
         <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldSetCreator"
                  id="bitbag.shopware_dhl_app.api.create_custom_field_set">
-            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field_api_service"/>
             <argument type="service" id="bitbag.shopware_dhl_app.factory.create_custom_field_set"/>
             <argument type="service" id="shopware.repository.custom_field_set"/>
 
@@ -37,7 +37,7 @@
         <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldFilter"
                  id="bitbag.shopware_dhl_app.factory.custom_field_filter">
             <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field_api_service"/>
         </service>
 
         <service class="BitBag\ShopwareDHLApp\API\DHL\LabelApiService"
@@ -45,14 +45,14 @@
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
         </service>
 
-        <service class="BitBag\ShopwareDHLApp\API\DHL\CustomFieldApiService"
-                 id="bitbag.shopware_dhl_app.api.custom_field">
+        <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiService"
+                 id="bitbag.shopware_dhl_app.api.custom_field_api_service">
             <argument type="service" id="shopware.repository.custom_field"/>
             <argument type="service" id="shopware.repository.custom_field_set"/>
         </service>
 
         <service class="BitBag\ShopwareDHLApp\API\DHL\ShippingMethodApiService"
-                 id="bitbag.shopware_dhl_app.api.shipping_method">
+                 id="bitbag.shopware_dhl_app.api.shipping_method_api_service">
             <argument type="service" id="shopware.repository.shipping_method"/>
             <argument type="service" id="shopware.repository.delivery_time"/>
             <argument type="service" id="shopware.repository.rule"/>

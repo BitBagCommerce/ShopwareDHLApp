@@ -11,11 +11,11 @@ interface ShippingMethodApiServiceInterface
 {
     public function findShippingMethodByShippingKey(Context $context): IdSearchResult;
 
-    public function findRuleByName(Context $context, string $name): IdSearchResult;
+    public function findRuleByName(string $name, Context $context): IdSearchResult;
 
     public function findDeliveryTimeByMinMax(
-        Context $context,
         int $min,
-        int $max
+        int $max,
+        Context $context
     ): IdSearchResult;
 }

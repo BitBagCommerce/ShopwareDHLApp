@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\API\Shopware;
 
-use BitBag\ShopwareDHLApp\API\DHL\CustomFieldApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactoryInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
@@ -30,7 +29,7 @@ class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
 
     public function create(Context $context): array
     {
-        $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName($context, Defaults::CUSTOM_FIELDS_PREFIX);
+        $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName(Defaults::CUSTOM_FIELDS_PREFIX, $context);
 
         if (0 === $customFieldSet->getTotal()) {
             $customFieldSet = $this->customFieldSetFactory->create(
@@ -41,7 +40,7 @@ class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
 
             $this->customFieldSetRepository->create($customFieldSet, $context);
             // $context->createEntity('custom-field-set', $customFieldSet);
-            $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName($context, Defaults::CUSTOM_FIELDS_PREFIX);
+            $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName(Defaults::CUSTOM_FIELDS_PREFIX, $context);
         }
 
         return [
