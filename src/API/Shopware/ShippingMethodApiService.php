@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareDHLApp\API\DHL;
+namespace BitBag\ShopwareDHLApp\API\Shopware;
 
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;

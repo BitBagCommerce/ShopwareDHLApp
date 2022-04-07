@@ -51,7 +51,7 @@
             <argument type="service" id="shopware.repository.custom_field_set"/>
         </service>
 
-        <service class="BitBag\ShopwareDHLApp\API\DHL\ShippingMethodApiService"
+        <service class="BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiService"
                  id="bitbag.shopware_dhl_app.api.shipping_method_api_service">
             <argument type="service" id="shopware.repository.shipping_method"/>
             <argument type="service" id="shopware.repository.delivery_time"/>

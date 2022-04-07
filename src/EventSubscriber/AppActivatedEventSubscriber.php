@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\EventSubscriber;
 
 use BitBag\ShopwareAppSystemBundle\LifecycleEvent\AppActivatedEvent;
-use BitBag\ShopwareDHLApp\API\DHL\ShippingMethodApiServiceInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\AvailabilityRuleCreatorInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldsCreatorInterface;
+use BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactoryInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
