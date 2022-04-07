@@ -1,5 +1,5 @@
 {
-    "name": "bitbag/shopware-app-skeleton",
+    "name": "bitbag/shopware-dhl-app",
     "type": "project",
     "license": "MIT",
     "description": "A minimal Shopware app project recommended to create new apps",
@@ -44,12 +44,12 @@
     },
     "autoload": {
         "psr-4": {
-            "BitBag\\ShopwareAppSkeleton\\": "src/"
+            "BitBag\\ShopwareDHLApp\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BitBag\\ShopwareAppSkeleton\\Tests\\": "tests/"
+            "BitBag\\ShopwareDHLApp\\Tests\\": "tests/"
         }
     },
     "replace": {
@@ -61,12 +61,6 @@
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
     },
-    "repositories": [
-        {
-            "type":"vcs",
-            "url": "https://github.com/BitBagCommerce/BitBagShopwareAppSystemBundle"
-        }
-    ],
     "scripts": {
     },
     "conflict": {
