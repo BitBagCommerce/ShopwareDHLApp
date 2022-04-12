@@ -39,7 +39,6 @@ class CustomFieldSetCreator implements CustomFieldSetCreatorInterface
             );
 
             $this->customFieldSetRepository->create($customFieldSet, $context);
-            // $context->createEntity('custom-field-set', $customFieldSet);
             $customFieldSet = $this->customFieldApiService->findCustomFieldSetIdsByName(Defaults::CUSTOM_FIELDS_PREFIX, $context);
         }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\Factory;
 
+use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
+
 interface CustomFieldPayloadFactoryInterface
 {
     public function create(
@@ -12,6 +14,6 @@ interface CustomFieldPayloadFactoryInterface
         int $position,
         string $label,
         ?string $customFieldSetId = null,
-        ?array $customFieldSet = null
+        ?IdSearchResult $customFieldSet = null
     ): array;
 }
