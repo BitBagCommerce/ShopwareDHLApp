@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class AddressFactoryTest extends TestCase
 {
-    public function testCreation(): void
+    public function testCreate(): void
     {
         $config = new Config();
         $config->setName('Tester Senderowich');

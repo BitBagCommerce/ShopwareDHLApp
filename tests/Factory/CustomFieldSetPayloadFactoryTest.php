@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CustomFieldSetPayloadFactoryTest extends TestCase
 {
-    public function testCreation(): void
+    public function testCreate(): void
     {
         $customFieldSetFactory = new CustomFieldSetPayloadFactory();
 

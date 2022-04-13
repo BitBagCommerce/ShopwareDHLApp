@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class PaymentDataFactoryTest extends TestCase
 {
-    public function testCreation(): void
+    public function testCreate(): void
     {
         $paymentDataFactory = new PaymentDataFactory();
         $config = new Config();

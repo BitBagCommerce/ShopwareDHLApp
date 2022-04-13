@@ -9,111 +9,105 @@ use PHPUnit\Framework\TestCase;
 
 class CustomFieldPayloadFactoryTest extends TestCase
 {
-    public function testCreation(): void
+    public function testCreate(): void
     {
         $customFieldPayloadFactory = new CustomFieldPayloadFactory();
 
-        foreach ($this->getExampleCustomFields() as $customField) {
-            $this->assertSame($this->getCustomFieldFromParams(
-                $customField['customFieldName'],
-                $customField['type'],
-                $customField['key'],
-                $customField['label']
-            ), $customFieldPayloadFactory->create(
+        $customField = $this->getExampleCustomTextField();
+
+        $this->assertSame(
+            $this->getCustomFieldFromForText(),
+            $customFieldPayloadFactory->create(
                 $customField['customFieldName'],
                 $customField['type'],
                 $customField['key'],
                 $customField['label'],
                 '0a49f928ce8f40a4902003139f221fbe',
                 null
-            ));
-        }
+            )
+        );
+
+        $customField = $this->getExampleCustomIntField();
+
+        $this->assertSame(
+            $this->getCustomFieldFromForInt(),
+            $customFieldPayloadFactory->create(
+                $customField['customFieldName'],
+                $customField['type'],
+                $customField['key'],
+                $customField['label'],
+                '0a49f928ce8f40a4902003139f221fbe',
+                null
+            )
+        );
     }
 
-    private function getCustomFieldFromParams(
-        string $customFieldName,
-        string $type,
-        int $position,
-        string $label
-    ): array {
-        $customFieldType = 'text';
-
-        if ('int' === $type) {
-            $customFieldType = 'number';
-        }
-
-        $customField = [
-            'name' => $customFieldName,
-            'type' => $type,
-            'position' => $position,
-            'config' => [
-                    'type' => $customFieldType,
-                    'label' => [
-                            'en-GB' => $label,
-                        ],
-                    'helpText' => [
-                        ],
-                    'placeholder' => [
-                        ],
-                    'componentName' => 'sw-field',
-                    'customFieldType' => $customFieldType,
-                    'customFieldPosition' => $position,
-                ],
-            'customFieldSetId' => '0a49f928ce8f40a4902003139f221fbe',
-        ];
-
-        if ('int' === $type) {
-            $customField['config']['numberType'] = $type;
-        }
-
-        return $customField;
-    }
-
-    private function getExampleCustomFields(): array
+    private function getCustomFieldFromForInt(): array
     {
         return [
+            'name' => 'bitbag.shopware_dhl_app.package_details_height',
+            'type' => 'int',
+            'position' => 0,
+            'config' => [
+                'type' => 'number',
+                'label' => [
+                    'en-GB' => 'Height',
+                ],
+                'helpText' => [
+                ],
+                'placeholder' => [
+                ],
+                'componentName' => 'sw-field',
+                'customFieldType' => 'number',
+                'customFieldPosition' => 0,
+                'numberType' => 'int',
+            ],
+            'customFieldSetId' => '0a49f928ce8f40a4902003139f221fbe',
+        ];
+    }
+
+    private function getCustomFieldFromForText(): array
+    {
+        return [
+            'name' => 'bitbag.shopware_dhl_app.package_details_countryCode',
+            'type' => 'text',
+            'position' => 0,
+            'config' => [
+                'type' => 'text',
+                'label' => [
+                    'en-GB' => 'Sender country code',
+                ],
+                'helpText' => [
+                ],
+                'placeholder' => [
+                ],
+                'componentName' => 'sw-field',
+                'customFieldType' => 'text',
+                'customFieldPosition' => 0,
+            ],
+            'customFieldSetId' => '0a49f928ce8f40a4902003139f221fbe',
+        ];
+    }
+
+    public function getExampleCustomIntField(): array
+    {
+        return
             [
                 'customFieldName' => 'bitbag.shopware_dhl_app.package_details_height',
                 'type' => 'int',
                 'key' => 0,
                 'label' => 'Height',
-            ],
-            [
-                'customFieldName' => 'bitbag.shopware_dhl_app.package_details_width',
-                'type' => 'int',
-                'key' => 1,
-                'label' => 'Width',
-            ],
-            [
-                'customFieldName' => 'bitbag.shopware_dhl_app.package_details_depth',
-                'type' => 'int',
-                'key' => 2,
-                'label' => 'Depth',
-            ],
+            ];
+    }
+
+    public function getExampleCustomTextField(): array
+    {
+        return
             [
                 'customFieldName' => 'bitbag.shopware_dhl_app.package_details_countryCode',
                 'type' => 'text',
-                'key' => 3,
+                'key' => 0,
                 'label' => 'Sender country code',
-            ],
-            [
-                'customFieldName' => 'bitbag.shopware_dhl_app.package_details_shippingDate',
-                'type' => 'text',
-                'key' => 4,
-                'label' => 'Shipping date (YYYY-MM-DD)',
-            ],
-            [
-                'customFieldName' => 'bitbag.shopware_dhl_app.package_details_insurance',
-                'type' => 'int',
-                'key' => 5,
-                'label' => 'Insurance value (you can leave empty)',
-            ],
-            [
-                'customFieldName' => 'bitbag.shopware_dhl_app.package_details_description',
-                'type' => 'text',
-                'key' => 6,
-                'label' => 'Package description',
-            ],
-        ];
+            ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareDHLApp\Tests\Factory;
 
 use Alexcherniatin\DHL\Structures\Piece;
@@ -9,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class PieceFactoryTest extends TestCase
 {
-    public function testCreation(): void
+    public function testCreate(): void
     {
         $pieceFactory = new PieceFactory();
 
