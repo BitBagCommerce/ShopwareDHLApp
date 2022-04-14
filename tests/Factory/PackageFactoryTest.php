@@ -45,7 +45,7 @@ class PackageFactoryTest extends TestCase
         $orderData = new OrderData(
             $shippingAddress,
             'test@test.com',
-            '10.0',
+            10.0,
             $this->getExampleData(),
             '321',
             '1234'
