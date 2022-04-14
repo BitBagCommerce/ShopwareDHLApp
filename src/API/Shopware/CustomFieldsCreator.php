@@ -47,7 +47,6 @@ final class CustomFieldsCreator implements CustomFieldsCreatorInterface
             );
 
             $this->customFieldRepository->create($customFieldArr, $context);
-            // $client->createEntity('custom-field', $customFieldArr);
         }
     }
 }
