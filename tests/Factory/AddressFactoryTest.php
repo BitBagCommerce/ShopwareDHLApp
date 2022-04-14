@@ -39,7 +39,7 @@ class AddressFactoryTest extends TestCase
 
         $addressFactory = new AddressFactory();
 
-        self::assertSame(
+        self::assertEquals(
             [
                 'name' => self::NAME,
                 'postalCode' => self::POST_CODE,

@@ -6,12 +6,20 @@ namespace BitBag\ShopwareDHLApp\Tests\Factory;
 
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactory;
 use PHPUnit\Framework\TestCase;
+use Vin\ShopwareSdk\Data\AccessToken;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Data\Criteria;
 use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 class ShippingMethodPayloadFactoryTest extends TestCase
 {
+    public const DELIVERY_TIME_ID = '1234567';
+    public const NAME = 'DHL';
+    public const ACTIVE = true;
+    public const DESCRIPTION = 'DHL';
+    public const TAX_TYPE = 'auto';
+    public const RULE_ID = 'c5933f809d3f4d0ea5ce8646b844da92';
+
     public function testCreate(): void
     {
         $ruleId = 'c5933f809d3f4d0ea5ce8646b844da92';
@@ -24,17 +32,17 @@ class ShippingMethodPayloadFactoryTest extends TestCase
         $shippingMethodPayloadFactory = new ShippingMethodPayloadFactory();
         $shippingMethod = $shippingMethodPayloadFactory->create($ruleId, $deliveryTime);
 
-        self::assertSame(
+        self::assertEquals(
             [
-                'deliveryTimeId' => $shippingMethod['deliveryTimeId'],
-                'name' => $shippingMethod['name'],
-                'active' => $shippingMethod['active'],
-                'description' => $shippingMethod['description'],
-                'taxType' => $shippingMethod['taxType'],
+                'deliveryTimeId' => self::DELIVERY_TIME_ID,
+                'name' => self::NAME,
+                'active' => self::ACTIVE,
+                'description' => self::DESCRIPTION,
+                'taxType' => self::TAX_TYPE,
                 'translated' => [
-                    'name' => $shippingMethod['translated']['name'],
+                    'name' => self::NAME,
                 ],
-                'availabilityRuleId' => $shippingMethod['availabilityRuleId'],
+                'availabilityRuleId' => self::RULE_ID,
                 'createdAt' => $shippingMethod['createdAt'],
             ],
             $shippingMethod

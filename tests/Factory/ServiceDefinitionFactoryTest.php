@@ -17,7 +17,7 @@ class ServiceDefinitionFactoryTest extends TestCase
 
         $serviceDefinitionFactory = new ServiceDefinitionFactory();
 
-        self::assertSame(
+        self::assertEquals(
             [
                 'product' => 'AH',
                 'deliveryEvening' => false,
@@ -34,7 +34,7 @@ class ServiceDefinitionFactoryTest extends TestCase
 
         $serviceDefinitionFactory = new ServiceDefinitionFactory();
 
-        self::assertSame(
+        self::assertEquals(
             [
                 'product' => 'AH',
                 'deliveryEvening' => false,

@@ -80,7 +80,7 @@ class PackageFactoryTest extends TestCase
             $paymentFactory,
             $serviceDefinitionFactory
         );
-        self::assertSame(
+        self::assertEquals(
             [
                 'item' => [
                     'shipper' => [

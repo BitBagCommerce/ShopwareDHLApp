@@ -21,7 +21,7 @@ class PaymentDataFactoryTest extends TestCase
         $config->setPayerType(PaymentData::PAYER_TYPE_SHIPPER);
         $config->setAccountNumber(self::ACCOUNT_NUMBER);
 
-        self::assertSame(
+        self::assertEquals(
             [
                 'paymentMethod' => PaymentData::PAYMENT_METHOD_BANK_TRANSFER,
                 'payerType' => PaymentData::PAYER_TYPE_SHIPPER,

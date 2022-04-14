@@ -29,7 +29,7 @@ class ReceiverAddressFactoryTest extends TestCase
             Defaults::PACKAGE_COUNTRY_CODE => 'PL',
         ];
 
-        self::assertSame(
+        self::assertEquals(
             [
                 'addressType' => 'B',
                 'country' => 'PL',
