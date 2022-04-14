@@ -6,7 +6,6 @@ namespace BitBag\ShopwareDHLApp\Tests\Factory;
 
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactory;
 use PHPUnit\Framework\TestCase;
-use Vin\ShopwareSdk\Data\AccessToken;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Data\Criteria;
 use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
@@ -14,10 +13,15 @@ use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 class ShippingMethodPayloadFactoryTest extends TestCase
 {
     public const DELIVERY_TIME_ID = '1234567';
+
     public const NAME = 'DHL';
+
     public const ACTIVE = true;
+
     public const DESCRIPTION = 'DHL';
+
     public const TAX_TYPE = 'auto';
+
     public const RULE_ID = 'c5933f809d3f4d0ea5ce8646b844da92';
 
     public function testCreate(): void
