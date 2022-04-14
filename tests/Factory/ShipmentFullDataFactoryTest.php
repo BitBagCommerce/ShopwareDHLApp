@@ -32,7 +32,7 @@ class ShipmentFullDataFactoryTest extends TestCase
             $serviceDefinitionStructure
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'item' => [
                     'shipper' => [

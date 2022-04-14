@@ -15,7 +15,7 @@ class CustomFieldPayloadFactoryTest extends TestCase
 
         $customField = $this->getExampleCustomTextField();
 
-        $this->assertSame(
+        self::assertSame(
             $this->getCustomFieldFromForText(),
             $customFieldPayloadFactory->create(
                 $customField['customFieldName'],
@@ -29,7 +29,7 @@ class CustomFieldPayloadFactoryTest extends TestCase
 
         $customField = $this->getExampleCustomIntField();
 
-        $this->assertSame(
+        self::assertSame(
             $this->getCustomFieldFromForInt(),
             $customFieldPayloadFactory->create(
                 $customField['customFieldName'],

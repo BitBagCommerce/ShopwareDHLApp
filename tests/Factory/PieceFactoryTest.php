@@ -18,7 +18,7 @@ class PieceFactoryTest extends TestCase
         $totalWeight = 20.0;
         $customFields = $this->getExampleData();
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'type' => Piece::TYPE_PACKAGE,
                 'width' => $customFields[Defaults::PACKAGE_WIDTH],

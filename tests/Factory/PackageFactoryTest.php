@@ -20,31 +20,45 @@ use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
 
 class PackageFactoryTest extends TestCase
 {
+    private const NAME = 'Tester Senderowich';
+
+    private const POST_CODE = '01771';
+
+    private const CITY = 'Warszawa';
+
+    private const STREET = 'Braci Załuskich';
+
+    private const HOUSE_NUMBER = '4a';
+
+    private const PHONE_NUMBER = '123456789';
+
+    private const EMAIL = 'test@test.com';
+
     public function testCreate(): void
     {
         $config = new Config();
-        $config->setName('Tester Senderowich');
-        $config->setPostalCode('01771');
-        $config->setCity('Warszawa');
-        $config->setStreet('Braci Załuskich');
-        $config->setHouseNumber('4a');
-        $config->setPhoneNumber('123456789');
+        $config->setName(self::NAME);
+        $config->setPostalCode(self::POST_CODE);
+        $config->setCity(self::CITY);
+        $config->setStreet(self::STREET);
+        $config->setHouseNumber(self::HOUSE_NUMBER);
+        $config->setPhoneNumber(self::PHONE_NUMBER);
         $config->setPayerType(PaymentData::PAYER_TYPE_SHIPPER);
         $config->setPaymentMethod(PaymentData::PAYMENT_METHOD_BANK_TRANSFER);
         $config->setAccountNumber('60000');
-        $config->setEmail('test@test.com');
+        $config->setEmail(self::EMAIL);
 
         $shippingAddress = new OrderAddressEntity();
-        $shippingAddress->street = 'Braci Załuskich 4a';
-        $shippingAddress->zipcode = '01771';
-        $shippingAddress->city = 'Warszawa';
+        $shippingAddress->street = self::STREET . '' . self::HOUSE_NUMBER;
+        $shippingAddress->zipcode = self::POST_CODE;
+        $shippingAddress->city = self::CITY;
         $shippingAddress->firstName = 'Tester';
-        $shippingAddress->lastName = 'Senderowicz';
-        $shippingAddress->phoneNumber = '123456789';
+        $shippingAddress->lastName = 'Senderowich';
+        $shippingAddress->phoneNumber = self::PHONE_NUMBER;
 
         $orderData = new OrderData(
             $shippingAddress,
-            'test@test.com',
+            self::EMAIL,
             10.0,
             $this->getExampleData(),
             '321',
@@ -66,28 +80,28 @@ class PackageFactoryTest extends TestCase
             $paymentFactory,
             $serviceDefinitionFactory
         );
-        $this->assertSame(
+        self::assertSame(
             [
                 'item' => [
                     'shipper' => [
-                        'name' => 'Tester Senderowich',
-                        'postalCode' => '01771',
-                        'city' => 'Warszawa',
-                        'street' => 'Braci Załuskich',
-                        'houseNumber' => '4a',
-                        'contactPhone' => '123456789',
-                        'contactEmail' => 'test@test.com',
+                        'name' => self::NAME,
+                        'postalCode' => self::POST_CODE,
+                        'city' => self::CITY,
+                        'street' => self::STREET,
+                        'houseNumber' => self::HOUSE_NUMBER,
+                        'contactPhone' => self::PHONE_NUMBER,
+                        'contactEmail' => self::EMAIL,
                     ],
                     'receiver' => [
                         'addressType' => 'B',
                         'country' => 'PL',
-                        'name' => 'Tester Senderowicz',
-                        'postalCode' => '01771',
-                        'city' => 'Warszawa',
-                        'street' => 'Braci Załuskich',
-                        'houseNumber' => '4a',
-                        'contactPhone' => '123456789',
-                        'contactEmail' => 'test@test.com',
+                        'name' => self::NAME,
+                        'postalCode' => self::POST_CODE,
+                        'city' => self::CITY,
+                        'street' => self::STREET,
+                        'houseNumber' => self::HOUSE_NUMBER,
+                        'contactPhone' => self::PHONE_NUMBER,
+                        'contactEmail' => self::EMAIL,
                     ],
                     'pieceList' => [
                         [
@@ -101,8 +115,8 @@ class PackageFactoryTest extends TestCase
                         ],
                     ],
                     'payment' => [
-                        'paymentMethod' => 'BANK_TRANSFER',
-                        'payerType' => 'SHIPPER',
+                        'paymentMethod' => PaymentData::PAYMENT_METHOD_BANK_TRANSFER,
+                        'payerType' => PaymentData::PAYER_TYPE_SHIPPER,
                         'accountNumber' => '60000',
                     ],
                     'service' => [

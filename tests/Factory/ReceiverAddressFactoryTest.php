@@ -29,7 +29,7 @@ class ReceiverAddressFactoryTest extends TestCase
             Defaults::PACKAGE_COUNTRY_CODE => 'PL',
         ];
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'addressType' => 'B',
                 'country' => 'PL',

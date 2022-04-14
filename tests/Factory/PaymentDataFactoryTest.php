@@ -11,19 +11,21 @@ use PHPUnit\Framework\TestCase;
 
 class PaymentDataFactoryTest extends TestCase
 {
+    public const ACCOUNT_NUMBER = '60000';
+
     public function testCreate(): void
     {
         $paymentDataFactory = new PaymentDataFactory();
         $config = new Config();
         $config->setPaymentMethod(PaymentData::PAYMENT_METHOD_BANK_TRANSFER);
         $config->setPayerType(PaymentData::PAYER_TYPE_SHIPPER);
-        $config->setAccountNumber('60000');
+        $config->setAccountNumber(self::ACCOUNT_NUMBER);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'paymentMethod' => PaymentData::PAYMENT_METHOD_BANK_TRANSFER,
                 'payerType' => PaymentData::PAYER_TYPE_SHIPPER,
-                'accountNumber' => '60000',
+                'accountNumber' => self::ACCOUNT_NUMBER,
             ],
             $paymentDataFactory->create($config)
         );

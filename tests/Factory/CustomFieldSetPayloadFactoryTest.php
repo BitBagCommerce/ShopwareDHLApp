@@ -33,6 +33,6 @@ class CustomFieldSetPayloadFactoryTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expectedFieldSet, $customFieldSet);
+        self::assertSame($expectedFieldSet, $customFieldSet);
     }
 }

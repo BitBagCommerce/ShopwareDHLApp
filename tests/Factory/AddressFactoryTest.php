@@ -11,29 +11,43 @@ use PHPUnit\Framework\TestCase;
 
 class AddressFactoryTest extends TestCase
 {
+    private const NAME = 'Tester Senderowich';
+
+    private const POST_CODE = '01771';
+
+    private const CITY = 'Warszawa';
+
+    private const STREET = 'Braci Załuskich';
+
+    private const HOUSE_NUMBER = '4a';
+
+    private const PHONE_NUMBER = '123456789';
+
+    private const EMAIL = 'test@test.com';
+
     public function testCreate(): void
     {
         $config = new Config();
-        $config->setName('Tester Senderowich');
-        $config->setPostalCode('01771');
-        $config->setCity('Warszawa');
-        $config->setStreet('Braci Załuskich');
-        $config->setHouseNumber('4a');
-        $config->setPhoneNumber('123456789');
+        $config->setName(self::NAME);
+        $config->setPostalCode(self::POST_CODE);
+        $config->setCity(self::CITY);
+        $config->setStreet(self::STREET);
+        $config->setHouseNumber(self::HOUSE_NUMBER);
+        $config->setPhoneNumber(self::PHONE_NUMBER);
         $config->setPayerType(PaymentData::PAYER_TYPE_SHIPPER);
-        $config->setEmail('test@test.com');
+        $config->setEmail(self::EMAIL);
 
         $addressFactory = new AddressFactory();
 
-        $this->assertSame(
+        self::assertSame(
             [
-                'name' => 'Tester Senderowich',
-                'postalCode' => '01771',
-                'city' => 'Warszawa',
-                'street' => 'Braci Załuskich',
-                'houseNumber' => '4a',
-                'contactPhone' => '123456789',
-                'contactEmail' => 'test@test.com',
+                'name' => self::NAME,
+                'postalCode' => self::POST_CODE,
+                'city' => self::CITY,
+                'street' => self::STREET,
+                'houseNumber' => self::HOUSE_NUMBER,
+                'contactPhone' => self::PHONE_NUMBER,
+                'contactEmail' => self::EMAIL,
             ],
             $addressFactory->create($config)
         );
