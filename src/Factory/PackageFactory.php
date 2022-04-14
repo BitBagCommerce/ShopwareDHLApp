@@ -13,7 +13,7 @@ final class PackageFactory implements PackageFactoryInterface
 
     private ReceiverAddressFactoryInterface $receiverAddressFactory;
 
-    private PieceFactoryInterface $packageDetailsFactory;
+    private PieceFactoryInterface $pieceFactory;
 
     private ShipmentFullDataFactoryInterface $shipmentFactory;
 
@@ -24,14 +24,14 @@ final class PackageFactory implements PackageFactoryInterface
     public function __construct(
         AddressFactoryInterface $senderAddressFactory,
         ReceiverAddressFactoryInterface $receiverAddressFactory,
-        PieceFactoryInterface $packageDetailsFactory,
+        PieceFactoryInterface $pieceFactory,
         ShipmentFullDataFactoryInterface $shipmentFactory,
         PaymentDataFactoryInterface $paymentFactory,
         ServiceDefinitionFactoryInterface $serviceDefinitionFactory
     ) {
         $this->senderAddressFactory = $senderAddressFactory;
         $this->receiverAddressFactory = $receiverAddressFactory;
-        $this->packageDetailsFactory = $packageDetailsFactory;
+        $this->pieceFactory = $pieceFactory;
         $this->shipmentFactory = $shipmentFactory;
         $this->paymentFactory = $paymentFactory;
         $this->serviceDefinitionFactory = $serviceDefinitionFactory;
@@ -47,7 +47,7 @@ final class PackageFactory implements PackageFactoryInterface
             $orderData->getCustomFields()
         );
 
-        $pieceStructure = $this->packageDetailsFactory->create($orderData->getCustomFields(), $orderData->getTotalWeight());
+        $pieceStructure = $this->pieceFactory->create($orderData->getCustomFields(), $orderData->getTotalWeight());
 
         $paymentStructure = $this->paymentFactory->create($config);
 
