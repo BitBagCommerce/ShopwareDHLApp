@@ -7,7 +7,9 @@ namespace BitBag\ShopwareDHLApp\API\Shopware;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Data\Criteria;
 use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
+use Vin\ShopwareSdk\Data\Filter\MultiFilter;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
+use Vin\ShopwareSdk\Repository\Struct\EntitySearchResult;
 use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 final class CustomFieldApiService implements CustomFieldApiServiceInterface
@@ -22,12 +24,12 @@ final class CustomFieldApiService implements CustomFieldApiServiceInterface
         $this->customFieldSetRepository = $customFieldSetRepository;
     }
 
-    public function findCustomFieldIdsByName(string $name, Context $context): IdSearchResult
+    public function findCustomFieldsByName(array $filters, Context $context): EntitySearchResult
     {
         $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('name', $name));
+        $criteria->addFilter(new MultiFilter('or', $filters));
 
-        return $this->customFieldRepository->searchIds($criteria, $context);
+        return $this->customFieldRepository->search($criteria, $context);
     }
 
     public function findCustomFieldSetIdsByName(string $name, Context $context): IdSearchResult
