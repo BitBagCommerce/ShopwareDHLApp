@@ -38,7 +38,9 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
         $customFieldsThatAlreadyExists = [];
 
         foreach ($customFields->getEntities() as $customField) {
-            $customFieldsThatAlreadyExists[] = $customField->name;
+            $customField = (array) $customField;
+
+            $customFieldsThatAlreadyExists[] = $customField['name'];
         }
 
         $detailsPackageFields = [];
