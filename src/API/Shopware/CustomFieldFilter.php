@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\API\Shopware;
 
+use BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProviderInterface;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
@@ -14,28 +15,40 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
 
     private CustomFieldApiServiceInterface $customFieldApiService;
 
+    private CustomFieldFilterDataProviderInterface $customFieldFilterDataProvider;
+
     public function __construct(
         CustomFieldNamesProviderInterface $customFieldNamesProvider,
-        CustomFieldApiServiceInterface $customFieldApiService
+        CustomFieldApiServiceInterface $customFieldApiService,
+        CustomFieldFilterDataProviderInterface $customFieldFilterDataProvider
     ) {
         $this->customFieldNamesProvider = $customFieldNamesProvider;
         $this->customFieldApiService = $customFieldApiService;
+        $this->customFieldFilterDataProvider = $customFieldFilterDataProvider;
     }
 
     public function filter(Context $context): array
     {
-        $customFieldNames = $this->customFieldNamesProvider->getFields();
+        $customFieldNamesArray = $this->customFieldNamesProvider->getFields();
+
+        $customFieldsFilters = $this->customFieldFilterDataProvider->getCustomFieldsFilter($customFieldNamesArray);
+
+        $customFields = $this->customFieldApiService->findCustomFieldsByName($customFieldsFilters, $context);
+
+        $customFieldsThatAlreadyExists = [];
+
+        foreach ($customFields->getEntities() as $customField) {
+            $customFieldsThatAlreadyExists[] = $customField->name;
+        }
 
         $detailsPackageFields = [];
 
-        foreach ($customFieldNames as $key => $item) {
+        foreach ($customFieldNamesArray as $key => $item) {
             $type = $item['type'];
 
             $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
-            $customField = $this->customFieldApiService->findCustomFieldIdsByName($customFieldName, $context);
-
-            if (0 !== $customField->getTotal()) {
+            if (in_array($customFieldName, $customFieldsThatAlreadyExists)) {
                 continue;
             }
 
