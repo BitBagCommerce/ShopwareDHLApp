@@ -24,9 +24,6 @@ class CustomFieldFilterTest extends TestCase
 
         $context = $this->createMock(Context::class);
 
-        $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('name', 'bitbag.shopware_dhl_app.package_details_height'));
-
         $customFieldNamesProvider = new CustomFieldNamesProvider();
         $customFieldApiServiceInterface = new CustomFieldApiService($customFieldRepository, $customFieldSetRepository);
 
