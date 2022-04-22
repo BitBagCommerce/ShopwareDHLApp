@@ -38,6 +38,7 @@
                  id="bitbag.shopware_dhl_app.factory.custom_field_filter">
             <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field_api_service"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_filter_data"/>
         </service>
 
         <service class="BitBag\ShopwareDHLApp\API\DHL\LabelApiService"
