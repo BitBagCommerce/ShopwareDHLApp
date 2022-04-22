@@ -8,7 +8,7 @@ use Vin\ShopwareSdk\Data\Filter\ContainsFilter;
 
 final class CustomFieldFilterDataProvider implements CustomFieldFilterDataProviderInterface
 {
-    public function getCustomFieldsFilter(array $customFieldNames): array
+    public function getCustomFieldFilter(array $customFieldNames): array
     {
         $filters = [];
 

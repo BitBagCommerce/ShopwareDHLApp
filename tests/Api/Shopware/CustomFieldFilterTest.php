@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\Tests\Api\Shopware;
 
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiService;
+use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiServiceInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldFilter;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProvider;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProvider;
@@ -16,14 +17,12 @@ class CustomFieldFilterTest extends TestCase
 {
     public function testFilter(): void
     {
-        $customFieldRepository = $this->createMock(RepositoryInterface::class);
-        $customFieldSetRepository = $this->createMock(RepositoryInterface::class);
         $customFieldFilterDataProvider = new CustomFieldFilterDataProvider();
 
         $context = $this->createMock(Context::class);
 
         $customFieldNamesProvider = new CustomFieldNamesProvider();
-        $customFieldApiServiceInterface = new CustomFieldApiService($customFieldRepository, $customFieldSetRepository);
+        $customFieldApiServiceInterface = $this->createMock(CustomFieldApiServiceInterface::class);
 
         $customFieldFilter = new CustomFieldFilter($customFieldNamesProvider, $customFieldApiServiceInterface, $customFieldFilterDataProvider);
 

@@ -6,5 +6,5 @@ namespace BitBag\ShopwareDHLApp\Provider;
 
 interface CustomFieldFilterDataProviderInterface
 {
-    public function getCustomFieldsFilter(array $customFieldNames): array;
+    public function getCustomFieldFilter(array $customFieldNames): array;
 }

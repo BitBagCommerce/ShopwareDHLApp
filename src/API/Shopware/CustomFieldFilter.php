@@ -30,27 +30,27 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
 
     public function filter(Context $context): array
     {
-        $customFieldNamesArray = $this->customFieldNamesProvider->getFields();
+        $customFieldNames = $this->customFieldNamesProvider->getFields();
 
-        $customFieldsFilters = $this->customFieldFilterDataProvider->getCustomFieldsFilter($customFieldNamesArray);
+        $customFieldFilters = $this->customFieldFilterDataProvider->getCustomFieldFilter($customFieldNames);
 
-        $customFields = $this->customFieldApiService->findCustomFieldsByName($customFieldsFilters, $context);
+        $customFields = $this->customFieldApiService->findCustomFieldsByName($customFieldFilters, $context);
 
-        $customFieldsThatAlreadyExists = [];
+        $existingCustomFields = [];
 
         /** @var CustomFieldEntity $customField */
         foreach ($customFields->getEntities() as $customField) {
-            $customFieldsThatAlreadyExists[] = $customField->name;
+            $existingCustomFields[] = $customField->name;
         }
 
         $detailsPackageFields = [];
 
-        foreach ($customFieldNamesArray as $key => $item) {
+        foreach ($customFieldNames as $key => $item) {
             $type = $item['type'];
 
             $customFieldName = Defaults::CUSTOM_FIELDS_PREFIX . '_' . $item['name'];
 
-            if (in_array($customFieldName, $customFieldsThatAlreadyExists)) {
+            if (in_array($customFieldName, $existingCustomFields)) {
                 continue;
             }
 
