@@ -6,7 +6,7 @@ namespace BitBag\ShopwareDHLApp\Tests\Api\Shopware;
 
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiServiceInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldSetCreator;
-use BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactory;
+use BitBag\ShopwareDHLApp\Factory\CustomFieldSetPayloadFactoryInterface;
 use PHPUnit\Framework\TestCase;
 use Vin\ShopwareSdk\Data\Context;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
@@ -22,7 +22,7 @@ class CustomFieldSetCreatorTest extends TestCase
         $idSearchResult = $this->createMock(IdSearchResult::class);
         $customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($idSearchResult);
 
-        $customFieldSetPayloadFactory = new CustomFieldSetPayloadFactory();
+        $customFieldSetPayloadFactory = $this->createMock(CustomFieldSetPayloadFactoryInterface::class);
 
         $customFieldSetCreator = new CustomFieldSetCreator($customFieldApiService, $customFieldSetPayloadFactory, $customFieldSetRepository);
 
