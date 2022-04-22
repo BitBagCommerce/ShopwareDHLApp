@@ -10,8 +10,6 @@ use BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProvider;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProvider;
 use PHPUnit\Framework\TestCase;
 use Vin\ShopwareSdk\Data\Context;
-use Vin\ShopwareSdk\Data\Criteria;
-use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 class CustomFieldFilterTest extends TestCase
