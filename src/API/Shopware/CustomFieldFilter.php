@@ -8,6 +8,7 @@ use BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProviderInterface;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProviderInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Data\Entity\CustomField\CustomFieldEntity;
 
 final class CustomFieldFilter implements CustomFieldFilterInterface
 {
@@ -37,10 +38,9 @@ final class CustomFieldFilter implements CustomFieldFilterInterface
 
         $customFieldsThatAlreadyExists = [];
 
+        /** @var CustomFieldEntity $customField */
         foreach ($customFields->getEntities() as $customField) {
-            $customField = (array) $customField;
-
-            $customFieldsThatAlreadyExists[] = $customField['name'];
+            $customFieldsThatAlreadyExists[] = $customField->name;
         }
 
         $detailsPackageFields = [];
