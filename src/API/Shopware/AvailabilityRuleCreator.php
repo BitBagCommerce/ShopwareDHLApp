@@ -21,7 +21,6 @@ final class AvailabilityRuleCreator implements AvailabilityRuleCreatorInterface
     {
         $this->ruleRepository->create([
             'name' => Defaults::AVAILABILITY_RULE,
-            'createdAt' => new \DateTime('now'),
             'priority' => 100,
         ], $context);
     }
