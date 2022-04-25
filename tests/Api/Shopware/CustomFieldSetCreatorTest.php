@@ -14,26 +14,58 @@ use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 class CustomFieldSetCreatorTest extends TestCase
 {
-    public function testCreate(): void
+    public const TOTAL = 1;
+
+    public const CUSTOM_FIELD_SET_ID = '123';
+
+    private Context $context;
+
+    private CustomFieldApiServiceInterface $customFieldApiService;
+
+    private IdSearchResult $idSearchResult;
+
+    private CustomFieldSetPayloadFactoryInterface $customFieldSetPayloadFactory;
+
+    private CustomFieldSetCreator $customFieldSetCreator;
+
+    protected function setUp(): void
     {
         $customFieldSetRepository = $this->createMock(RepositoryInterface::class);
+        $this->context = $this->createMock(Context::class);
+        $this->customFieldApiService = $this->createMock(CustomFieldApiServiceInterface::class);
+        $this->idSearchResult = $this->createMock(IdSearchResult::class);
+        $this->customFieldSetPayloadFactory = $this->createMock(CustomFieldSetPayloadFactoryInterface::class);
+        $this->customFieldSetCreator = new CustomFieldSetCreator($this->customFieldApiService, $this->customFieldSetPayloadFactory, $customFieldSetRepository);
+    }
 
-        $customFieldApiService = $this->createMock(CustomFieldApiServiceInterface::class);
-        $idSearchResult = $this->createMock(IdSearchResult::class);
-        $customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($idSearchResult);
+    public function testCreate(): void
+    {
+        $this->customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($this->idSearchResult);
 
-        $customFieldSetPayloadFactory = $this->createMock(CustomFieldSetPayloadFactoryInterface::class);
-
-        $customFieldSetCreator = new CustomFieldSetCreator($customFieldApiService, $customFieldSetPayloadFactory, $customFieldSetRepository);
-
-        $context = $this->createMock(Context::class);
-
-        $customFieldSet = $customFieldSetCreator->create($context);
+        $customFieldSet = $this->customFieldSetCreator->create($this->context);
 
         self::assertEquals(
             [
                 'customFieldSetId' => null,
-                'customFieldSet' => $idSearchResult,
+                'customFieldSet' => $this->idSearchResult,
+            ],
+            $customFieldSet
+        );
+    }
+
+    public function testCreateWithCustomFieldSetId()
+    {
+        $this->idSearchResult->method('getTotal')->willReturn(self::TOTAL);
+        $this->idSearchResult->method('firstId')->willReturn(self::CUSTOM_FIELD_SET_ID);
+
+        $this->customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($this->idSearchResult);
+
+        $customFieldSet = $this->customFieldSetCreator->create($this->context);
+
+        self::assertEquals(
+            [
+                'customFieldSetId' => self::CUSTOM_FIELD_SET_ID,
+                'customFieldSet' => $this->idSearchResult,
             ],
             $customFieldSet
         );
