@@ -64,7 +64,7 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
 
         $deliveryTime = $this->shippingMethodApiService->findDeliveryTimeByMinMax(1, 3, $context);
 
-        $rule = $this->shippingMethodApiService->findRuleByName('Always valid (Default)', $context);
+        $rule = $this->shippingMethodApiService->findRuleByName(Defaults::AVAILABILITY_RULE, $context);
 
         if (0 === $rule->getTotal()) {
             $this->availabilityRuleCreator->create($context);
