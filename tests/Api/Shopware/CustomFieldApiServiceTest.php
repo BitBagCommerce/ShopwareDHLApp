@@ -14,8 +14,6 @@ use Vin\ShopwareSdk\Data\Filter\ContainsFilter;
 use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
 use Vin\ShopwareSdk\Data\Filter\MultiFilter;
 use Vin\ShopwareSdk\Repository\RepositoryInterface;
-use Vin\ShopwareSdk\Repository\Struct\EntitySearchResult;
-use Vin\ShopwareSdk\Repository\Struct\IdSearchResult;
 
 class CustomFieldApiServiceTest extends TestCase
 {
@@ -24,10 +22,6 @@ class CustomFieldApiServiceTest extends TestCase
     private CustomFieldApiServiceInterface $customFieldApiService;
 
     private Context $context;
-
-    private EntitySearchResult $searchResult;
-
-    private IdSearchResult $idSearchResult;
 
     private RepositoryInterface $customFieldRepository;
 
@@ -38,9 +32,6 @@ class CustomFieldApiServiceTest extends TestCase
         $this->customFieldRepository = $this->createMock(RepositoryInterface::class);
         $this->customFieldSetRepository = $this->createMock(RepositoryInterface::class);
         $this->context = $this->createMock(Context::class);
-
-        $this->searchResult = $this->createMock(EntitySearchResult::class);
-        $this->idSearchResult = $this->createMock(IdSearchResult::class);
 
         $this->customFieldApiService = new CustomFieldApiService($this->customFieldRepository, $this->customFieldSetRepository);
     }
@@ -53,12 +44,9 @@ class CustomFieldApiServiceTest extends TestCase
 
         $criteria->addFilter(new MultiFilter('or', [$filter]));
 
-        $this->customFieldRepository->expects(self::once())->method('search')->with($criteria, $this->context)->willReturn($this->searchResult);
+        $this->customFieldRepository->expects(self::once())->method('search')->with($criteria, $this->context);
 
-        self::assertEquals(
-            $this->searchResult,
-            $this->customFieldApiService->findCustomFieldsByName([$filter], $this->context)
-        );
+        $this->customFieldApiService->findCustomFieldsByName([$filter], $this->context);
     }
 
     public function testFindCustomFieldSetIdsByName(): void
@@ -66,11 +54,8 @@ class CustomFieldApiServiceTest extends TestCase
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', self::CUSTOM_FIELD_NAME));
 
-        $this->customFieldSetRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context)->willReturn($this->idSearchResult);
+        $this->customFieldSetRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
 
-        self::assertEquals(
-            $this->idSearchResult,
-            $this->customFieldApiService->findCustomFieldSetIdsByName(self::CUSTOM_FIELD_NAME, $this->context)
-        );
+        $this->customFieldApiService->findCustomFieldSetIdsByName(self::CUSTOM_FIELD_NAME, $this->context);
     }
 }
