@@ -23,7 +23,6 @@ class ApiResolverTest extends TestCase
         $apiResolver = new ApiResolver($configRepository);
 
         $this->expectException(ConfigNotFoundException::class);
-
         $apiResolver->getApi(self::SHOP_ID);
     }
 }
