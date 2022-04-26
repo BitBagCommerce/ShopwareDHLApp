@@ -7,18 +7,18 @@ namespace BitBag\ShopwareDHLApp\API\DHL;
 use Alexcherniatin\DHL\Exceptions\SoapException;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
 use BitBag\ShopwareDHLApp\Exception\ShipmentException;
-use BitBag\ShopwareDHLApp\Factory\PackageFactory;
+use BitBag\ShopwareDHLApp\Factory\PackageFactoryInterface;
 use BitBag\ShopwareDHLApp\Model\OrderDataInterface;
 
 final class ShipmentApiService implements ShipmentApiServiceInterface
 {
     private ApiResolverInterface $apiResolver;
 
-    private PackageFactory $packageFactory;
+    private PackageFactoryInterface $packageFactory;
 
     public function __construct(
         ApiResolverInterface $apiResolver,
-        PackageFactory $packageFactory
+        PackageFactoryInterface $packageFactory
     ) {
         $this->apiResolver = $apiResolver;
         $this->packageFactory = $packageFactory;
