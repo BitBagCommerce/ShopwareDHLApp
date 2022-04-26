@@ -31,10 +31,14 @@ class LabelApiServiceTest extends TestCase
             'labelData' => self::LABEL_DATA,
         ];
 
-        $dhl24->method('getLabels')->willReturn($results);
+        $dhl24
+            ->method('getLabels')
+            ->willReturn($results);
 
         $apiResolver = $this->createMock(ApiResolverInterface::class);
-        $apiResolver->method('getApi')->willReturn($dhl24);
+        $apiResolver
+            ->method('getApi')
+            ->willReturn($dhl24);
 
         $labelApiService = new LabelApiService($apiResolver);
         $labelData = new LabelData(self::LABEL_TYPE, self::SHIPMENT_ID, self::LABEL_DATA);

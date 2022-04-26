@@ -24,13 +24,23 @@ class ShipmentApiServiceTest extends TestCase
         $dhl = $this->createMock(DHL24::class);
         $config = new Config();
 
-        $orderData->method('getShopId')->willReturn(self::SHOP_ID);
+        $orderData
+            ->method('getShopId')
+            ->willReturn(self::SHOP_ID);
 
-        $apiResolver->expects(self::once())->method('getApi')->with(self::SHOP_ID)->willReturn($dhl);
+        $apiResolver->expects(self::once())
+            ->method('getApi')
+            ->with(self::SHOP_ID)
+            ->willReturn($dhl);
 
-        $packageFactory->expects(self::once())->method('create')->with($config, $orderData);
+        $packageFactory->expects(self::once())
+            ->method('create')
+            ->with($config, $orderData);
 
-        $dhl->expects(self::once())->method('createShipments')->with([]);
+        $dhl
+            ->expects(self::once())
+            ->method('createShipments')
+            ->with([]);
 
         $shipmentApiService = new ShipmentApiService($apiResolver, $packageFactory);
         $shipmentApiService->createShipments($orderData, $config);
