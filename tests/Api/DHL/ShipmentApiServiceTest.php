@@ -22,7 +22,6 @@ class ShipmentApiServiceTest extends TestCase
         $packageFactory = $this->createMock(PackageFactoryInterface::class);
         $orderData = $this->createMock(OrderDataInterface::class);
         $dhl = $this->createMock(DHL24::class);
-
         $config = new Config();
 
         $orderData->method('getShopId')->willReturn(self::SHOP_ID);

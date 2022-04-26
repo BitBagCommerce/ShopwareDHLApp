@@ -25,7 +25,6 @@ class LabelApiServiceTest extends TestCase
     public function testFetchLabel()
     {
         $dhl24 = $this->createMock(DHL24::class);
-
         $results = [
             'labelType' => self::LABEL_TYPE,
             'shipmentId' => self::SHIPMENT_ID,
@@ -38,7 +37,6 @@ class LabelApiServiceTest extends TestCase
         $apiResolver->method('getApi')->willReturn($dhl24);
 
         $labelApiService = new LabelApiService($apiResolver);
-
         $labelData = new LabelData(self::LABEL_TYPE, self::SHIPMENT_ID, self::LABEL_DATA);
 
         self::assertEquals($labelData, $labelApiService->fetchLabel(self::PARCEL_ID, self::SHOP_ID));

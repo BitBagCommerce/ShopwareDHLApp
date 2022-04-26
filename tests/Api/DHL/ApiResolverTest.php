@@ -17,7 +17,6 @@ class ApiResolverTest extends TestCase
     {
         $configRepository = $this->createMock(ConfigRepository::class);
         $configRepository->method('findOneBy')->willReturn(null);
-
         $apiResolver = new ApiResolver($configRepository);
 
         $this->expectException(ConfigNotFoundException::class);
