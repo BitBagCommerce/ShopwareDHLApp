@@ -15,6 +15,7 @@ class AvailabilityRuleCreatorTest extends TestCase
     public function testCreate(): void
     {
         $repository = $this->createMock(RepositoryInterface::class);
+
         $context = $this->createMock(Context::class);
 
         $repository->expects(self::once())->method('create')->with([
@@ -23,6 +24,7 @@ class AvailabilityRuleCreatorTest extends TestCase
         ], $context);
 
         $availabilityRuleCreator = new AvailabilityRuleCreator($repository);
+
         $availabilityRuleCreator->create($context);
     }
 }

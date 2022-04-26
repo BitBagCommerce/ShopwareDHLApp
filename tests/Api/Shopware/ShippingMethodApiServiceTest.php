@@ -23,70 +23,60 @@ class ShippingMethodApiServiceTest extends TestCase
 
     public const UNIT = 'day';
 
+    private Context $context;
+
+    private ShippingMethodApiService $shippingMethodApiService;
+
+    private RepositoryInterface $shippingMethodRepository;
+
+    private RepositoryInterface $deliveryTimeRepository;
+
+    private RepositoryInterface $ruleRepository;
+
+    protected function setUp(): void
+    {
+        $this->shippingMethodRepository = $this->createMock(RepositoryInterface::class);
+        $this->deliveryTimeRepository = $this->createMock(RepositoryInterface::class);
+        $this->ruleRepository = $this->createMock(RepositoryInterface::class);
+
+        $this->context = $this->createMock(Context::class);
+
+        $this->shippingMethodApiService = new ShippingMethodApiService(
+            $this->shippingMethodRepository,
+            $this->deliveryTimeRepository,
+            $this->ruleRepository
+        );
+    }
+
     public function testFindShippingMethodByShippingKey(): void
     {
-        $shippingMethodRepository = $this->createMock(RepositoryInterface::class);
-        $deliveryTimeRepository = $this->createMock(RepositoryInterface::class);
-        $ruleRepository = $this->createMock(RepositoryInterface::class);
-
-        $shippingMethodApiService = new ShippingMethodApiService(
-            $shippingMethodRepository,
-            $deliveryTimeRepository,
-            $ruleRepository
-        );
         $criteria = new Criteria();
         $criteria->addFilter(new ContainsFilter('name', Defaults::SHIPPING_METHOD_NAME));
 
-        $context = $this->createMock(Context::class);
+        $this->shippingMethodRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
 
-        $shippingMethodRepository->expects(self::once())->method('searchIds')->with($criteria, $context);
-
-        $shippingMethodApiService->findShippingMethodByShippingKey($context);
+        $this->shippingMethodApiService->findShippingMethodByShippingKey($this->context);
     }
 
     public function testFindRuleByName(): void
     {
-        $shippingMethodRepository = $this->createMock(RepositoryInterface::class);
-        $deliveryTimeRepository = $this->createMock(RepositoryInterface::class);
-        $ruleRepository = $this->createMock(RepositoryInterface::class);
-
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', self::RULE));
 
-        $shippingMethodApiService = new ShippingMethodApiService(
-            $shippingMethodRepository,
-            $deliveryTimeRepository,
-            $ruleRepository
-        );
+        $this->ruleRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
 
-        $context = $this->createMock(Context::class);
-
-        $ruleRepository->expects(self::once())->method('searchIds')->with($criteria, $context);
-
-        $shippingMethodApiService->findRuleByName(self::RULE, $context);
+        $this->shippingMethodApiService->findRuleByName(self::RULE, $this->context);
     }
 
     public function testFindDeliveryTimeByMinMax(): void
     {
-        $shippingMethodRepository = $this->createMock(RepositoryInterface::class);
-        $deliveryTimeRepository = $this->createMock(RepositoryInterface::class);
-        $ruleRepository = $this->createMock(RepositoryInterface::class);
-
-        $shippingMethodApiService = new ShippingMethodApiService(
-            $shippingMethodRepository,
-            $deliveryTimeRepository,
-            $ruleRepository
-        );
-
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('min', self::MIN));
         $criteria->addFilter(new EqualsFilter('max', self::MAX));
         $criteria->addFilter(new ContainsFilter('unit', self::UNIT));
 
-        $context = $this->createMock(Context::class);
+        $this->deliveryTimeRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
 
-        $deliveryTimeRepository->expects(self::once())->method('searchIds')->with($criteria, $context);
-
-        $shippingMethodApiService->findDeliveryTimeByMinMax(self::MIN, self::MAX, $context);
+        $this->shippingMethodApiService->findDeliveryTimeByMinMax(self::MIN, self::MAX, $this->context);
     }
 }
