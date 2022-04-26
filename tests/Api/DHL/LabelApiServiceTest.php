@@ -27,6 +27,7 @@ class LabelApiServiceTest extends TestCase
         $dhl24 = $this->createMock(DHL24::class);
 
         $apiResolver = $this->createMock(ApiResolverInterface::class);
+
         $apiResolver->method('getApi')->willReturn($dhl24);
 
         $results = [
