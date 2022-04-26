@@ -34,7 +34,6 @@ class ShipmentApiServiceTest extends TestCase
         $dhl->expects(self::once())->method('createShipments')->with([]);
 
         $shipmentApiService = new ShipmentApiService($apiResolver, $packageFactory);
-
         $shipmentApiService->createShipments($orderData, $config);
     }
 }

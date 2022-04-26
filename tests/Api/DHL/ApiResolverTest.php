@@ -16,12 +16,11 @@ class ApiResolverTest extends TestCase
     public function testGetApi(): void
     {
         $configRepository = $this->createMock(ConfigRepository::class);
-
         $configRepository->method('findOneBy')->willReturn(null);
 
         $apiResolver = new ApiResolver($configRepository);
 
-        self::expectException(ConfigNotFoundException::class);
+        $this->expectException(ConfigNotFoundException::class);
 
         $apiResolver->getApi(self::SHOP_ID);
     }

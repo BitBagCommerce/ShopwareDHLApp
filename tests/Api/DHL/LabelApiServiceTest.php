@@ -26,10 +26,6 @@ class LabelApiServiceTest extends TestCase
     {
         $dhl24 = $this->createMock(DHL24::class);
 
-        $apiResolver = $this->createMock(ApiResolverInterface::class);
-
-        $apiResolver->method('getApi')->willReturn($dhl24);
-
         $results = [
             'labelType' => self::LABEL_TYPE,
             'shipmentId' => self::SHIPMENT_ID,
@@ -38,9 +34,12 @@ class LabelApiServiceTest extends TestCase
 
         $dhl24->method('getLabels')->willReturn($results);
 
+        $apiResolver = $this->createMock(ApiResolverInterface::class);
+        $apiResolver->method('getApi')->willReturn($dhl24);
+
         $labelApiService = new LabelApiService($apiResolver);
 
-        $labelData = new LabelData($results['labelType'], $results['shipmentId'], $results['labelData']);
+        $labelData = new LabelData(self::LABEL_TYPE, self::SHIPMENT_ID, self::LABEL_DATA);
 
         self::assertEquals($labelData, $labelApiService->fetchLabel(self::PARCEL_ID, self::SHOP_ID));
     }
