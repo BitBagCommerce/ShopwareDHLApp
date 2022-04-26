@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\Tests\Api\Shopware;
 
-use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiService;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiServiceInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldFilter;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProvider;
 use BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProvider;
 use PHPUnit\Framework\TestCase;
 use Vin\ShopwareSdk\Data\Context;
-use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 class CustomFieldFilterTest extends TestCase
 {
