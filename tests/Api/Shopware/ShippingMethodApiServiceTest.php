@@ -53,7 +53,10 @@ class ShippingMethodApiServiceTest extends TestCase
         $criteria = new Criteria();
         $criteria->addFilter(new ContainsFilter('name', Defaults::SHIPPING_METHOD_NAME));
 
-        $this->shippingMethodRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
+        $this->shippingMethodRepository
+            ->expects(self::once())
+            ->method('searchIds')
+            ->with($criteria, $this->context);
 
         $this->shippingMethodApiService->findShippingMethodByShippingKey($this->context);
     }
@@ -63,7 +66,10 @@ class ShippingMethodApiServiceTest extends TestCase
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', self::RULE));
 
-        $this->ruleRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
+        $this->ruleRepository
+            ->expects(self::once())
+            ->method('searchIds')
+            ->with($criteria, $this->context);
 
         $this->shippingMethodApiService->findRuleByName(self::RULE, $this->context);
     }
@@ -75,7 +81,10 @@ class ShippingMethodApiServiceTest extends TestCase
         $criteria->addFilter(new EqualsFilter('max', self::MAX));
         $criteria->addFilter(new ContainsFilter('unit', self::UNIT));
 
-        $this->deliveryTimeRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
+        $this->deliveryTimeRepository
+            ->expects(self::once())
+            ->method('searchIds')
+            ->with($criteria, $this->context);
 
         $this->shippingMethodApiService->findDeliveryTimeByMinMax(self::MIN, self::MAX, $this->context);
     }

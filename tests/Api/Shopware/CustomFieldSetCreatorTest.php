@@ -40,10 +40,17 @@ class CustomFieldSetCreatorTest extends TestCase
 
     public function testCreate()
     {
-        $this->idSearchResult->method('getTotal')->willReturn(self::TOTAL);
-        $this->idSearchResult->method('firstId')->willReturn(self::CUSTOM_FIELD_SET_ID);
+        $this->idSearchResult
+            ->method('getTotal')
+            ->willReturn(self::TOTAL);
 
-        $this->customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($this->idSearchResult);
+        $this->idSearchResult
+            ->method('firstId')
+            ->willReturn(self::CUSTOM_FIELD_SET_ID);
+
+        $this->customFieldApiService
+            ->method('findCustomFieldSetIdsByName')
+            ->willReturn($this->idSearchResult);
 
         $customFieldSet = $this->customFieldSetCreator->create($this->context);
 

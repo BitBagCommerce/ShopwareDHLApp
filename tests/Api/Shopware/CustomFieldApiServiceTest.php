@@ -44,7 +44,10 @@ class CustomFieldApiServiceTest extends TestCase
 
         $criteria->addFilter(new MultiFilter('or', [$filter]));
 
-        $this->customFieldRepository->expects(self::once())->method('search')->with($criteria, $this->context);
+        $this->customFieldRepository
+            ->expects(self::once())
+            ->method('search')
+            ->with($criteria, $this->context);
 
         $this->customFieldApiService->findCustomFieldsByName([$filter], $this->context);
     }
@@ -54,7 +57,10 @@ class CustomFieldApiServiceTest extends TestCase
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', self::CUSTOM_FIELD_NAME));
 
-        $this->customFieldSetRepository->expects(self::once())->method('searchIds')->with($criteria, $this->context);
+        $this->customFieldSetRepository
+            ->expects(self::once())
+            ->method('searchIds')
+            ->with($criteria, $this->context);
 
         $this->customFieldApiService->findCustomFieldSetIdsByName(self::CUSTOM_FIELD_NAME, $this->context);
     }

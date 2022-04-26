@@ -18,10 +18,16 @@ class AvailabilityRuleCreatorTest extends TestCase
 
         $context = $this->createMock(Context::class);
 
-        $repository->expects(self::once())->method('create')->with([
-            'name' => Defaults::AVAILABILITY_RULE,
-            'priority' => 100,
-        ], $context);
+        $repository
+            ->expects(self::once())
+            ->method('create')
+            ->with(
+                [
+                    'name' => Defaults::AVAILABILITY_RULE,
+                    'priority' => 100,
+                ],
+                $context
+            );
 
         $availabilityRuleCreator = new AvailabilityRuleCreator($repository);
 
