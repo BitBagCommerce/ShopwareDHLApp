@@ -38,22 +38,7 @@ class CustomFieldSetCreatorTest extends TestCase
         $this->customFieldSetCreator = new CustomFieldSetCreator($this->customFieldApiService, $this->customFieldSetPayloadFactory, $customFieldSetRepository);
     }
 
-    public function testCreate(): void
-    {
-        $this->customFieldApiService->method('findCustomFieldSetIdsByName')->willReturn($this->idSearchResult);
-
-        $customFieldSet = $this->customFieldSetCreator->create($this->context);
-
-        self::assertEquals(
-            [
-                'customFieldSetId' => null,
-                'customFieldSet' => $this->idSearchResult,
-            ],
-            $customFieldSet
-        );
-    }
-
-    public function testCreateWithCustomFieldSetId()
+    public function testCreate()
     {
         $this->idSearchResult->method('getTotal')->willReturn(self::TOTAL);
         $this->idSearchResult->method('firstId')->willReturn(self::CUSTOM_FIELD_SET_ID);
