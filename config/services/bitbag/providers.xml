@@ -5,11 +5,6 @@
         <service class="BitBag\ShopwareDHLApp\Provider\CustomFieldNamesProvider"
                  id="bitbag.shopware_dhl_app.provider.custom_field_names">
         </service>
-        <service class="BitBag\ShopwareDHLApp\Provider\NotificationProvider"
-                 id="bitbag.shopware_dhl_app.provider.notification">
-            <argument type="service" id="translator"/>
-            <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
-        </service>
 
         <service class="BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProvider"
                  id="bitbag.shopware_dhl_app.provider.custom_field_filter_data">
