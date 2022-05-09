@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\Controller;
 
+use BitBag\ShopwareAppSystemBundle\Model\Feedback\Notification\Error;
+use BitBag\ShopwareAppSystemBundle\Response\FeedbackResponse;
 use BitBag\ShopwareDHLApp\API\DHL\LabelApiServiceInterface;
 use BitBag\ShopwareDHLApp\Entity\LabelInterface;
-use BitBag\ShopwareDHLApp\Exception\LabelNotFoundException;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ShowLabelController
 {
@@ -17,12 +19,16 @@ final class ShowLabelController
 
     private LabelApiServiceInterface $labelApiService;
 
+    private TranslatorInterface $translator;
+
     public function __construct(
         LabelRepository $labelRepository,
-        LabelApiServiceInterface $labelApiService
-    ) {
+        LabelApiServiceInterface $labelApiService,
+        TranslatorInterface $translator,
+        ) {
         $this->labelRepository = $labelRepository;
         $this->labelApiService = $labelApiService;
+        $this->translator = $translator;
     }
 
     public function __invoke(Request $request): Response
@@ -31,13 +37,13 @@ final class ShowLabelController
         $shopId = $request->query->get('shop-id');
 
         if (null === $orderId || null == $shopId) {
-            throw new LabelNotFoundException('bitbag.shopware_dhl_app.order.not_found');
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_found')));
         }
 
         $label = $this->labelRepository->findByOrderId($orderId, $shopId);
 
         if (null === $label) {
-            throw new LabelNotFoundException('bitbag.shopware_dhl_app.order.not_found');
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_found')));
         }
 
         return $this->getLabelResponse($shopId, $label);
