@@ -6,5 +6,11 @@ bitbag:
     order:
       not_found: 'Order not found. Create a package first'
       already_created: 'A package has already been created for this order'
+      created: 'The order was forwarded to DHL. Now you can get the shipping label'
+      empty_package_details: 'Fill the package details data'
+      empty_order_address: 'Fill the order address'
+      empty_phone_number: 'Phone number cannot be null'
     label:
       not_found: 'Label not found'
+    config:
+      not_found: 'Config not found'

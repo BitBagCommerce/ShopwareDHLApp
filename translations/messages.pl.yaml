@@ -1,0 +1,16 @@
+bitbag:
+  shopware_dhl_app:
+    ui:
+      save: 'Zapisz'
+      saved: 'Zapisano pomyślnie'
+    order:
+      not_found: 'Zamówienie nie zostało znalezione. Zleć najpierw przesyłkę'
+      already_created: 'Przesyłka została już zlecona dla Twojego zamówienia. Możesz pobrać etykietkę'
+      created: 'Zamówienie zostało przekazane do DHL. Możesz wygenerować etykietkę.'
+      empty_package_details: 'Wypełnij najpierw dane o paczce'
+      empty_order_address: 'Wypełnij adres'
+      empty_phone_number: 'Numer telefonu nie może być pusty'
+    label:
+      not_found: 'Nie znaleziono etykietki'
+    config:
+      not_found: 'Nie znaleziono konfiguracji DHL'
