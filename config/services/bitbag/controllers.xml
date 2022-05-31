@@ -17,6 +17,7 @@
             <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
+
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -36,6 +37,7 @@
         <service class="BitBag\ShopwareDHLApp\Controller\ShowLabelController" id="bitbag.shopware_dhl_app.controller.show_label" public="true">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.label_repository"/>
             <argument type="service" id="bitbag.shopware_dhl_app.api.label_service"/>
+            <argument type="service" id="translator.default"/>
         </service>
     </services>
 </container>

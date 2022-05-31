@@ -29,8 +29,8 @@ final class APISettingsController extends AbstractController
         ConfigRepository $configRepository,
         ShopRepositoryInterface $shopRepository,
         EntityManagerInterface $entityManager,
-        TranslatorInterface $translator
-    ) {
+        TranslatorInterface $translator,
+        ) {
         $this->configRepository = $configRepository;
         $this->entityManager = $entityManager;
         $this->shopRepository = $shopRepository;
