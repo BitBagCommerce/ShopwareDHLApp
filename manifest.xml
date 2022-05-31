@@ -4,6 +4,8 @@
     <meta>
         <name>DHL</name>
         <label>DHL</label>
+        <label lang="de-DE">DHL</label>
+        <label lang="pl-PL">DHL</label>
         <description>BitBag Shopware app for DHL</description>
         <author>BitBag</author>
         <copyright>(c) by BitBag</copyright>
@@ -38,10 +40,14 @@
     <admin>
         <action-button action="createPackage" entity="order" view="detail" url="http://example-app/app/send-order">
             <label>Create package in DHL</label>
+            <label lang="de-DE">Paket in DHL erstellen</label>
+            <label lang="pl-PL">Utwórz paczkę w DHL</label>
         </action-button>
 
         <action-button action="getLabel" entity="order" view="detail" url="http://example-app/app/get-label">
             <label>Get shipping label for DHL</label>
+            <label lang="de-DE">Versandetikett für DHL anfordern</label>
+            <label lang="pl-PL">Pobierz etykietkę dla wysyłki DHL</label>
         </action-button>
 
         <module name="api-settings"
@@ -50,6 +56,8 @@
                 position="50"
         >
             <label>API Settings</label>
+            <label lang="de-DE">Api-Einstellungen</label>
+            <label lang="pl-PL">Ustawienia API</label>
         </module>
     </admin>
 
