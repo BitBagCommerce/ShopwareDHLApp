@@ -26,7 +26,7 @@ bitbag:
       email: 'Adres e-mail'
       shipper: 'Wysyłający'
       receiver: 'Odbierający'
-      payer_type: 'Kto płaci'
+      payer_type: 'Płatnik'
       payment_method: 'Metoda płatności'
       bank_transfer: 'Przelew bankowy'
       cash: 'Gotówka'
