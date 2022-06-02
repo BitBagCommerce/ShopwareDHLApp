@@ -6,7 +6,6 @@ namespace BitBag\ShopwareDHLApp\EventSubscriber;
 
 use BitBag\ShopwareAppSystemBundle\LifecycleEvent\AppActivatedEvent;
 use BitBag\ShopwareDHLApp\API\Shopware\AvailabilityRuleCreatorInterface;
-use BitBag\ShopwareDHLApp\API\Shopware\CustomFieldsCreatorInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactoryInterface;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
@@ -16,8 +15,6 @@ use Vin\ShopwareSdk\Repository\RepositoryInterface;
 
 final class AppActivatedEventSubscriber implements EventSubscriberInterface
 {
-    private CustomFieldsCreatorInterface $customFieldsCreator;
-
     private ShippingMethodApiServiceInterface $shippingMethodApiService;
 
     private ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory;
@@ -27,13 +24,11 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
     private RepositoryInterface $shippingMethodRepository;
 
     public function __construct(
-        CustomFieldsCreatorInterface $customFieldsCreator,
         ShippingMethodApiServiceInterface $shippingMethodApiService,
         ShippingMethodPayloadFactoryInterface $shippingMethodPayloadFactory,
         AvailabilityRuleCreatorInterface $availabilityRuleCreator,
         RepositoryInterface $shippingMethodRepository
     ) {
-        $this->customFieldsCreator = $customFieldsCreator;
         $this->shippingMethodApiService = $shippingMethodApiService;
         $this->shippingMethodPayloadFactory = $shippingMethodPayloadFactory;
         $this->availabilityRuleCreator = $availabilityRuleCreator;
@@ -50,7 +45,6 @@ final class AppActivatedEventSubscriber implements EventSubscriberInterface
     public function onAppActivated(AppActivatedEvent $event): void
     {
         $context = $event->getContext();
-        $this->customFieldsCreator->create($context);
         $this->createShippingMethod($context);
     }
 

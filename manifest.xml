@@ -61,6 +61,57 @@
         </module>
     </admin>
 
+    <custom-fields>
+        <custom-field-set>
+            <name>bitbag.shopware_dhl_app.package_details</name>
+            <label>Package details (DHL)</label>
+            <label lang="de-DE">Details zum Paket (DHL)</label>
+            <label lang="pl-PL">Szczegóły paczki (DHL)</label>
+            <related-entities>
+                <order/>
+            </related-entities>
+
+            <fields>
+                <float name="bitbag.shopware_dhl_app.package_details_height">
+                    <label>Height</label>
+                    <label lang="de-DE">Höhe</label>
+                    <label lang="pl-PL">Wysokość</label>
+                </float>
+                <float name="bitbag.shopware_dhl_app.package_details_width">
+                    <label>Width</label>
+                    <label lang="de-DE">Breite</label>
+                    <label lang="pl-PL">Szerokość</label>
+                </float>
+                <float name="bitbag.shopware_dhl_app.package_details_depth">
+                    <label>Depth</label>
+                    <label lang="de-DE">Tiefe</label>
+                    <label lang="pl-PL">Głębokość</label>
+                </float>
+                <float name="bitbag.shopware_dhl_app.package_details_insurance">
+                    <label>Insurance</label>
+                    <label lang="de-DE">Versicherung</label>
+                    <label lang="pl-PL">Ubezpieczenie</label>
+                </float>
+                <text name="bitbag.shopware_dhl_app.package_details_countryCode">
+                    <label>Sender country code</label>
+                    <label lang="de-DE">Ländercode des Absenders</label>
+                    <label lang="pl-PL">Kod kraju nadawcy</label>
+                </text>
+                <text name="bitbag.shopware_dhl_app.package_details_shippingDate">
+                    <label>Shipping date</label>
+                    <label lang="de-DE">Versanddatum</label>
+                    <label lang="pl-PL">Data wysłania</label>
+                    <placeholder>(YYYY-MM-DD)</placeholder>
+                </text>
+                <text name="bitbag.shopware_dhl_app.package_details_description">
+                    <label>Package description</label>
+                    <label lang="de-DE">Beschreibung des Pakets</label>
+                    <label lang="pl-PL">Opis paczki</label>
+                </text>
+            </fields>
+        </custom-field-set>
+    </custom-fields>
+
     <webhooks>
         <!--  https://developer.shopware.com/docs/guides/plugins/apps/app-base-guide#webhooks-->
         <webhook name="appLifecycleDeleted" url="http://example-app/app/lifecycle/deleted" event="app.deleted"/>
