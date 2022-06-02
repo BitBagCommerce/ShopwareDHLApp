@@ -2,22 +2,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldSetCreator"
-                 id="bitbag.shopware_dhl_app.api.create_custom_field_set">
-            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field_api_service"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.create_custom_field_set"/>
-            <argument type="service" id="shopware.repository.custom_field_set"/>
-
-        </service>
-
-        <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldsCreator"
-                 id="bitbag.shopware_dhl_app.api.create_custom_fields">
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.custom_field_filter"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.factory.create_custom_field"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.create_custom_field_set"/>
-            <argument type="service" id="shopware.repository.custom_field"/>
-        </service>
-
         <service class="BitBag\ShopwareDHLApp\API\DHL\ApiResolver"
                  id="bitbag.shopware_dhl_app.api.api_resolver">
             <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
@@ -34,22 +18,9 @@
             <argument type="service" id="bitbag.shopware_dhl_app.factory.package_factory"/>
         </service>
 
-        <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldFilter"
-                 id="bitbag.shopware_dhl_app.factory.custom_field_filter">
-            <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_names"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.api.custom_field_api_service"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.provider.custom_field_filter_data"/>
-        </service>
-
         <service class="BitBag\ShopwareDHLApp\API\DHL\LabelApiService"
                  id="bitbag.shopware_dhl_app.api.label_service">
             <argument type="service" id="bitbag.shopware_dhl_app.api.api_resolver"/>
-        </service>
-
-        <service class="BitBag\ShopwareDHLApp\API\Shopware\CustomFieldApiService"
-                 id="bitbag.shopware_dhl_app.api.custom_field_api_service">
-            <argument type="service" id="shopware.repository.custom_field"/>
-            <argument type="service" id="shopware.repository.custom_field_set"/>
         </service>
 
         <service class="BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiService"
