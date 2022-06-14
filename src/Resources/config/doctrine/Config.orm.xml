@@ -33,6 +33,5 @@
         <many-to-one field="shop" target-entity="BitBag\ShopwareAppSystemBundle\Entity\Shop">
             <join-column name="shop_id" referenced-column-name="shop_id" nullable="false" on-delete="CASCADE"/>
         </many-to-one>
-
     </entity>
 </doctrine-mapping>
