@@ -13,53 +13,32 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Config implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     private int $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="BitBag\ShopwareAppSystemBundle\Entity\Shop", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id", onDelete="CASCADE")
-     */
     private ShopInterface $shop;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $username;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $password;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $accountNumber;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $name;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $postalCode;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $city;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $street;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $houseNumber;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $phoneNumber;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $email;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $payerType;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $paymentMethod;
 
     public function getId(): int

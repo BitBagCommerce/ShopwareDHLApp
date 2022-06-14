@@ -13,23 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Label implements LabelInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     private int $id;
 
-    /** @ORM\Column(type="string", length=255) */
     private string $orderId;
 
-    /** @ORM\Column(type="string") */
     private string $parcelId;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="BitBag\ShopwareAppSystemBundle\Entity\Shop")
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="shop_id", onDelete="CASCADE")
-     */
     private ShopInterface $shop;
 
     public function __construct(
