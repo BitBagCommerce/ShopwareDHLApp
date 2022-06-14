@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\EventSubscriber;
 
-use BitBag\ShopwareAppSystemBundle\LifecycleEvent\AppActivatedEvent;
+use BitBag\ShopwareAppSystemBundle\AppLifecycleEvent\AppActivatedEvent;
 use BitBag\ShopwareDHLApp\API\Shopware\AvailabilityRuleCreatorInterface;
 use BitBag\ShopwareDHLApp\API\Shopware\ShippingMethodApiServiceInterface;
 use BitBag\ShopwareDHLApp\Factory\ShippingMethodPayloadFactoryInterface;
