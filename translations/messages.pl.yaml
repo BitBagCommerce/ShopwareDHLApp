@@ -10,6 +10,7 @@ bitbag:
       empty_package_details: 'Wypełnij najpierw dane o paczce'
       empty_order_address: 'Wypełnij adres'
       empty_phone_number: 'Numer telefonu nie może być pusty'
+      not_for_dhl: 'To zamówienie nie zostało złożone dla DHL'
     label:
       not_found: 'Nie znaleziono etykietki'
     config:

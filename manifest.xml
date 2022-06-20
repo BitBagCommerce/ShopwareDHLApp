@@ -7,6 +7,7 @@
         <label lang="de-DE">DHL</label>
         <label lang="pl-PL">DHL</label>
         <description>BitBag Shopware app for DHL</description>
+        <description lang="pl-PL">BitBag Shopware app for DHL</description>
         <author>BitBag</author>
         <copyright>(c) by BitBag</copyright>
         <version>1.0.0</version>
