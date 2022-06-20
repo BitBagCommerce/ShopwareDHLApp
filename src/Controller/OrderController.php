@@ -107,6 +107,7 @@ final class OrderController
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod->name) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
+        
         $orderData = new OrderData(
             $order->deliveries?->first()->shippingOrderAddress,
             $customerEmail,
