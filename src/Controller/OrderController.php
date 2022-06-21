@@ -80,7 +80,7 @@ final class OrderController
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('id', $orderId));
-        $criteria->addAssociations(['lineItems.product', 'deliveries']);
+        $criteria->addAssociations(['lineItems.product', 'deliveries', 'deliveries.shippingMethod']);
 
         $searchOrder = $this->orderRepository->search($criteria, $context);
 
@@ -102,6 +102,10 @@ final class OrderController
 
         if (null === $order->deliveries?->first()?->shippingOrderAddress->phoneNumber) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_phone_number')));
+        }
+
+        if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
 
         $orderData = new OrderData(

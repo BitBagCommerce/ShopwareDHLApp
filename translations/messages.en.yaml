@@ -10,6 +10,7 @@ bitbag:
       empty_package_details: 'Fill the package details data'
       empty_order_address: 'Fill the order address'
       empty_phone_number: 'Phone number cannot be null'
+      not_for_dhl: 'This order was not placed for DHL'
     label:
       not_found: 'Label not found'
     config:
