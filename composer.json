@@ -82,5 +82,5 @@
         "symfony/maker-bundle": "^1.38",
         "vimeo/psalm": "^4.19"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
