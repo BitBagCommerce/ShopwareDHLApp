@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigType extends AbstractType
@@ -73,6 +75,16 @@ class ConfigType extends AbstractType
                 'required' => true,
                 'label' => 'bitbag.shopware_dhl_app.config.payment_method',
             ])
+            ->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                static function (FormEvent $event): void {
+                    $data = $event->getData();
+
+                    $data['postalCode'] = str_replace(['-', ' '], '', $data['postalCode']);
+
+                    $event->setData($data);
+                }
+            )
         ;
     }
 
