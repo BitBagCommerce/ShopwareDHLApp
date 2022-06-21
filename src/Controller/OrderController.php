@@ -104,7 +104,7 @@ final class OrderController
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_phone_number')));
         }
 
-        if ('DHL' !== $order->deliveries?->first()?->shippingMethod->name) {
+        if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
 
