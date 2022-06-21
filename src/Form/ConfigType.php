@@ -80,7 +80,9 @@ class ConfigType extends AbstractType
                 static function (FormEvent $event): void {
                     $data = $event->getData();
 
-                    $data['postalCode'] = str_replace(['-', ' '], '', $data['postalCode']);
+                    if (isset($data['postalCode'])) {
+                        $data['postalCode'] = str_replace(['-', ' '], '', $data['postalCode']);
+                    }
 
                     $event->setData($data);
                 }
