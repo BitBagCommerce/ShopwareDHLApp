@@ -67,6 +67,12 @@ final class OrderController
 
         $shopId = $action->getSource()->getShopId();
 
+        $label = $this->labelRepository->findByOrderId($orderId, $shopId);
+
+        if (null !== $label) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.already_exists')));
+        }
+
         /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
@@ -105,7 +111,7 @@ final class OrderController
         }
 
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
+            //return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
 
         $orderData = new OrderData(

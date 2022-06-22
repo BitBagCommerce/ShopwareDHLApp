@@ -13,6 +13,7 @@ bitbag:
       not_for_dhl: 'This order was not placed for DHL'
       empty_weight: 'Products weight is empty'
       invalid_street_value: "Invalid street value"
+      already_exists: 'Shipment already exists'
     label:
       not_found: 'Label not found'
     config:
