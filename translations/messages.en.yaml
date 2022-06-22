@@ -11,8 +11,8 @@ bitbag:
       empty_order_address: 'Fill the order address'
       empty_phone_number: 'Phone number cannot be null'
       not_for_dhl: 'This order was not placed for DHL'
-      empty_weight: 'Products weight is empty'
-      invalid_street_value: "Invalid street value"
+      empty_weight: 'Weight cannot be empty'
+      invalid_street: "Invalid street value"
       already_exists: 'Shipment already exists'
     label:
       not_found: 'Label not found'
