@@ -12,7 +12,7 @@ bitbag:
       empty_phone_number: 'Numer telefonu nie może być pusty'
       not_for_dhl: 'To zamówienie nie zostało złożone dla DHL'
       empty_weight: 'Waga produktów jest pusta'
-      invalid_street_value: "Nieprawidłowa wartość pola 'ulica'"
+      invalid_street: "Nieprawidłowa wartość pola 'ulica'"
       already_exists: 'Przesyłka już została utworzona'
     label:
       not_found: 'Nie znaleziono etykietki'
