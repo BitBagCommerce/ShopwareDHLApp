@@ -11,6 +11,8 @@ bitbag:
       empty_order_address: 'Wypełnij adres'
       empty_phone_number: 'Numer telefonu nie może być pusty'
       not_for_dhl: 'To zamówienie nie zostało złożone dla DHL'
+      empty_weight: 'Waga produktów jest pusta'
+      invalid_street_value: "Nieprawidłowa wartość pola 'ulica'"
     label:
       not_found: 'Nie znaleziono etykietki'
     config:

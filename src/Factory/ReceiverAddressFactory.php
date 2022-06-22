@@ -37,7 +37,7 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
     private function splitStreet(string $street): array
     {
         if (!preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
-            throw new StreetCannotBeSplitException('Street cannot be split');
+            throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street_value');
         }
 
         return $streetAddress;

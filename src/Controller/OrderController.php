@@ -10,10 +10,12 @@ use BitBag\ShopwareAppSystemBundle\Model\Feedback\Notification\Success;
 use BitBag\ShopwareAppSystemBundle\Response\FeedbackResponse;
 use BitBag\ShopwareDHLApp\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
+use SoapFault;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -65,12 +67,6 @@ final class OrderController
 
         $shopId = $action->getSource()->getShopId();
 
-        $label = $this->labelRepository->findByOrderId($orderId, $shopId);
-
-        if (null !== $label) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_found')));
-        }
-
         /** @var ConfigInterface|null $config */
         $config = $this->configRepository->findOneBy(['shop' => $shopId]);
 
@@ -88,6 +84,10 @@ final class OrderController
         $order = $searchOrder->first();
 
         $totalWeight = $this->countTotalWeight($order->lineItems);
+
+        if (0.0 === $totalWeight) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_weight')));
+        }
 
         /** @var string $customerEmail */
         $customerEmail = $order?->orderCustomer?->email;
@@ -117,14 +117,18 @@ final class OrderController
             $orderId
         );
 
-        $shipment = $this->shipmentApiService->createShipments($orderData, $config);
+        try {
+            $shipment = $this->shipmentApiService->createShipments($orderData, $config);
+        } catch (SoapFault|StreetCannotBeSplitException $e) {
+            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
+        }
 
         $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
 
         return new FeedbackResponse(new Success($this->translator->trans('bitbag.shopware_dhl_app.order.created')));
     }
 
-    public function countTotalWeight(OrderLineItemCollection $lineItems): float
+    private function countTotalWeight(OrderLineItemCollection $lineItems): float
     {
         $totalWeight = 0.0;
 
