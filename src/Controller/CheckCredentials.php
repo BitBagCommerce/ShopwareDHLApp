@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareDHLApp\Controller;
 
 use Alexcherniatin\DHL\DHL24;
@@ -17,8 +19,7 @@ final class CheckCredentials
 
         try {
             $dhl = new DHL24($data->username, $data->password, $data->accountNumber, true);
-        } catch (SoapException $e)
-        {
+        } catch (SoapException $e) {
             return new FeedbackResponse(new Error($e->getMessage()));
         }
 
