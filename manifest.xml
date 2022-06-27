@@ -101,6 +101,11 @@
                     <label lang="de-DE">Beschreibung des Pakets</label>
                     <label lang="pl-PL">Opis paczki</label>
                 </text>
+                <text name="bitbag.shopware_dhl_app.package_details_countryCode">
+                    <label>Receiver country code</label>
+                    <label lang="de-DE">Ländercode des Empfängers</label>
+                    <label lang="pl-PL">Kod kraju odbiorcy</label>
+                </text>
             </fields>
         </custom-field-set>
     </custom-fields>
