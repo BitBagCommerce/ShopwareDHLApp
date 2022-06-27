@@ -86,9 +86,9 @@
                     <label lang="pl-PL">Głębokość (cm)</label>
                 </int>
                 <int name="bitbag.shopware_dhl_app.package_details_insurance">
-                    <label>Insurance (Can be left empty)</label>
-                    <label lang="de-DE">Versicherung (Kann leer gelassen werden)</label>
-                    <label lang="pl-PL">Ubezpieczenie (Możesz zostawić puste)</label>
+                    <label>Insurance (can be left empty)</label>
+                    <label lang="de-DE">Versicherung (kann leer bleiben)</label>
+                    <label lang="pl-PL">Ubezpieczenie (można zostawić puste)</label>
                 </int>
                 <text name="bitbag.shopware_dhl_app.package_details_shippingDate">
                     <label>Shipping date</label>
