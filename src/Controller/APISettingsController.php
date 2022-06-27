@@ -60,7 +60,7 @@ final class APISettingsController extends AbstractController
             $this->entityManager->persist($config);
             $this->entityManager->flush();
 
-            $session->getFlashBag()->add('success', $this->translator->trans('bitbag.shopware_dhl_app.ui.saved'));
+            //$session->getFlashBag()->add('success', $this->translator->trans('bitbag.shopware_dhl_app.ui.saved'));
         }
 
         return $this->renderForm('settings/form.html.twig', [

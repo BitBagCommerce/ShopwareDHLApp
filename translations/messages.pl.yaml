@@ -3,6 +3,7 @@ bitbag:
     ui:
       save: 'Zapisz'
       saved: 'Zapisano pomyślnie'
+      check_credentials: 'Sprawdź dane do API'
     order:
       not_found: 'Zamówienie nie zostało znalezione. Zleć najpierw przesyłkę'
       already_created: 'Przesyłka została już zlecona dla Twojego zamówienia. Możesz pobrać etykietkę'
