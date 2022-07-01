@@ -13,6 +13,7 @@ use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
+use BitBag\ShopwareDHLApp\Provider\Defaults;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use SoapFault;
@@ -112,6 +113,16 @@ final class OrderController
 
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
+        }
+
+        $customFields = $order?->getCustomFields();
+
+        if (null === $customFields[Defaults::PACKAGE_COUNTRY_CODE]) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_country_code')));
+        }
+
+        if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.invalid_zipcode')));
         }
 
         $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
