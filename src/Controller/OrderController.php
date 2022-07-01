@@ -90,6 +90,7 @@ final class OrderController
         /** @var OrderEntity|null $order */
         $order = $searchOrder->first();
 
+        $customFields = $order?->getCustomFields();
         $totalWeight = $this->countTotalWeight($order->lineItems);
 
         if (0.0 === $totalWeight) {
@@ -99,7 +100,7 @@ final class OrderController
         /** @var string $customerEmail */
         $customerEmail = $order?->orderCustomer?->email;
 
-        if (null === $order?->getCustomFields()) {
+        if (null === $customFields) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_package_details')));
         }
 
@@ -112,10 +113,8 @@ final class OrderController
         }
 
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            //return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
-
-        $customFields = $order?->getCustomFields();
 
         if (null === $customFields[Defaults::PACKAGE_COUNTRY_CODE]) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_country_code')));
@@ -139,7 +138,7 @@ final class OrderController
             $order->deliveries?->first()->shippingOrderAddress,
             $customerEmail,
             $totalWeight,
-            $order?->getCustomFields(),
+            $customFields,
             $shopId,
             $orderId,
             $street
