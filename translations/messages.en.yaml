@@ -3,7 +3,7 @@ bitbag:
     ui:
       save: 'Save'
       saved: 'Successfully saved'
-      check_credentials: 'Check API Credentials'
+      check_credentials: 'Check API credentials'
     order:
       not_found: 'Order not found. Create a package first'
       already_created: 'A package has already been created for this order'
