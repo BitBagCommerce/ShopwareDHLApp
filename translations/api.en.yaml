@@ -5,3 +5,4 @@
 'Błędy walidacji przesyłki: Paczka nie może mieć żadnego wymiaru większego od 400cm., Paczka nie może mieć żadnego wymiaru większego od 400cm., Paczka nie może mieć żadnego wymiaru większego od 400cm., Suma wszystkich wymiarów paczki nie może być większa od 600cm': 'Errors in validating the shipment: The package cannot be larger than 400x400x400 cm. The sum of all package dimensions cannot exceed 600 cm'
 'Błędy walidacji przesyłki: Wystąpił błąd podczas dodawania przesyłki. Spróbuj ponownie później.': 'Shipment validation errors: There was an error adding the shipment. Please try again later.'
 'Błąd w danych adresowych odbiorcy: Wprowadź poprawny kod pocztowy.': "Error in the recipient's address data Please enter a valid zip code xx-xxx"
+'Błędy walidacji przesyłki: Usługa niedostępna dla danego kraju.': 'Shipment validation errors: Service not available for the given country.'

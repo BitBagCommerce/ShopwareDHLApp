@@ -15,6 +15,7 @@ bitbag:
       empty_weight: 'Waga produktów jest pusta'
       invalid_street: "Nieprawidłowa wartość pola 'ulica'"
       already_exists: 'Przesyłka już została utworzona'
+      empty_country_code: 'Kod kraju odbiorcy nie może być pusty'
     label:
       not_found: 'Nie znaleziono etykietki'
     config:
