@@ -19,4 +19,6 @@ interface OrderDataInterface
     public function getShopId(): string;
 
     public function getOrderId(): string;
+
+    public function getStreet(): array;
 }

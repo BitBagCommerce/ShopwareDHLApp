@@ -14,9 +14,9 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
     public function create(
         OrderAddressEntity $shippingAddress,
         string $customerEmail,
-        array $customFields
+        array $customFields,
+        array $streetAddress
     ): array {
-        $streetAddress = $this->splitStreet($shippingAddress->street);
 
         $shippingAddress->street = $streetAddress[1];
         $houseNumber = $streetAddress[2];
@@ -32,14 +32,5 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
             ->setContactPhone($shippingAddress->phoneNumber)
             ->setContactEmail($customerEmail)
             ->structure();
-    }
-
-    private function splitStreet(string $street): array
-    {
-        if (!preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
-            throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street');
-        }
-
-        return $streetAddress;
     }
 }
