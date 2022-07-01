@@ -112,13 +112,21 @@ final class OrderController
         }
 
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
+            //return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
 
         $customFields = $order?->getCustomFields();
 
         if (null === $customFields[Defaults::PACKAGE_COUNTRY_CODE]) {
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_country_code')));
+        }
+
+        if (
+            0 === $customFields[Defaults::PACKAGE_DEPTH] ||
+            0 === $customFields[Defaults::PACKAGE_HEIGHT] ||
+            0 === $customFields[Defaults::PACKAGE_WIDTH]
+        ) {
+            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_package_dimensions')));
         }
 
         if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {

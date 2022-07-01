@@ -17,6 +17,7 @@ bitbag:
       already_exists: 'Przesyłka już została utworzona'
       empty_country_code: 'Kod kraju odbiorcy nie może być pusty'
       invalid_zipcode: 'Wprowadź poprawny kod pocztowy (xx-xxx)'
+      empty_package_dimensions: 'Wymiary paczki nie mogą być puste'
     label:
       not_found: 'Nie znaleziono etykietki'
     config:
