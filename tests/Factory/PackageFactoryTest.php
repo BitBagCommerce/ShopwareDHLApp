@@ -62,7 +62,8 @@ class PackageFactoryTest extends TestCase
             10.0,
             $this->getExampleData(),
             '321',
-            '1234'
+            '1234',
+            ['', 'Braci Załuskich', '4a']
         );
 
         $addressFactory = new AddressFactory();

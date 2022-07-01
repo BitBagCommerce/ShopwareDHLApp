@@ -69,6 +69,7 @@ final class OrderData implements OrderDataInterface
     {
         return $this->orderId;
     }
+
     public function getStreet(): array
     {
         return $this->street;

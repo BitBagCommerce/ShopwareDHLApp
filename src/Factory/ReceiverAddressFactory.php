@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\Factory;
 
 use Alexcherniatin\DHL\Structures\ReceiverAddress;
-use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Provider\Defaults;
 use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
 
@@ -17,7 +16,6 @@ final class ReceiverAddressFactory implements ReceiverAddressFactoryInterface
         array $customFields,
         array $streetAddress
     ): array {
-
         $shippingAddress->street = $streetAddress[1];
         $houseNumber = $streetAddress[2];
 
