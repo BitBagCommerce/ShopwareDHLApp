@@ -11,6 +11,7 @@ interface ReceiverAddressFactoryInterface
     public function create(
         OrderAddressEntity $shippingAddress,
         string $customerEmail,
-        array $customFields
+        array $customFields,
+        array $streetAddress
     ): array;
 }

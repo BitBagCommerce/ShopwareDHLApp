@@ -20,13 +20,16 @@ final class OrderData implements OrderDataInterface
 
     private string $orderId;
 
+    private array $street;
+
     public function __construct(
         OrderAddressEntity $shippingAddress,
         string $customerEmail,
         float $totalWeight,
         array $customFields,
         string $shopId,
-        string $orderId
+        string $orderId,
+        array $street
     ) {
         $this->shippingAddress = $shippingAddress;
         $this->customerEmail = $customerEmail;
@@ -34,6 +37,7 @@ final class OrderData implements OrderDataInterface
         $this->customFields = $customFields;
         $this->shopId = $shopId;
         $this->orderId = $orderId;
+        $this->street = $street;
     }
 
     public function getShippingAddress(): OrderAddressEntity
@@ -64,5 +68,10 @@ final class OrderData implements OrderDataInterface
     public function getOrderId(): string
     {
         return $this->orderId;
+    }
+
+    public function getStreet(): array
+    {
+        return $this->street;
     }
 }

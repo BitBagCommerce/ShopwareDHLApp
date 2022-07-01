@@ -29,6 +29,8 @@ class ReceiverAddressFactoryTest extends TestCase
             Defaults::PACKAGE_COUNTRY_CODE => 'PL',
         ];
 
+        $street = ['', 'Braci Załuskich', '4a'];
+
         self::assertEquals(
             [
                 'addressType' => 'B',
@@ -41,7 +43,7 @@ class ReceiverAddressFactoryTest extends TestCase
                 'contactPhone' => '123456789',
                 'contactEmail' => 'test@test.com',
             ],
-            $receiverAddressFactory->create($shippingAddress, $customerEmail, $customFields)
+            $receiverAddressFactory->create($shippingAddress, $customerEmail, $customFields, $street)
         );
     }
 }

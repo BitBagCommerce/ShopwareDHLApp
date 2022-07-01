@@ -114,19 +114,22 @@ final class OrderController
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
         }
 
+        $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
+
         $orderData = new OrderData(
             $order->deliveries?->first()->shippingOrderAddress,
             $customerEmail,
             $totalWeight,
             $order?->getCustomFields(),
             $shopId,
-            $orderId
+            $orderId,
+            $street
         );
 
         try {
             $shipment = $this->shipmentApiService->createShipments($orderData, $config);
-        } catch (SoapFault|StreetCannotBeSplitException $e) {
-            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
+        } catch (SoapFault $e) {
+            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage(), [], 'api')));
         }
 
         $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
@@ -146,5 +149,14 @@ final class OrderController
         }
 
         return $totalWeight;
+    }
+
+    private function splitStreet(string $street): array
+    {
+        if (!preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
+            throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street');
+        }
+
+        return $streetAddress;
     }
 }

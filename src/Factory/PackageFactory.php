@@ -44,7 +44,8 @@ final class PackageFactory implements PackageFactoryInterface
         $receiverAddressStructure = $this->receiverAddressFactory->create(
             $orderData->getShippingAddress(),
             $orderData->getCustomerEmail(),
-            $orderData->getCustomFields()
+            $orderData->getCustomFields(),
+            $orderData->getStreet()
         );
 
         $pieceStructure = $this->pieceFactory->create($orderData->getCustomFields(), $orderData->getTotalWeight());
