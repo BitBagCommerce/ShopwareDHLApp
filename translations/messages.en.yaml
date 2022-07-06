@@ -15,6 +15,9 @@ bitbag:
       empty_weight: 'Weight cannot be empty'
       invalid_street: "Invalid street value"
       already_exists: 'Shipment already exists'
+      empty_country_code: 'Receiver country code cannot be empty'
+      invalid_zipcode: 'Please enter a valid zip code (xx-xxx)'
+      empty_package_dimensions: 'Package dimensions must not be empty'
     label:
       not_found: 'Label not found'
     config:

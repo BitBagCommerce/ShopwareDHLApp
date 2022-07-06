@@ -10,13 +10,15 @@ use BitBag\ShopwareAppSystemBundle\Model\Feedback\Notification\Success;
 use BitBag\ShopwareAppSystemBundle\Response\FeedbackResponse;
 use BitBag\ShopwareDHLApp\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\OrderException;
+use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
+use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
 use SoapFault;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Vin\ShopwareSdk\Data\Context;
@@ -40,13 +42,16 @@ final class OrderController
 
     private TranslatorInterface $translator;
 
+    private OrderValidatorInterface $orderValidator;
+
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
         LabelRepository $labelRepository,
         LabelPersisterInterface $labelPersister,
         RepositoryInterface $orderRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        OrderValidatorInterface $orderValidator
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
@@ -54,16 +59,14 @@ final class OrderController
         $this->labelPersister = $labelPersister;
         $this->orderRepository = $orderRepository;
         $this->translator = $translator;
+        $this->orderValidator = $orderValidator;
     }
 
     public function __invoke(
         ActionInterface $action,
         Context $context,
-        Request $request
     ): Response {
-        $data = $request->toArray();
-
-        $orderId = $data['data']['ids'][0] ?? '';
+        $orderId = $action->getData()->getIds()[0] ?? '';
 
         $shopId = $action->getSource()->getShopId();
 
@@ -89,6 +92,12 @@ final class OrderController
         /** @var OrderEntity|null $order */
         $order = $searchOrder->first();
 
+        try {
+            $this->orderValidator->validate($order);
+        } catch (OrderException|PackageDetailsException $e) {
+            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
+        }
+
         $totalWeight = $this->countTotalWeight($order->lineItems);
 
         if (0.0 === $totalWeight) {
@@ -96,23 +105,7 @@ final class OrderController
         }
 
         /** @var string $customerEmail */
-        $customerEmail = $order?->orderCustomer?->email;
-
-        if (null === $order?->getCustomFields()) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_package_details')));
-        }
-
-        if (null === $order->deliveries?->first()->shippingOrderAddress) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_order_address')));
-        }
-
-        if (null === $order->deliveries?->first()?->shippingOrderAddress->phoneNumber) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_phone_number')));
-        }
-
-        if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
-        }
+        $customerEmail = $order->orderCustomer?->email;
 
         $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
 
@@ -120,7 +113,7 @@ final class OrderController
             $order->deliveries?->first()->shippingOrderAddress,
             $customerEmail,
             $totalWeight,
-            $order?->getCustomFields(),
+            $order->getCustomFields(),
             $shopId,
             $orderId,
             $street
