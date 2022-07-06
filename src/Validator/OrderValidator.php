@@ -28,7 +28,7 @@ final class OrderValidator implements OrderValidatorInterface
         if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {
             throw new OrderException('bitbag.shopware_dhl_app.order.invalid_zipcode');
         }
-        
+
         $customFields = $order->getCustomFields();
 
         if (null === $customFields) {
