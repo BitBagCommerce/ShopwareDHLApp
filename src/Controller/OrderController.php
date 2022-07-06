@@ -19,7 +19,6 @@ use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
 use SoapFault;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Vin\ShopwareSdk\Data\Context;
@@ -66,11 +65,8 @@ final class OrderController
     public function __invoke(
         ActionInterface $action,
         Context $context,
-        Request $request
     ): Response {
-        $data = $request->toArray();
-
-        $orderId = $data['data']['ids'][0] ?? '';
+        $orderId = $action->getData()->getIds()[0] ?? '';
 
         $shopId = $action->getSource()->getShopId();
 
