@@ -11,8 +11,10 @@ use Vin\ShopwareSdk\Data\Entity\Order\OrderEntity;
 
 final class OrderValidator implements OrderValidatorInterface
 {
-    public function validate(OrderEntity $order, ?array $customFields): void
+    public function validate(OrderEntity $order): void
     {
+        $customFields = $order->getCustomFields();
+
         if (null === $order->deliveries?->first()->shippingOrderAddress) {
             throw new OrderException('bitbag.shopware_dhl_app.order.empty_order_address');
         }

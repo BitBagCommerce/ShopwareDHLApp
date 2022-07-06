@@ -93,7 +93,7 @@ final class OrderController
         $order = $searchOrder->first();
 
         try {
-            $this->orderValidator->validate($order, $order?->getCustomFields());
+            $this->orderValidator->validate($order);
         } catch (OrderException|PackageDetailsException $e) {
             return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
         }
