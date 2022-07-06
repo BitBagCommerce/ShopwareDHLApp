@@ -8,7 +8,5 @@ use Vin\ShopwareSdk\Data\Entity\Order\OrderEntity;
 
 interface OrderValidatorInterface
 {
-    public function validateOrder(OrderEntity $order): void;
-
-    public function validateCustomFields(?array $customFields): void;
+    public function validate(OrderEntity $order, ?array $customFields): void;
 }

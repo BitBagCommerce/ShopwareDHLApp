@@ -11,7 +11,7 @@ use Vin\ShopwareSdk\Data\Entity\Order\OrderEntity;
 
 final class OrderValidator implements OrderValidatorInterface
 {
-    public function validateOrder(OrderEntity $order): void
+    public function validate(OrderEntity $order, ?array $customFields): void
     {
         if (null === $order->deliveries?->first()->shippingOrderAddress) {
             throw new OrderException('bitbag.shopware_dhl_app.order.empty_order_address');
@@ -28,10 +28,7 @@ final class OrderValidator implements OrderValidatorInterface
         if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {
             throw new OrderException('bitbag.shopware_dhl_app.order.invalid_zipcode');
         }
-    }
 
-    public function validateCustomFields(?array $customFields): void
-    {
         if (null === $customFields) {
             throw new PackageDetailsException('bitbag.shopware_dhl_app.order.empty_package_details');
         }

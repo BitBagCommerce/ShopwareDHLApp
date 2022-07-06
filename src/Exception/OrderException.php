@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace BitBag\ShopwareDHLApp\Exception;
 
-final class OrderException extends \LogicException
+final class OrderException extends \Exception
 {
 }

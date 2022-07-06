@@ -6,6 +6,6 @@ namespace BitBag\ShopwareDHLApp\Exception;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class LabelNotFoundException extends NotFoundHttpException
+final class LabelNotFoundException extends NotFoundHttpException
 {
 }
