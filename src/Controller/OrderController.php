@@ -10,12 +10,14 @@ use BitBag\ShopwareAppSystemBundle\Model\Feedback\Notification\Success;
 use BitBag\ShopwareAppSystemBundle\Response\FeedbackResponse;
 use BitBag\ShopwareDHLApp\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\OrderException;
+use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
-use BitBag\ShopwareDHLApp\Provider\Defaults;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
+use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
 use SoapFault;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,13 +43,16 @@ final class OrderController
 
     private TranslatorInterface $translator;
 
+    private OrderValidatorInterface $orderValidator;
+
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
         LabelRepository $labelRepository,
         LabelPersisterInterface $labelPersister,
         RepositoryInterface $orderRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        OrderValidatorInterface $orderValidator
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
@@ -55,6 +60,7 @@ final class OrderController
         $this->labelPersister = $labelPersister;
         $this->orderRepository = $orderRepository;
         $this->translator = $translator;
+        $this->orderValidator = $orderValidator;
     }
 
     public function __invoke(
@@ -90,7 +96,13 @@ final class OrderController
         /** @var OrderEntity|null $order */
         $order = $searchOrder->first();
 
-        $customFields = $order?->getCustomFields();
+        try {
+            $this->orderValidator->validateOrder($order);
+            $this->orderValidator->validateCustomFields($order->getCustomFields());
+        } catch (OrderException|PackageDetailsException $e) {
+            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
+        }
+
         $totalWeight = $this->countTotalWeight($order->lineItems);
 
         if (0.0 === $totalWeight) {
@@ -98,39 +110,7 @@ final class OrderController
         }
 
         /** @var string $customerEmail */
-        $customerEmail = $order?->orderCustomer?->email;
-
-        if (null === $customFields) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_package_details')));
-        }
-
-        if (null === $order->deliveries?->first()->shippingOrderAddress) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_order_address')));
-        }
-
-        if (null === $order->deliveries?->first()?->shippingOrderAddress->phoneNumber) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_phone_number')));
-        }
-
-        if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_for_dhl')));
-        }
-
-        if (null === $customFields[Defaults::PACKAGE_COUNTRY_CODE]) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_country_code')));
-        }
-
-        if (
-            0 === $customFields[Defaults::PACKAGE_DEPTH] ||
-            0 === $customFields[Defaults::PACKAGE_HEIGHT] ||
-            0 === $customFields[Defaults::PACKAGE_WIDTH]
-        ) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.empty_package_dimensions')));
-        }
-
-        if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {
-            return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.invalid_zipcode')));
-        }
+        $customerEmail = $order->orderCustomer?->email;
 
         $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
 
@@ -138,7 +118,7 @@ final class OrderController
             $order->deliveries?->first()->shippingOrderAddress,
             $customerEmail,
             $totalWeight,
-            $customFields,
+            $order->getCustomFields(),
             $shopId,
             $orderId,
             $street
