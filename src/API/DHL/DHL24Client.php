@@ -10,23 +10,16 @@ use Alexcherniatin\DHL\Structures\AuthData;
 
 final class DHL24Client
 {
-    /** @var Client */
-    private $client;
+    private Client $client;
 
-    /** @var array */
-    private $authData = [];
+    private array $authData = [];
 
     public function __construct(
         string $login,
         string $password,
         bool $sandbox = false
-    )
-    {
+    ) {
         $this->client = new Client($sandbox);
-
-        if (!$this->client) {
-            throw new SoapException('Connection error');
-        }
 
         $this->authData = (new AuthData($login, $password))->structure();
     }
