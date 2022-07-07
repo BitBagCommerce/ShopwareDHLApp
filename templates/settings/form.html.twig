@@ -13,19 +13,20 @@
                     {{ 'bitbag.shopware_dhl_app.ui.save'|trans }}
                 </button>
             </div>
+            <div class="sw-card">
             {% if app.session is not null and app.session.started %}
 
                 {% for label, messages in app.session.flashbag.all %}
                     {% for message in messages %}
-                        <div class="sw-card">
+
                             <div class="sw-card__content">
                                 <div class="sw-container">{{ message }}</div>
                             </div>
-                        </div>
+
                     {% endfor %}
                 {% endfor %}
             {% endif %}
-
+            </div>
             <div class="sw-card">
                 <div class="sw-card__content">
                     <div class="sw-container"
@@ -184,10 +185,10 @@
             {{ form_widget(form._token) }}
         </form>
     </div>
-    <script src="https://unpkg.com/@shopware-ag/admin-extension-sdk/cdn"></script>
     <script>
         const checkCredentialsEl = document.getElementById('check-credentials');
         const searchParams = new URLSearchParams(window.location.search)
+        let container = document.querySelector('div.sw-card');
 
         checkCredentialsEl.addEventListener('click', (e) => {
 
@@ -210,11 +211,7 @@
                 .then(results => results.json())
                 .then(data => {
                     console.log(data);
-                    sw.notification.dispatch({
-                        title: 'title',
-                        message: data.payload.message,
-                        variant: data.payload.status
-                    });
+                    container.innerHTML = '<div class="sw-card__content"><div class="sw-container">'+data.payload.message+'</div></div>';
                 })
             ;
         });
