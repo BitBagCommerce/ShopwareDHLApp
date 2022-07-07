@@ -20,3 +20,8 @@ get_label:
   methods: ['POST', 'GET']
   path: /app/get-label
   controller: bitbag.shopware_dhl_app.controller.get_label
+
+check_credentials:
+  methods: ['POST']
+  path: /app/module/api-check-credentials
+  controller: bitbag.shopware_dhl_app.controller.check_credentials

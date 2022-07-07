@@ -8,6 +8,7 @@
     <div class="bitbag-sw-container">
         <form method="post">
             <div class="save-container">
+                <a class="sw-button float-right" id="check-credentials">{{ 'bitbag.shopware_dhl_app.ui.check_credentials'|trans }}</a>
                 <button type="submit" class="sw-button sw-button--primary float-right">
                     {{ 'bitbag.shopware_dhl_app.ui.save'|trans }}
                 </button>
@@ -183,4 +184,39 @@
             {{ form_widget(form._token) }}
         </form>
     </div>
+    <script src="https://unpkg.com/@shopware-ag/admin-extension-sdk/cdn"></script>
+    <script>
+        const checkCredentialsEl = document.getElementById('check-credentials');
+        const searchParams = new URLSearchParams(window.location.search)
+
+        checkCredentialsEl.addEventListener('click', (e) => {
+
+            const fetchOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: document.getElementById('config_username').value,
+                    password: document.getElementById('config_password').value,
+                    accountNumber: document.getElementById('config_accountNumber').value,
+                    source: {
+                        shopId: searchParams.get('shop-id'),
+                    }
+                })
+            };
+
+            fetch('/app/module/api-check-credentials', fetchOptions)
+                .then(results => results.json())
+                .then(data => {
+                    console.log(data);
+                    sw.notification.dispatch({
+                        title: 'title',
+                        message: data.payload.message,
+                        variant: data.payload.status
+                    });
+                })
+            ;
+        });
+    </script>
 {% endblock %}
