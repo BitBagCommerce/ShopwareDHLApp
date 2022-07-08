@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\API\DHL;
 
 use Alexcherniatin\DHL\Client;
-use Alexcherniatin\DHL\Exceptions\SoapException;
 use Alexcherniatin\DHL\Structures\AuthData;
 
 final class DHL24Client
