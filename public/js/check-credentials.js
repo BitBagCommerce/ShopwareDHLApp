@@ -1,6 +1,6 @@
 const checkCredentialsEl = document.getElementById('check-credentials');
 const searchParams = new URLSearchParams(window.location.search)
-let container = document.querySelector('div.sw-card');
+const container = document.querySelector('div.sw-card');
 
 checkCredentialsEl.addEventListener('click', (e) => {
 

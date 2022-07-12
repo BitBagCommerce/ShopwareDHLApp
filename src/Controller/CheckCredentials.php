@@ -27,10 +27,10 @@ final class CheckCredentials
 
     public function __invoke(Request $request): FeedbackResponse
     {
-        $data = json_decode($request->getContent());
+        $data = $request->toArray();
 
         try {
-            $dhl = new DHL24Client($data->username, $data->password, true);
+            $dhl = new DHL24Client($data['username'], $data['password'], true);
             $dhl->getMyShipmentsCount(self::CREATED_FROM, self::CREATED_TO);
         } catch (SoapFault $e) {
             return new FeedbackResponse(new Error($this->translator->trans($e->getMessage(), [], 'api')));

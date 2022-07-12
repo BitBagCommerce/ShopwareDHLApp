@@ -19,7 +19,6 @@ final class DHL24Client
         bool $sandbox = false
     ) {
         $this->client = new Client($sandbox);
-
         $this->authData = (new AuthData($login, $password))->structure();
     }
 
