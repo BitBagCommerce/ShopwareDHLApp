@@ -15,6 +15,7 @@ use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
+use BitBag\ShopwareDHLApp\Provider\SplitStreetProviderInterface;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
@@ -44,6 +45,8 @@ final class OrderController
 
     private OrderValidatorInterface $orderValidator;
 
+    private SplitStreetProviderInterface $splitStreetProvider;
+
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
         ConfigRepository $configRepository,
@@ -51,7 +54,8 @@ final class OrderController
         LabelPersisterInterface $labelPersister,
         RepositoryInterface $orderRepository,
         TranslatorInterface $translator,
-        OrderValidatorInterface $orderValidator
+        OrderValidatorInterface $orderValidator,
+        SplitStreetProviderInterface $splitStreetProvider
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
@@ -60,6 +64,7 @@ final class OrderController
         $this->orderRepository = $orderRepository;
         $this->translator = $translator;
         $this->orderValidator = $orderValidator;
+        $this->splitStreetProvider = $splitStreetProvider;
     }
 
     public function __invoke(
@@ -108,7 +113,7 @@ final class OrderController
         $customerEmail = $order->orderCustomer?->email;
 
         try {
-            $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
+            $street = $this->splitStreetProvider->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
         } catch (StreetCannotBeSplitException $e) {
             return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
         }
@@ -146,14 +151,5 @@ final class OrderController
         }
 
         return $totalWeight;
-    }
-
-    private function splitStreet(string $street): array
-    {
-        if (!preg_match('/^(\w[^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
-            throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street');
-        }
-
-        return $streetAddress;
     }
 }
