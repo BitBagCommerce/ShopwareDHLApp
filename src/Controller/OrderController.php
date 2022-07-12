@@ -107,7 +107,11 @@ final class OrderController
         /** @var string $customerEmail */
         $customerEmail = $order->orderCustomer?->email;
 
-        $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
+        try {
+            $street = $this->splitStreet($order->deliveries?->first()->shippingOrderAddress?->street);
+        } catch (StreetCannotBeSplitException $e) {
+            return new FeedbackResponse(new Error($this->translator->trans($e->getMessage())));
+        }
 
         $orderData = new OrderData(
             $order->deliveries?->first()->shippingOrderAddress,
@@ -146,7 +150,7 @@ final class OrderController
 
     private function splitStreet(string $street): array
     {
-        if (!preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
+        if (!preg_match('/^(\w[^\d]*[^\d\s]) *(\d.*)$/', $street, $streetAddress)) {
             throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street');
         }
 
