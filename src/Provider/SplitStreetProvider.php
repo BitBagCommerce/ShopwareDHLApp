@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\ShopwareDHLApp\Provider;
 
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
