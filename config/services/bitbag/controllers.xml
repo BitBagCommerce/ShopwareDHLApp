@@ -10,6 +10,7 @@
             <argument type="service" id="shopware.repository.order"/>
             <argument type="service" id="translator.default"/>
             <argument type="service" id="bitbag.shopware_dhl_app.validator.order_validator"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.service.split_street"/>
         </service>
 
         <service class="BitBag\ShopwareDHLApp\Controller\APISettingsController"
