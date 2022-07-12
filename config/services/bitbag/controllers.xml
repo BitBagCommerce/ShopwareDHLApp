@@ -41,5 +41,9 @@
             <argument type="service" id="bitbag.shopware_dhl_app.api.label_service"/>
             <argument type="service" id="translator.default"/>
         </service>
+
+        <service class="BitBag\ShopwareDHLApp\Controller\CheckCredentials" id="bitbag.shopware_dhl_app.controller.check_credentials" public="true">
+            <argument type="service" id="translator"/>
+        </service>
     </services>
 </container>

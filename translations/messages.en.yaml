@@ -38,3 +38,4 @@ bitbag:
       payment_method: 'Payment method'
       bank_transfer: 'Bank transfer'
       cash: 'Cash'
+      connected: 'Connected correctly'
