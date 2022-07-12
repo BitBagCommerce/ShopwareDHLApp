@@ -182,35 +182,5 @@
             {{ form_widget(form._token) }}
         </form>
     </div>
-    <script>
-        const checkCredentialsEl = document.getElementById('check-credentials');
-        const searchParams = new URLSearchParams(window.location.search)
-        let container = document.querySelector('div.sw-card');
-
-        checkCredentialsEl.addEventListener('click', (e) => {
-
-            const fetchOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: document.getElementById('config_username').value,
-                    password: document.getElementById('config_password').value,
-                    accountNumber: document.getElementById('config_accountNumber').value,
-                    source: {
-                        shopId: searchParams.get('shop-id'),
-                    }
-                })
-            };
-
-            fetch('/app/module/api-check-credentials', fetchOptions)
-                .then(results => results.json())
-                .then(data => {
-                    console.log(data);
-                    container.innerHTML = '<div class="sw-card__content"><div class="sw-container">'+data.payload.message+'</div></div>';
-                })
-            ;
-        });
-    </script>
+    <script src="{{ asset('js/check-credentials.js') }}"></script>
 {% endblock %}

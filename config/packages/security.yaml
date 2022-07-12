@@ -16,7 +16,7 @@ security:
       pattern: ^/app/(api-settings|show-label)
       provider: user_provider
     registration:
-      pattern: ^/app/(registration|registration/confirm|module/api-check-credentials)$
+      pattern: ^/app/(registration|registration/confirm|api-check-credentials)$
       security: false
     webhooks:
       custom_authenticators: [ bitbag.shopware_app_system.security.webhook_request_authenticator ]
