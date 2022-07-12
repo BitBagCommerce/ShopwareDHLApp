@@ -29,5 +29,9 @@
             <argument type="service" id="shopware.repository.delivery_time"/>
             <argument type="service" id="shopware.repository.rule"/>
         </service>
+
+        <service class="BitBag\ShopwareDHLApp\Service\StreetSplitter"
+                 id="bitbag.shopware_dhl_app.service.split_street">
+        </service>
     </services>
 </container>

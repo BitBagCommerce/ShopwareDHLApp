@@ -9,8 +9,5 @@
         <service class="BitBag\ShopwareDHLApp\Provider\CustomFieldFilterDataProvider"
                  id="bitbag.shopware_dhl_app.provider.custom_field_filter_data">
         </service>
-        <service class="BitBag\ShopwareDHLApp\Provider\SplitStreetProvider"
-                 id="bitbag.shopware_dhl_app.provider.split_street">
-        </service>
     </services>
 </container>

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareDHLApp\Tests\Provider;
+namespace BitBag\ShopwareDHLApp\Tests\Service;
 
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
-use BitBag\ShopwareDHLApp\Provider\SplitStreetProvider;
-use BitBag\ShopwareDHLApp\Provider\SplitStreetProviderInterface;
+use BitBag\ShopwareDHLApp\Service\StreetSplitter;
+use BitBag\ShopwareDHLApp\Service\StreetSplitterInterface;
 use PHPUnit\Framework\TestCase;
 
 class SplitStreetProviderTest extends TestCase
 {
-    private SplitStreetProviderInterface $splitStreetProvider;
+    private StreetSplitterInterface $splitStreetProvider;
 
     public const SINGLE_STREET = 'Testowa 12';
 
@@ -23,7 +23,7 @@ class SplitStreetProviderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->splitStreetProvider = new SplitStreetProvider();
+        $this->splitStreetProvider = new StreetSplitter();
     }
 
     public function testSingleStreetName(): void
