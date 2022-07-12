@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareDHLApp\Provider;
+namespace BitBag\ShopwareDHLApp\Service;
 
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 
-final class SplitStreetProvider implements SplitStreetProviderInterface
+final class StreetSplitter implements StreetSplitterInterface
 {
     public function splitStreet(string $street): array
     {

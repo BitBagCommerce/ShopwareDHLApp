@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\ShopwareDHLApp\Provider;
+namespace BitBag\ShopwareDHLApp\Service;
 
-interface SplitStreetProviderInterface
+interface StreetSplitterInterface
 {
     public function splitStreet(string $street): array;
 }

@@ -15,9 +15,9 @@ use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
-use BitBag\ShopwareDHLApp\Provider\SplitStreetProviderInterface;
 use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
+use BitBag\ShopwareDHLApp\Service\StreetSplitterInterface;
 use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
 use SoapFault;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +45,7 @@ final class OrderController
 
     private OrderValidatorInterface $orderValidator;
 
-    private SplitStreetProviderInterface $splitStreetProvider;
+    private StreetSplitterInterface $splitStreetProvider;
 
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
@@ -55,7 +55,7 @@ final class OrderController
         RepositoryInterface $orderRepository,
         TranslatorInterface $translator,
         OrderValidatorInterface $orderValidator,
-        SplitStreetProviderInterface $splitStreetProvider
+        StreetSplitterInterface $splitStreetProvider
     ) {
         $this->shipmentApiService = $shipmentApiService;
         $this->configRepository = $configRepository;
