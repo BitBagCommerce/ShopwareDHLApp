@@ -53,8 +53,7 @@ final class ShowLabelController
         string $shopId,
         string $salesChannelId,
         LabelInterface $label
-    ): Response
-    {
+    ): Response {
         $labelResponse = $this->labelApiService->fetchLabel($label->getParcelId(), $shopId, $salesChannelId);
 
         $filename = sprintf('filename="order_%s.pdf"', $label->getOrderId());
