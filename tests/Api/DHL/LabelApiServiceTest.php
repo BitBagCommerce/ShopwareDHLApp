@@ -43,6 +43,6 @@ class LabelApiServiceTest extends TestCase
         $labelApiService = new LabelApiService($apiResolver);
         $labelData = new LabelData(self::LABEL_TYPE, self::SHIPMENT_ID, self::LABEL_DATA);
 
-        self::assertEquals($labelData, $labelApiService->fetchLabel(self::PARCEL_ID, self::SHOP_ID));
+        self::assertEquals($labelData, $labelApiService->fetchLabel(self::PARCEL_ID, self::SHOP_ID, ''));
     }
 }
