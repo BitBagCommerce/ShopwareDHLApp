@@ -9,6 +9,7 @@ interface LabelPersisterInterface
     public function persist(
         string $shopId,
         int $shipmentId,
-        string $orderId
-    ): void;
+        string $orderId,
+        string $salesChannelId,
+        ): void;
 }

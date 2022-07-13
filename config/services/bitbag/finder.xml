@@ -1,0 +1,9 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service class="BitBag\ShopwareDHLApp\Finder\SalesChannelFinder" id="bitbag.shopware_dhl_app.finder.sales_channel_finder">
+            <argument type="service" id="shopware.repository.sales_channel" />
+        </service>
+    </services>
+</container>

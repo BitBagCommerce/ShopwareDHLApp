@@ -25,3 +25,8 @@ check_credentials:
   methods: ['POST']
   path: /app/api-check-credentials
   controller: bitbag.shopware_dhl_app.controller.check_credentials
+
+config:
+  methods: ['GET']
+  path: /app/config
+  controller: bitbag.shopware_dhl_app.controller.config

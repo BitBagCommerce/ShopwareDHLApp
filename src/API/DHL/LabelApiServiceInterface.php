@@ -8,5 +8,9 @@ use BitBag\ShopwareDHLApp\Model\LabelDataInterface;
 
 interface LabelApiServiceInterface
 {
-    public function fetchLabel(string $parcelId, string $shopId): LabelDataInterface;
+    public function fetchLabel(
+        string $parcelId,
+        string $shopId,
+        string $salesChannelId
+    ): LabelDataInterface;
 }

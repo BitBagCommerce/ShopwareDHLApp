@@ -38,3 +38,8 @@ bitbag:
       payment_method: 'Metoda płatności'
       bank_transfer: 'Przelew bankowy'
       cash: 'Gotówka'
+      api_env: 'Środowisko'
+      production: 'Produkcyjny'
+      sandbox: 'Sandbox'
+      sales_channel: 'Kanał sprzedaży'
+      sales_channels: 'Kanały sprzedaży'

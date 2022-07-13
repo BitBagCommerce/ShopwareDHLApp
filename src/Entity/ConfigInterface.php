@@ -61,4 +61,12 @@ interface ConfigInterface
     public function getPaymentMethod(): string;
 
     public function setPaymentMethod(string $paymentMethod): void;
+
+    public function setSandbox(bool $sandbox): void;
+
+    public function getSandbox(): bool;
+
+    public function getSalesChannelId(): string;
+
+    public function setSalesChannelId(string $salesChannelId): void;
 }

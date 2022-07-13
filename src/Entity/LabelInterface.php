@@ -15,4 +15,8 @@ interface LabelInterface
     public function getParcelId(): string;
 
     public function getShop(): ShopInterface;
+
+    public function getSalesChannelId(): string;
+
+    public function setSalesChannelId(string $salesChannelId): void;
 }

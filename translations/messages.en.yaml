@@ -39,3 +39,8 @@ bitbag:
       bank_transfer: 'Bank transfer'
       cash: 'Cash'
       connected: 'Connected correctly'
+      api_env: 'Environment'
+      production: 'Production'
+      sandbox: 'Sandbox'
+      sales_channel: 'Sales channel'
+      sales_channels: 'Sales channels'

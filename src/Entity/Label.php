@@ -19,14 +19,18 @@ class Label implements LabelInterface
 
     private string $parcelId;
 
+    private string $salesChannelId;
+
     private ShopInterface $shop;
 
     public function __construct(
         string $orderId,
         string $parcelId,
+        string $salesChannelId,
         ShopInterface $shop
     ) {
         $this->orderId = $orderId;
+        $this->salesChannelId = $salesChannelId;
         $this->parcelId = $parcelId;
         $this->shop = $shop;
     }
@@ -49,5 +53,15 @@ class Label implements LabelInterface
     public function getShop(): ShopInterface
     {
         return $this->shop;
+    }
+
+    public function getSalesChannelId(): string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setSalesChannelId(string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
     }
 }

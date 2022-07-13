@@ -21,4 +21,8 @@ interface OrderDataInterface
     public function getOrderId(): string;
 
     public function getStreet(): array;
+
+    public function getSalesChannelId(): string;
+
+    public function setSalesChannelId(string $salesChannelId): void;
 }

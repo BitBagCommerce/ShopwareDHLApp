@@ -18,9 +18,12 @@ final class LabelApiService implements LabelApiServiceInterface
         $this->apiResolver = $apiResolver;
     }
 
-    public function fetchLabel(string $parcelId, string $shopId): LabelDataInterface
-    {
-        $dhl = $this->apiResolver->getApi($shopId);
+    public function fetchLabel(
+        string $parcelId,
+        string $shopId,
+        string $salesChannelId
+    ): LabelDataInterface {
+        $dhl = $this->apiResolver->getApi($shopId, $salesChannelId);
 
         $itemsToPrint = [];
 
