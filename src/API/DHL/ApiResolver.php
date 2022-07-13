@@ -28,7 +28,11 @@ final class ApiResolver implements ApiResolverInterface
         $config = $this->configRepository->findOneBy(['shop' => $shopId, 'salesChannelId' => $salesChannelId]);
 
         if (null === $config) {
-            throw new ConfigNotFoundException('Config not found');
+            $config = $this->configRepository->findOneBy(['shop' => $shopId, 'salesChannelId' => '']);
+
+            if (null === $config) {
+                throw new ConfigNotFoundException('Config not found');
+            }
         }
 
         return new DHL24($config->getUsername(), $config->getPassword(), $config->getAccountNumber(), $config->getSandbox());
