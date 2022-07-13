@@ -4,22 +4,22 @@ bitbag_shopware_app_system:
 send_order:
   methods: ['POST']
   path: /app/send-order
-  controller: bitbag.shopware_dhl_app.controller.order
+  controller: bitbag.shopware_dhl_app.controller.order_controller
 
 api_settings:
   methods: ['GET', 'POST']
   path: /app/api-settings
-  controller: bitbag.shopware_dhl_app.controller.api_settings
+  controller: bitbag.shopware_dhl_app.controller.api_settings_controller
 
 show_label:
   methods: ['GET']
   path: /app/show-label
-  controller: bitbag.shopware_dhl_app.controller.show_label
+  controller: bitbag.shopware_dhl_app.controller.show_label_controller
 
 get_label:
   methods: ['POST', 'GET']
   path: /app/get-label
-  controller: bitbag.shopware_dhl_app.controller.get_label
+  controller: bitbag.shopware_dhl_app.controller.get_label_controller
 
 check_credentials:
   methods: ['POST']
@@ -29,4 +29,4 @@ check_credentials:
 config:
   methods: ['GET']
   path: /app/config
-  controller: bitbag.shopware_dhl_app.controller.config
+  controller: bitbag.shopware_dhl_app.controller.config_controller
