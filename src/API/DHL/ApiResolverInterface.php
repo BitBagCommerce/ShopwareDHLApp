@@ -8,5 +8,5 @@ use Alexcherniatin\DHL\DHL24;
 
 interface ApiResolverInterface
 {
-    public function getApi(string $shopId, string $salesChannelId, ): DHL24;
+    public function getApi(string $shopId, string $salesChannelId): DHL24;
 }
