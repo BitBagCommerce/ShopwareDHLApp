@@ -30,6 +30,10 @@
 
         <field name="paymentMethod" type="string" length="255"/>
 
+        <field name="sandbox" column="sandbox" type="boolean" />
+
+        <field name="salesChannelId" column="sales_channel_id" type="string" />
+
         <many-to-one field="shop" target-entity="BitBag\ShopwareAppSystemBundle\Entity\Shop">
             <join-column name="shop_id" referenced-column-name="shop_id" nullable="false" on-delete="CASCADE"/>
         </many-to-one>

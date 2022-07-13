@@ -15,7 +15,7 @@ use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
 use BitBag\ShopwareDHLApp\Model\OrderData;
 use BitBag\ShopwareDHLApp\Persister\LabelPersisterInterface;
-use BitBag\ShopwareDHLApp\Repository\ConfigRepository;
+use BitBag\ShopwareDHLApp\Repository\ConfigRepositoryInterface;
 use BitBag\ShopwareDHLApp\Repository\LabelRepository;
 use BitBag\ShopwareDHLApp\Service\StreetSplitterInterface;
 use BitBag\ShopwareDHLApp\Validator\OrderValidatorInterface;
@@ -33,7 +33,7 @@ final class OrderController
 {
     private ShipmentApiServiceInterface $shipmentApiService;
 
-    private ConfigRepository $configRepository;
+    private ConfigRepositoryInterface $configRepository;
 
     private LabelRepository $labelRepository;
 
@@ -49,7 +49,7 @@ final class OrderController
 
     public function __construct(
         ShipmentApiServiceInterface $shipmentApiService,
-        ConfigRepository $configRepository,
+        ConfigRepositoryInterface $configRepository,
         LabelRepository $labelRepository,
         LabelPersisterInterface $labelPersister,
         RepositoryInterface $orderRepository,

@@ -19,6 +19,8 @@
             <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.finder.sales_channel"/>
+            <argument type="service" id="bitbag.shopware_app_system.factory.context.context_factory" />
 
             <call method="setContainer">
                 <argument type="service" id="service_container" />
@@ -44,6 +46,17 @@
 
         <service class="BitBag\ShopwareDHLApp\Controller\CheckCredentials" id="bitbag.shopware_dhl_app.controller.check_credentials" public="true">
             <argument type="service" id="translator"/>
+        </service>
+
+        <service class="BitBag\ShopwareDHLApp\Controller\ConfigController" id="bitbag.shopware_dhl_app.controller.config">
+            <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository" />
+            <argument type="service" id="bitbag.shopware_dhl_app.repository.config_repository"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+
+            <tag name="controller.service_arguments" />
         </service>
     </services>
 </container>

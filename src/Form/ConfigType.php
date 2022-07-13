@@ -75,6 +75,19 @@ class ConfigType extends AbstractType
                 'required' => true,
                 'label' => 'bitbag.shopware_dhl_app.config.payment_method',
             ])
+            ->add('sandbox', ChoiceType::class, [
+                'label' => 'bitbag.shopware_dhl_app.config.api_env',
+                'required' => true,
+                'choices' => [
+                    'bitbag.shopware_dhl_app.config.production' => false,
+                    'bitbag.shopware_dhl_app.config.sandbox' => true,
+                ],
+            ])
+            ->add('salesChannelId', ChoiceType::class, [
+                'label' => 'bitbag.shopware_dhl_app.config.sales_channel',
+                'required' => false,
+                'choices' => $options['salesChannels'],
+            ])
             ->addEventListener(
                 FormEvents::PRE_SUBMIT,
                 static function (FormEvent $event): void {
@@ -94,6 +107,7 @@ class ConfigType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Config::class,
+            'salesChannels' => [],
         ]);
     }
 }

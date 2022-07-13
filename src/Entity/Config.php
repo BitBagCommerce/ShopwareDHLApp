@@ -41,6 +41,10 @@ class Config implements ConfigInterface
 
     private string $paymentMethod;
 
+    private bool $sandbox;
+
+    private string $salesChannelId;
+
     public function getId(): int
     {
         return $this->id;
@@ -182,5 +186,25 @@ class Config implements ConfigInterface
     public function setPaymentMethod(string $paymentMethod): void
     {
         $this->paymentMethod = $paymentMethod;
+    }
+
+    public function setSandbox(bool $sandbox): void
+    {
+        $this->sandbox = $sandbox;
+    }
+
+    public function getSandbox(): bool
+    {
+        return $this->sandbox;
+    }
+
+    public function getSalesChannelId(): string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setSalesChannelId(string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
     }
 }

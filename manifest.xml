@@ -34,6 +34,7 @@
         <create>rule</create>
         <read>custom_field</read>
         <read>custom_field_set</read>
+        <read>sales_channel</read>
     </permissions>
     <admin>
         <action-button action="createPackage" entity="order" view="detail" url="http://example-app/app/send-order">
