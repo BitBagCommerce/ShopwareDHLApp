@@ -13,6 +13,8 @@ final class OrderValidator implements OrderValidatorInterface
 {
     public function validate(OrderEntity $order): void
     {
+        $technicalName = $order->deliveries?->first()?->shippingMethod?->getTranslated()['customFields']['technical_name'] ?? null;
+
         if (null === $order->deliveries?->first()->shippingOrderAddress) {
             throw new OrderException('bitbag.shopware_dhl_app.order.empty_order_address');
         }
@@ -21,7 +23,7 @@ final class OrderValidator implements OrderValidatorInterface
             throw new OrderException('bitbag.shopware_dhl_app.order.empty_phone_number');
         }
 
-        if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
+        if ('DHL' !== $technicalName) {
             throw new OrderException('bitbag.shopware_dhl_app.order.not_for_dhl');
         }
 
