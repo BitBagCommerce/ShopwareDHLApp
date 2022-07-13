@@ -22,7 +22,7 @@ final class OrderValidator implements OrderValidatorInterface
         }
 
         if ('DHL' !== $order->deliveries?->first()?->shippingMethod?->name) {
-            throw new OrderException('bitbag.shopware_dhl_app.order.not_for_dhl');
+            //throw new OrderException('bitbag.shopware_dhl_app.order.not_for_dhl');
         }
 
         if (!preg_match('/[0-9][0-9][-][0-9][0-9][0-9]/', $order->deliveries?->first()->shippingOrderAddress?->zipcode)) {

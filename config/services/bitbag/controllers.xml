@@ -19,7 +19,7 @@
             <argument type="service" id="bitbag.shopware_app_system.repository.shop_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="translator"/>
-            <argument type="service" id="bitbag.shopware_dhl_app.finder.sales_channel"/>
+            <argument type="service" id="bitbag.shopware_dhl_app.finder.sales_channel_finder"/>
             <argument type="service" id="bitbag.shopware_app_system.factory.context.context_factory" />
 
             <call method="setContainer">

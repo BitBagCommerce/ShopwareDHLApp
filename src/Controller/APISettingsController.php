@@ -74,10 +74,9 @@ final class APISettingsController extends AbstractController
         $session = $request->getSession();
 
         if ($request->isMethod('POST')) {
-            /** @var array|null $data */
-            $data = $request->request->get('config');
+            $data = $request->request->all('config');
 
-            if (null !== $data && isset($data['salesChannelId'])) {
+            if (isset($data['salesChannelId'])) {
                 $salesChannelId = $data['salesChannelId'];
 
                 /** @var ConfigInterface $config */
@@ -95,7 +94,6 @@ final class APISettingsController extends AbstractController
             $config->setShop($shop);
 
             $this->entityManager->persist($config);
-
             $this->entityManager->flush();
 
             $session->getFlashBag()->add('success', $this->translator->trans('bitbag.shopware_dhl_app.ui.saved'));

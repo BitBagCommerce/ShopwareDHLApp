@@ -46,12 +46,16 @@ final class ShowLabelController
             return new FeedbackResponse(new Error($this->translator->trans('bitbag.shopware_dhl_app.order.not_found')));
         }
 
-        return $this->getLabelResponse($shopId, $label);
+        return $this->getLabelResponse($shopId, $label->getSalesChannelId(), $label);
     }
 
-    private function getLabelResponse(string $shopId, LabelInterface $label): Response
+    private function getLabelResponse(
+        string $shopId,
+        string $salesChannelId,
+        LabelInterface $label
+    ): Response
     {
-        $labelResponse = $this->labelApiService->fetchLabel($label->getParcelId(), $shopId);
+        $labelResponse = $this->labelApiService->fetchLabel($label->getParcelId(), $shopId, $salesChannelId);
 
         $filename = sprintf('filename="order_%s.pdf"', $label->getOrderId());
 

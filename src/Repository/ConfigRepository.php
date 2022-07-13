@@ -6,7 +6,7 @@ namespace BitBag\ShopwareDHLApp\Repository;
 
 use BitBag\ShopwareDHLApp\Entity\Config;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
-use BitBag\ShopwareDHLApp\Exception\ErrorNotificationException;
+use BitBag\ShopwareDHLApp\Exception\ConfigNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,7 +31,7 @@ class ConfigRepository extends ServiceEntityRepository implements ConfigReposito
         }
 
         if (null === $config) {
-            throw new ErrorNotificationException('bitbag.shopware_dpd_app.config.credentials_data_not_found');
+            throw new ConfigNotFoundException('bitbag.shopware_dpd_app.config.credentials_data_not_found');
         }
 
         return $config;

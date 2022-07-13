@@ -14,7 +14,7 @@ final class Version20220712150105 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add Sales channels and api mode to config';
+        return 'Add sales channels and api mode to config';
     }
 
     public function up(Schema $schema): void

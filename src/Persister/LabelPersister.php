@@ -23,11 +23,12 @@ final class LabelPersister implements LabelPersisterInterface
     public function persist(
         string $shopId,
         int $shipmentId,
-        string $orderId
-    ): void {
+        string $orderId,
+        string $salesChannelId,
+        ): void {
         $shop = $this->shopRepository->getOneByShopId($shopId);
 
-        $label = new Label($orderId, (string) $shipmentId, $shop);
+        $label = new Label($orderId, (string) $shipmentId, $salesChannelId, $shop);
 
         $this->manager->persist($label);
         $this->manager->flush();

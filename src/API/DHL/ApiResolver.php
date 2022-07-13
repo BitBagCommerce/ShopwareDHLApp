@@ -22,10 +22,10 @@ final class ApiResolver implements ApiResolverInterface
     /**
      * @throws SoapException
      */
-    public function getApi(string $shopId): DHL24
+    public function getApi(string $shopId, string $salesChannelId): DHL24
     {
         /** @var ConfigInterface|null $config */
-        $config = $this->configRepository->findOneBy(['shop' => $shopId]);
+        $config = $this->configRepository->findOneBy(['shop' => $shopId, 'salesChannelId' => $salesChannelId]);
 
         if (null === $config) {
             throw new ConfigNotFoundException('Config not found');

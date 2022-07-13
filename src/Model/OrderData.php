@@ -22,8 +22,11 @@ final class OrderData implements OrderDataInterface
 
     private array $street;
 
+    private string $salesChannelId;
+
     public function __construct(
         OrderAddressEntity $shippingAddress,
+        string $salesChannelId,
         string $customerEmail,
         float $totalWeight,
         array $customFields,
@@ -32,6 +35,7 @@ final class OrderData implements OrderDataInterface
         array $street
     ) {
         $this->shippingAddress = $shippingAddress;
+        $this->salesChannelId = $salesChannelId;
         $this->customerEmail = $customerEmail;
         $this->totalWeight = $totalWeight;
         $this->customFields = $customFields;
@@ -73,5 +77,15 @@ final class OrderData implements OrderDataInterface
     public function getStreet(): array
     {
         return $this->street;
+    }
+
+    public function getSalesChannelId(): string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setSalesChannelId(string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
     }
 }

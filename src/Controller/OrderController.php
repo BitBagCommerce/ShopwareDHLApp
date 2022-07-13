@@ -10,6 +10,7 @@ use BitBag\ShopwareAppSystemBundle\Model\Feedback\Notification\Success;
 use BitBag\ShopwareAppSystemBundle\Response\FeedbackResponse;
 use BitBag\ShopwareDHLApp\API\DHL\ShipmentApiServiceInterface;
 use BitBag\ShopwareDHLApp\Entity\ConfigInterface;
+use BitBag\ShopwareDHLApp\Exception\ConfigNotFoundException;
 use BitBag\ShopwareDHLApp\Exception\OrderException;
 use BitBag\ShopwareDHLApp\Exception\PackageDetailsException;
 use BitBag\ShopwareDHLApp\Exception\StreetCannotBeSplitException;
@@ -120,6 +121,7 @@ final class OrderController
 
         $orderData = new OrderData(
             $order->deliveries?->first()->shippingOrderAddress,
+            $order->salesChannelId,
             $customerEmail,
             $totalWeight,
             $order->getCustomFields(),
@@ -130,11 +132,11 @@ final class OrderController
 
         try {
             $shipment = $this->shipmentApiService->createShipments($orderData, $config);
-        } catch (SoapFault $e) {
+        } catch (SoapFault|ConfigNotFoundException $e) {
             return new FeedbackResponse(new Error($this->translator->trans($e->getMessage(), [], 'api')));
         }
 
-        $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId());
+        $this->labelPersister->persist($orderData->getShopId(), $shipment['shipmentId'], $orderData->getOrderId(), $order->salesChannelId);
 
         return new FeedbackResponse(new Success($this->translator->trans('bitbag.shopware_dhl_app.order.created')));
     }

@@ -28,7 +28,7 @@ final class ShipmentApiService implements ShipmentApiServiceInterface
         OrderDataInterface $orderData,
         ConfigInterface $config
     ): array {
-        $dhl = $this->apiResolver->getApi($orderData->getShopId());
+        $dhl = $this->apiResolver->getApi($orderData->getShopId(), $orderData->getSalesChannelId());
         $shipmentFullDataStructure = $this->packageFactory->create($config, $orderData);
 
         try {

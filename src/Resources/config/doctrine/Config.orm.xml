@@ -7,31 +7,18 @@
         </id>
 
         <field name="username" type="string" length="255"/>
-
         <field name="password" type="string" length="255"/>
-
         <field name="accountNumber" type="string" length="255"/>
-
         <field name="name" type="string" length="255"/>
-
         <field name="postalCode" type="string" length="255"/>
-
         <field name="city" type="string" length="255"/>
-
         <field name="street" type="string" length="255"/>
-
         <field name="houseNumber" type="string" length="255"/>
-
         <field name="phoneNumber" type="string" length="255"/>
-
         <field name="email" type="string" length="255"/>
-
         <field name="payerType" type="string" length="255"/>
-
         <field name="paymentMethod" type="string" length="255"/>
-
         <field name="sandbox" column="sandbox" type="boolean" />
-
         <field name="salesChannelId" column="sales_channel_id" type="string" />
 
         <many-to-one field="shop" target-entity="BitBag\ShopwareAppSystemBundle\Entity\Shop">
