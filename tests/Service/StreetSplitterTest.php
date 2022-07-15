@@ -9,7 +9,7 @@ use BitBag\ShopwareDHLApp\Service\StreetSplitter;
 use BitBag\ShopwareDHLApp\Service\StreetSplitterInterface;
 use PHPUnit\Framework\TestCase;
 
-class SplitStreetProviderTest extends TestCase
+class StreetSplitterTest extends TestCase
 {
     private StreetSplitterInterface $splitStreetProvider;
 
@@ -20,6 +20,10 @@ class SplitStreetProviderTest extends TestCase
     public const NUMERIC_STREET = '1 Maja 12A';
 
     public const NO_HOUSE_NUMBER = 'Testowa';
+
+    public const SPECIAL_CHARACTERS = '"Dywizjonu" 303 90B';
+
+    public const SPECIAL_CHARACTERS_INSIDE = 'Tadeusza "Zośki" Zawadzkiego 2137';
 
     protected function setUp(): void
     {
@@ -52,5 +56,14 @@ class SplitStreetProviderTest extends TestCase
         $this->expectException(StreetCannotBeSplitException::class);
 
         $this->splitStreetProvider->splitStreet(self::NO_HOUSE_NUMBER);
+    }
+
+    public function testStreetWithSpecialCharacters(): void
+    {
+        $street = $this->splitStreetProvider->splitStreet(self::SPECIAL_CHARACTERS);
+        $street2 = $this->splitStreetProvider->splitStreet(self::SPECIAL_CHARACTERS_INSIDE);
+
+        self::assertEquals([self::SPECIAL_CHARACTERS, '"Dywizjonu" 303', '90B'], $street);
+        self::assertEquals([self::SPECIAL_CHARACTERS_INSIDE, 'Tadeusza "Zośki" Zawadzkiego', '2137'], $street2);
     }
 }
