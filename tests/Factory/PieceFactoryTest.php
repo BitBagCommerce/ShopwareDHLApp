@@ -30,6 +30,20 @@ class PieceFactoryTest extends TestCase
             ],
             $pieceFactory->create($customFields, $totalWeight)
         );
+
+        $totalWeight = 0.17;
+
+        self::assertEquals(
+            [
+                'type' => Piece::TYPE_ENVELOPE,
+                'width' => $customFields[Defaults::PACKAGE_WIDTH],
+                'height' => $customFields[Defaults::PACKAGE_HEIGHT],
+                'length' => $customFields[Defaults::PACKAGE_DEPTH],
+                'quantity' => 1,
+                'nonStandard' => false,
+            ],
+            $pieceFactory->create($customFields, $totalWeight)
+        );
     }
 
     private function getExampleData(): array
