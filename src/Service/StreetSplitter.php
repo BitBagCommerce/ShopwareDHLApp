@@ -10,7 +10,7 @@ final class StreetSplitter implements StreetSplitterInterface
 {
     public function splitStreet(string $street): array
     {
-        if (!preg_match('/^(.+)\s(\d.+)/', $street, $streetAddress)) {
+        if (!preg_match('/^(.+)\s(\d.*)/', $street, $streetAddress)) {
             throw new StreetCannotBeSplitException('bitbag.shopware_dhl_app.order.invalid_street');
         }
 
