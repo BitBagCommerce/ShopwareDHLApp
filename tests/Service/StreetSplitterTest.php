@@ -25,6 +25,8 @@ class StreetSplitterTest extends TestCase
 
     public const SPECIAL_CHARACTERS_INSIDE = 'Tadeusza "Zośki" Zawadzkiego 2137';
 
+    public const DOUBLE_STREET = 'Braci Załuskich 7';
+
     protected function setUp(): void
     {
         $this->splitStreetProvider = new StreetSplitter();
@@ -35,6 +37,13 @@ class StreetSplitterTest extends TestCase
         $street = $this->splitStreetProvider->splitStreet(self::SINGLE_STREET);
 
         self::assertEquals([self::SINGLE_STREET, 'Testowa', 12], $street);
+    }
+
+    public function testDoubleStreetName(): void
+    {
+        $street = $this->splitStreetProvider->splitStreet(self::DOUBLE_STREET);
+
+        self::assertEquals([self::DOUBLE_STREET, 'Braci Załuskich', '7'], $street);
     }
 
     public function testTripleStreetName(): void
