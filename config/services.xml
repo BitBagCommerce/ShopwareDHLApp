@@ -4,6 +4,10 @@
     <imports>
         <import resource="services/**/*.xml"/>
     </imports>
+    <parameters>
+        <parameter key="router.request_context.scheme">https</parameter>
+        <parameter key="asset.request_context.secure">true</parameter>
+    </parameters>
     <services>
     </services>
 </container>
