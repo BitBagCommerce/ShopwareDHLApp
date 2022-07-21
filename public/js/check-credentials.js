@@ -44,9 +44,7 @@ checkCredentialsEl.addEventListener('click', (e) => {
 
             swCard.innerHTML = '';
             swCard.appendChild(swContainer);
-
             container.append(swCard);
-
         })
     ;
 });
