@@ -1,0 +1,8 @@
+'Błędy walidacji przesyłki: Nie można utworzyć przesyłek z wsteczną datą': 'Fehler bei der Validierung von Sendungen: Rückdatierte Sendungen können nicht erstellt werden'
+'Nieprawidlowe dane autoryzacyjne': 'Falsche Zulassungsdaten'
+'Błędy walidacji przesyłki: Nie można utworzyć przesyłek z wsteczną datą, Podano błędny kod pocztowy odbiorcy': 'Fehler bei der Validierung von Sendungen: Rückwirkende Sendungen können nicht erstellt werden, Falsche Empfänger-Postleitzahl angegeben'
+'Błędy walidacji przesyłki: Podano błędny kod pocztowy odbiorcy': 'Fehler bei der Validierung von Sendungen: Falsche Postleitzahl des Empfängers wurde eingegeben'
+'Błędy walidacji przesyłki: Paczka nie może mieć żadnego wymiaru większego od 400cm., Paczka nie może mieć żadnego wymiaru większego od 400cm., Paczka nie może mieć żadnego wymiaru większego od 400cm., Suma wszystkich wymiarów paczki nie może być większa od 600cm': 'Fehler bei der Validierung von Sendungen: Das Paket darf keine größere Abmessung als 400 cm haben., Das Paket darf keine größere Abmessung als 400 cm haben., Das Paket darf keine größere Abmessung als 400 cm haben., Die Summe aller Paketabmessungen darf nicht größer als 600 cm sein'
+'Błędy walidacji przesyłki: Wystąpił błąd podczas dodawania przesyłki. Spróbuj ponownie później.': 'Fehler bei der Validierung von Sendungen: Beim Hinzufügen einer Sendung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.'
+'Błąd w danych adresowych odbiorcy: Wprowadź poprawny kod pocztowy.': "Fehler in den Adressdaten des Empfängers: Geben Sie die richtige Postleitzahl ein (xx-xxx)."
+'Błędy walidacji przesyłki: Usługa niedostępna dla danego kraju.': 'Fehler bei der Sendungsvalidierung: Der Dienst ist für dieses Land nicht verfügbar.'
