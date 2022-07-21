@@ -124,7 +124,7 @@ final class APISettingsController extends AbstractController
         }
 
         return array_merge(
-            [$this->translator->trans('bitbag.shopware_dhl_app.config.sales_channels') => ''],
+            [$this->translator->trans('bitbag.shopware_dhl_app.config.all_sales_channels') => ''],
             $items
         );
     }

@@ -42,4 +42,4 @@ bitbag:
       production: 'Produkcyjny'
       sandbox: 'Sandbox'
       sales_channel: 'Kanał sprzedaży'
-      sales_channels: 'Kanały sprzedaży'
+      all_sales_channels: 'Wszystkie kanały sprzedaży'
