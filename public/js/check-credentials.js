@@ -22,16 +22,29 @@ checkCredentialsEl.addEventListener('click', (e) => {
     fetch('/app/api-check-credentials', fetchOptions)
         .then(results => results.json())
         .then(data => {
-            const swCard = document.createElement('div');
+            let swCard = document.getElementById('alert');
             const swContainer = document.createElement('div');
 
-            swCard.classList.add('sw-card__content');
+            if (swCard === null) {
+                swCard = document.createElement('div');
+
+                swCard.classList.add('sw-card__content');
+                swCard.id = 'alert';
+            }
+
+            if (data.payload.status === 'error')
+            {
+                swCard.style = 'background-color: rgba(255, 0, 0, 0.2)';
+            } else {
+                swCard.style = 'background-color: rgba(0, 255, 0, 0.2)';
+            }
+
             swContainer.classList.add('sw-container');
             swContainer.innerText = data.payload.message;
 
-            swCard.appendChild(swContainer)
-            container.appendChild(swCard);
-
+            swCard.innerHTML = '';
+            swCard.appendChild(swContainer);
+            container.append(swCard);
         })
     ;
 });

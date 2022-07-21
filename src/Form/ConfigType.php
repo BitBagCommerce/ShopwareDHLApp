@@ -8,6 +8,7 @@ use Alexcherniatin\DHL\Structures\PaymentData;
 use BitBag\ShopwareDHLApp\Entity\Config;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -23,7 +24,7 @@ class ConfigType extends AbstractType
                 'required' => true,
                 'label' => 'bitbag.shopware_dhl_app.config.username',
             ])
-            ->add('password', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'required' => true,
                 'label' => 'bitbag.shopware_dhl_app.config.password',
             ])

@@ -69,7 +69,12 @@ final class APISettingsController extends AbstractController
             throw new UnauthorizedHttpException('');
         }
 
-        $config = $this->configRepository->findByShopIdAndSalesChannelId($shopId, '') ?? new Config();
+        $config = $this->configRepository->findByShopIdAndSalesChannelId($shopId, '');
+
+        if (null === $config) {
+            $config = new Config();
+            $config->setPassword('');
+        }
 
         $session = $request->getSession();
 
@@ -101,6 +106,7 @@ final class APISettingsController extends AbstractController
 
         return $this->renderForm('settings/form.html.twig', [
             'form' => $form,
+            'config' => $config,
         ]);
     }
 
@@ -118,7 +124,7 @@ final class APISettingsController extends AbstractController
         }
 
         return array_merge(
-            [$this->translator->trans('bitbag.shopware_dhl_app.config.sales_channels') => ''],
+            [$this->translator->trans('bitbag.shopware_dhl_app.config.all_sales_channels') => ''],
             $items
         );
     }
