@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BitBag\ShopwareDHLApp\Tests\Factory;
 
 use BitBag\ShopwareDHLApp\Factory\ReceiverAddressFactory;
-use BitBag\ShopwareDHLApp\Provider\Defaults;
 use PHPUnit\Framework\TestCase;
 use Vin\ShopwareSdk\Data\Entity\OrderAddress\OrderAddressEntity;
 
@@ -25,10 +24,6 @@ class ReceiverAddressFactoryTest extends TestCase
 
         $customerEmail = 'test@test.com';
 
-        $customFields = [
-            Defaults::PACKAGE_COUNTRY_CODE => 'PL',
-        ];
-
         $street = ['', 'Braci Załuskich', '4a'];
 
         self::assertEquals(
@@ -43,7 +38,7 @@ class ReceiverAddressFactoryTest extends TestCase
                 'contactPhone' => '123456789',
                 'contactEmail' => 'test@test.com',
             ],
-            $receiverAddressFactory->create($shippingAddress, $customerEmail, $customFields, $street)
+            $receiverAddressFactory->create($shippingAddress, $customerEmail, [], $street)
         );
     }
 }

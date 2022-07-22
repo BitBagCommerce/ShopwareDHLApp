@@ -37,10 +37,6 @@ final class OrderValidator implements OrderValidatorInterface
             throw new PackageDetailsException('bitbag.shopware_dhl_app.order.empty_package_details');
         }
 
-        if (null === $customFields[Defaults::PACKAGE_COUNTRY_CODE]) {
-            throw new PackageDetailsException('bitbag.shopware_dhl_app.order.empty_country_code');
-        }
-
         if (
             0 === $customFields[Defaults::PACKAGE_DEPTH] ||
             0 === $customFields[Defaults::PACKAGE_HEIGHT] ||
