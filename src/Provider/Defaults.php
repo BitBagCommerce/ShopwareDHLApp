@@ -23,6 +23,4 @@ final class Defaults
     public const PACKAGE_DESCRIPTION = 'bitbag.shopware_dhl_app.package_details_description';
 
     public const PACKAGE_INSURANCE = 'bitbag.shopware_dhl_app.package_insurance';
-
-    public const PACKAGE_COUNTRY_CODE = 'bitbag.shopware_dhl_app.package_details_countryCode';
 }

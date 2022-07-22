@@ -143,7 +143,6 @@ class PackageFactoryTest extends TestCase
         $customFields[Defaults::PACKAGE_DEPTH] = 20;
         $customFields[Defaults::PACKAGE_DESCRIPTION] = 'Some package';
         $customFields[Defaults::PACKAGE_SHIPPING_DATE] = '2022-04-14';
-        $customFields[Defaults::PACKAGE_COUNTRY_CODE] = 'PL';
 
         return $customFields;
     }
