@@ -93,12 +93,12 @@
                     <label lang="de-DE">Versicherung (kann leer bleiben)</label>
                     <label lang="pl-PL">Ubezpieczenie (można zostawić puste)</label>
                 </int>
-                <text name="bitbag.shopware_dhl_app.package_details_shippingDate">
+                <datetime name="bitbag.shopware_dhl_app.package_details_shippingDate">
                     <label>Shipping date</label>
                     <label lang="de-DE">Versanddatum</label>
                     <label lang="pl-PL">Data wysłania</label>
                     <placeholder>(YYYY-MM-DD)</placeholder>
-                </text>
+                </datetime>
                 <text name="bitbag.shopware_dhl_app.package_details_description">
                     <label>Package description</label>
                     <label lang="de-DE">Beschreibung des Pakets</label>
